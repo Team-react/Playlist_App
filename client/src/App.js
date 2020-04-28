@@ -43,7 +43,7 @@ class App extends Component {
   }
 
   addSongsToPlaylist(){
-    spotifyApi.addTracksToPlaylist('2ZvJxXO7uSmAJjF7qwQAve', ["spotify:track:3d9DChrdc6BOeFsbrZ3Is0", "spotify:track:6I9VzXrHxO9rA9A5euc8Ak", "spotify:track:5FZxsHWIvUsmSK1IAvm2pp", "spotify:track:60a0Rd6pjrkxjPbaKzXjfq"])
+    spotifyApi.addTracksToPlaylist('1sAU2tCGTBeSfydCXu3bln', ["spotify:track:3d9DChrdc6BOeFsbrZ3Is0", "spotify:track:6I9VzXrHxO9rA9A5euc8Ak", "spotify:track:5FZxsHWIvUsmSK1IAvm2pp", "spotify:track:60a0Rd6pjrkxjPbaKzXjfq"])
     .then(function(data) {
       console.log('Added tracks to playlist!');
     }, function(err) {
