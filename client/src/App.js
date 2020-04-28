@@ -42,6 +42,15 @@ class App extends Component {
       })
   }
 
+  addSongsToPlaylist(){
+    spotifyApi.addTracksToPlaylist('2ZvJxXO7uSmAJjF7qwQAve', ["spotify:track:3d9DChrdc6BOeFsbrZ3Is0", "spotify:track:6I9VzXrHxO9rA9A5euc8Ak", "spotify:track:5FZxsHWIvUsmSK1IAvm2pp", "spotify:track:60a0Rd6pjrkxjPbaKzXjfq"])
+    .then(function(data) {
+      console.log('Added tracks to playlist!');
+    }, function(err) {
+      console.log('Something went wrong!', err);
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -53,9 +62,14 @@ class App extends Component {
           <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} alt=''/>
         </div>
         { this.state.loggedIn &&
+        <>
           <button onClick={() => this.getNowPlaying()}>
             Check Now Playing
           </button>
+          <button onClick={() => this.addSongsToPlaylist()}>
+            Add this song to playlist
+          </button>
+         </>  
         }
       </div>
     );
@@ -63,3 +77,4 @@ class App extends Component {
 }
 
 export default App;
+
