@@ -51,6 +51,21 @@ class App extends Component {
     });
   }
 
+  getSpotifySong(genre) {
+    spotifyApi.searchPlaylists(genre)
+    .then(function(data) {
+      var list = data.playlists.items[0].id
+      spotifyApi.getPlaylist(list)
+      .then(function(data) {
+        console.log(data.tracks.items[Math.floor(Math.random() * 100)].track.name);
+      }, function(err) {
+        console.log('Something went wrong|!', err);
+      });
+    }, function(err) {
+      console.log('Something went wrong!', err);
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -68,6 +83,9 @@ class App extends Component {
           </button>
           <button onClick={() => this.addSongsToPlaylist()}>
             Add this song to playlist
+          </button>
+          <button onClick={() => this.getSpotifySong("Rock")}>
+            Get track
           </button>
          </>  
         }
