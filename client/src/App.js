@@ -18,7 +18,7 @@ class App extends Component {
       nowPlaying: { name: 'not checked', albumArt: ''},
       list: {id: null},
       tracks: {array: []},
-      playlist: []
+      playlist: {array: []}, 
 
     }
   }
@@ -61,7 +61,11 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
   }
 
   addSongsToPlaylist(){
-    spotifyApi.addTracksToPlaylist('1sAU2tCGTBeSfydCXu3bln', ["spotify:track:3d9DChrdc6BOeFsbrZ3Is0", "spotify:track:6I9VzXrHxO9rA9A5euc8Ak", "spotify:track:5FZxsHWIvUsmSK1IAvm2pp", "spotify:track:60a0Rd6pjrkxjPbaKzXjfq"])
+    this.setState({
+      playlist: {array: this.state.playlist.array.concat(this.state.tracks.array[Math.floor(Math.random() * this.state.tracks.array.length)].uri)}
+    })
+    console.log(this.state.playlist.array)
+    spotifyApi.addTracksToPlaylist('0ELkWwGl7q8DmfSzVmSH58', [this.state.playlist.array.slice(-1)[0]])
     .then(function(data) {
       console.log('Added tracks to playlist!');
     }, function(err) {
@@ -110,7 +114,7 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
             Get playlist id
           </button>
           <button onClick={() => this.getTracks()}>
-            Get tracksss
+            Get tracks
           </button>
         
          <div>
