@@ -20,6 +20,7 @@ class App extends Component {
       tracks: {array: []},
       playlist: {array: []}, 
       song: { name: '', artist: '', uri: '', albumArt: ''},
+      customPlaylist: { songs: []}
 
     }
   }
@@ -47,6 +48,12 @@ class App extends Component {
       })
   }
 
+  addToCustomPlaylist() {
+    this.state.customPlaylist.songs.push(this.state.song.uri);
+    this.getTracks();
+    console.log(this.state.customPlaylist.songs)
+  }
+
   getTracks(){
     spotifyApi.getPlaylist(this.state.list.id)
       .then((data) => {
@@ -55,7 +62,7 @@ class App extends Component {
 console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
         var trackInfo = data.tracks.items[Math.floor(Math.random() * 10)]
         this.setState({
-          tracks: {array: this.state.tracks.array.concat(data.tracks.items[Math.floor(Math.random() * 10)].track)},
+          // tracks: {array: this.state.tracks.array.concat(data.tracks.items[Math.floor(Math.random() * 10)].track)},
           song: {
             name: trackInfo.track.name,
             artist: trackInfo.track.artists[0].name,
@@ -105,9 +112,9 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
     return (
       <div className="App">
         <a href='http://localhost:8888' > Login to Spotify </a>
-        <div>
+        {/* <div>
           Now Playing: { this.state.nowPlaying.name }
-        </div>
+        </div> */}
         <div>
           <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} alt=''/>
         </div>
@@ -121,12 +128,8 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
           <div>
           <img src={this.state.song.albumArt} style={{ height: 150 }} alt=''/>
           </div>  
-          <button>
-            Yes
-          </button>
-          <button>
-            No
-          </button>
+          <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
+          <button onClick={() => this.getTracks()}>No </button>
         </div>
         { this.state.loggedIn &&
         <>
