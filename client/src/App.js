@@ -19,6 +19,7 @@ class App extends Component {
       list: {id: null},
       tracks: {array: []},
       playlist: {array: []}, 
+      song: { name: '', artist: '', uri: '', albumArt: ''},
 
     }
   }
@@ -52,8 +53,16 @@ class App extends Component {
         console.log(this.state.tracks.array)
 
 console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
+        var trackInfo = data.tracks.items[Math.floor(Math.random() * 10)]
         this.setState({
-          tracks: {array: this.state.tracks.array.concat(data.tracks.items[Math.floor(Math.random() * 10)].track)}
+          tracks: {array: this.state.tracks.array.concat(data.tracks.items[Math.floor(Math.random() * 10)].track)},
+          song: {
+            name: trackInfo.track.name,
+            artist: trackInfo.track.artists[0].name,
+            uri: trackInfo.track.uri,
+            albumArt: trackInfo.track.album.images[0].url
+          }
+
         })
       }, function(err) {
         console.log('Something went wrong|!', err);
@@ -73,7 +82,7 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
     });
   }
 
-  getSpotifySong(genre) {
+  getRandomPlaylist(genre) {
     spotifyApi.searchPlaylists(genre)
     .then((data) =>  {
       this.setState({
@@ -102,6 +111,23 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
         <div>
           <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} alt=''/>
         </div>
+        <div>
+          <div>
+          {this.state.song.name}      
+          </div>     
+          <div>
+          {this.state.song.artist}
+          </div>   
+          <div>
+          <img src={this.state.song.albumArt} style={{ height: 150 }} alt=''/>
+          </div>  
+          <button>
+            Yes
+          </button>
+          <button>
+            No
+          </button>
+        </div>
         { this.state.loggedIn &&
         <>
           <button onClick={() => this.getNowPlaying()}>
@@ -110,7 +136,7 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
           <button onClick={() => this.addSongsToPlaylist()}>
             Add this song to playlist
           </button>
-          <button onClick={() => this.getSpotifySong("Rock")}>
+          <button onClick={() => this.getRandomPlaylist("Rock")}>
             Get playlist id
           </button>
           <button onClick={() => this.getTracks()}>
