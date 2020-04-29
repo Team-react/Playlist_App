@@ -68,7 +68,7 @@ class App extends Component {
       this.setState({
          
           list: {
-            id: data.playlists.items[0].id
+            id: data.playlists.items[Math.floor(Math.random() * 10)].id
           }        
       // spotifyApi.getPlaylist(list)
       // .then(function(data) {
