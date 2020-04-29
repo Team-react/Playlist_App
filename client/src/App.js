@@ -17,7 +17,8 @@ class App extends Component {
       loggedIn: token ? true : false,
       nowPlaying: { name: 'not checked', albumArt: ''},
       list: {id: null},
-      tracks: {array: []}
+      tracks: {array: []},
+      playlist: []
 
     }
   }
@@ -50,9 +51,9 @@ class App extends Component {
       .then((data) => {
         console.log(this.state.tracks.array)
 
-console.log(data.tracks.items[Math.floor(Math.random() * 10)].track.name)
+console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
         this.setState({
-          tracks: {array: this.state.tracks.array.concat(data.tracks.items[Math.floor(Math.random() * 10)].track.name)}
+          tracks: {array: this.state.tracks.array.concat(data.tracks.items[Math.floor(Math.random() * 10)].track)}
         })
       }, function(err) {
         console.log('Something went wrong|!', err);
@@ -116,7 +117,7 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track.name)
   
             <ul>
             {this.state.tracks.array.map((value, index) => {
-            return <li key={index}>{value}</li>
+            return <li key={index}>{value.name}</li>
             })}
             </ul>
          
