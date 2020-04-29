@@ -2,8 +2,10 @@ import React,{Component} from 'react';
 
 // import logo from './logo.svg';
 import './App.css';
-import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
+import SpotifyWebApi from 'spotify-web-api-node';
+
+var spotifyApi = new SpotifyWebApi();
+
 
 class App extends Component {
   constructor(props){
@@ -16,7 +18,7 @@ class App extends Component {
     this.state = {
       loggedIn: token ? true : false,
       nowPlaying: { name: 'not checked', albumArt: ''},
-      list: {id: null},
+      list: {id: ''},
       tracks: {array: []},
       playlist: {array: []}, 
       song: { name: '', artist: '', uri: '', albumArt: ''},
@@ -38,11 +40,11 @@ class App extends Component {
 
   getNowPlaying(){
     spotifyApi.getMyCurrentPlaybackState()
-      .then((response) => {
+      .then((data) => {
         this.setState({
           nowPlaying: { 
-              name: response.item.name, 
-              albumArt: response.item.album.images[0].url
+              name: data.body.item.name, 
+              albumArt: data.body.item.album.images[0].url
             }
         });
       })
@@ -50,26 +52,30 @@ class App extends Component {
 
   addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri);
+    this.getRandomPlaylist()
     this.getTracks();
     console.log(this.state.customPlaylist.songs)
   }
 
-  getTracks(){
-    spotifyApi.getPlaylist(this.state.list.id)
-      .then((data) => {
-        console.log(this.state.tracks.array)
+  dontAddToCustomPlaylist() {
+    this.getRandomPlaylist()
+    this.getTracks();
+  }
 
-console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
-        var trackInfo = data.tracks.items[Math.floor(Math.random() * 10)]
+  getTracks(){
+    console.log(this.token)
+    spotifyApi.getPlaylist(this.token, this.state.list.id)
+      .then((data) => {
+        var playlistSize = data.body.tracks.items.length
+        var trackInfo = data.body.tracks.items[Math.floor(Math.random() * playlistSize)]
+        console.log(data)
         this.setState({
-          // tracks: {array: this.state.tracks.array.concat(data.tracks.items[Math.floor(Math.random() * 10)].track)},
           song: {
             name: trackInfo.track.name,
             artist: trackInfo.track.artists[0].name,
             uri: trackInfo.track.uri,
             albumArt: trackInfo.track.album.images[0].url
           }
-
         })
       }, function(err) {
         console.log('Something went wrong|!', err);
@@ -80,7 +86,6 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
     this.setState({
       playlist: {array: this.state.playlist.array.concat(this.state.tracks.array[Math.floor(Math.random() * this.state.tracks.array.length)].uri)}
     })
-    console.log(this.state.playlist.array)
     spotifyApi.addTracksToPlaylist('0ELkWwGl7q8DmfSzVmSH58', [this.state.playlist.array.slice(-1)[0]])
     .then(function(data) {
       console.log('Added tracks to playlist!');
@@ -89,19 +94,19 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
     });
   }
 
+  test() {
+    console.log(this.state.list.id)
+  }
+
+
   getRandomPlaylist(genre) {
     spotifyApi.searchPlaylists(genre)
-    .then((data) =>  {
+    .then((data) => {
+      var numberOfPlaylists = (data.body.playlists.items).length
       this.setState({
-         
-          list: {
-            id: data.playlists.items[Math.floor(Math.random() * 10)].id
+        list: {
+            id: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
           }        
-      // spotifyApi.getPlaylist(list)
-      // .then(function(data) {
-      //   console.log(data.tracks.items[Math.floor(Math.random() * 100)].track.name);
-      // }, function(err) {
-      //   console.log('Something went wrong|!', err);
       });
     }, function(err) {
       console.log('Something went wrong!', err);
@@ -129,7 +134,7 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
           <img src={this.state.song.albumArt} style={{ height: 150 }} alt=''/>
           </div>  
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
-          <button onClick={() => this.getTracks()}>No </button>
+          <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
         </div>
         { this.state.loggedIn &&
         <>
@@ -139,11 +144,14 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
           <button onClick={() => this.addSongsToPlaylist()}>
             Add this song to playlist
           </button>
-          <button onClick={() => this.getRandomPlaylist("Rock")}>
+          <button onClick={() => this.getRandomPlaylist("Rock Music")}>
             Get playlist id
           </button>
           <button onClick={() => this.getTracks()}>
             Get tracks
+          </button>
+          <button onClick={() => this.test()}>
+            Test
           </button>
         
          <div>
