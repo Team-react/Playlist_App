@@ -6,8 +6,8 @@ import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     const params = this.getHashParams();
     const token = params.access_token;
     if (token) {
@@ -15,7 +15,11 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
-      nowPlaying: { name: 'not checked', albumArt: ''}
+      nowPlaying: { name: 'not checked', albumArt: ''},
+      list: {id: null},
+      tracks: {array: []},
+      playlist: {array: []}, 
+
     }
   }
   getHashParams() {
@@ -42,8 +46,26 @@ class App extends Component {
       })
   }
 
+  getTracks(){
+    spotifyApi.getPlaylist(this.state.list.id)
+      .then((data) => {
+        console.log(this.state.tracks.array)
+
+console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
+        this.setState({
+          tracks: {array: this.state.tracks.array.concat(data.tracks.items[Math.floor(Math.random() * 10)].track)}
+        })
+      }, function(err) {
+        console.log('Something went wrong|!', err);
+      });
+  }
+
   addSongsToPlaylist(){
-    spotifyApi.addTracksToPlaylist('1sAU2tCGTBeSfydCXu3bln', ["spotify:track:3d9DChrdc6BOeFsbrZ3Is0", "spotify:track:6I9VzXrHxO9rA9A5euc8Ak", "spotify:track:5FZxsHWIvUsmSK1IAvm2pp", "spotify:track:60a0Rd6pjrkxjPbaKzXjfq"])
+    this.setState({
+      playlist: {array: this.state.playlist.array.concat(this.state.tracks.array[Math.floor(Math.random() * this.state.tracks.array.length)].uri)}
+    })
+    console.log(this.state.playlist.array)
+    spotifyApi.addTracksToPlaylist('0ELkWwGl7q8DmfSzVmSH58', [this.state.playlist.array.slice(-1)[0]])
     .then(function(data) {
       console.log('Added tracks to playlist!');
     }, function(err) {
@@ -53,13 +75,17 @@ class App extends Component {
 
   getSpotifySong(genre) {
     spotifyApi.searchPlaylists(genre)
-    .then(function(data) {
-      var list = data.playlists.items[0].id
-      spotifyApi.getPlaylist(list)
-      .then(function(data) {
-        console.log(data.tracks.items[Math.floor(Math.random() * 100)].track.name);
-      }, function(err) {
-        console.log('Something went wrong|!', err);
+    .then((data) =>  {
+      this.setState({
+         
+          list: {
+            id: data.playlists.items[Math.floor(Math.random() * 10)].id
+          }        
+      // spotifyApi.getPlaylist(list)
+      // .then(function(data) {
+      //   console.log(data.tracks.items[Math.floor(Math.random() * 100)].track.name);
+      // }, function(err) {
+      //   console.log('Something went wrong|!', err);
       });
     }, function(err) {
       console.log('Something went wrong!', err);
@@ -85,9 +111,25 @@ class App extends Component {
             Add this song to playlist
           </button>
           <button onClick={() => this.getSpotifySong("Rock")}>
-            Get track
+            Get playlist id
           </button>
-         </>  
+          <button onClick={() => this.getTracks()}>
+            Get tracks
+          </button>
+        
+         <div>
+  
+            <ul>
+            {this.state.tracks.array.map((value, index) => {
+            return <li key={index}>{value.name}</li>
+            })}
+            </ul>
+         
+
+           
+         </div>
+         
+         </>
         }
       </div>
     );
