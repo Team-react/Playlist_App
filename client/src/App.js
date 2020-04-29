@@ -2,8 +2,14 @@ import React,{Component} from 'react';
 
 // import logo from './logo.svg';
 import './App.css';
-import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
+
+
+// var bodyParser = require('body-parser');
+var SpotifyWebApi = require('spotify-web-api-node');
+
+var spotifyApi = new SpotifyWebApi();
+
+
 
 class App extends Component {
   constructor(props){
@@ -58,35 +64,53 @@ console.log(data.tracks.items[Math.floor(Math.random() * 10)].track)
       }, function(err) {
         console.log('Something went wrong|!', err);
       });
-  }
+    }
+    
+    
+    
 
   addSongsToPlaylist(){
-    this.setState({
-      playlist: {array: this.state.playlist.array.concat(this.state.tracks.array[Math.floor(Math.random() * this.state.tracks.array.length)].uri)}
-    })
-    console.log(this.state.playlist.array)
-    spotifyApi.addTracksToPlaylist('0ELkWwGl7q8DmfSzVmSH58', [this.state.playlist.array.slice(-1)[0]])
-    .then(function(data) {
-      console.log('Added tracks to playlist!');
-    }, function(err) {
-      console.log('Something went wrong!', err);
-    });
-  }
+    // Create a private playlist
+    
+
+      // Create Playlist
+      spotifyApi.createPlaylist('willj_grace','pblablab', { public : false })
+          .then(function(body) {
+            console.log('IT  WORKED!', body);
+
+            }, function(err) {
+            console.log('Something went wrong with the playlist creation!', err);
+          });
+    
+    
+  };
+  //   this.setState({
+  //     playlist: {array: this.state.playlist.array.concat(this.state.tracks.array[Math.floor(Math.random() * this.state.tracks.array.length)].uri)}
+  //   })
+  //   console.log(this.state.playlist.array)
+  //   spotifyApi.addTracksToPlaylist('0ELkWwGl7q8DmfSzVmSH58', [this.state.playlist.array.slice(-1)[0]])
+  //   .then(function(data) {
+  //     console.log('Added tracks to playlist!');
+  //   }, function(err) {
+  //     console.log('Something went wrong!', err);
+  //   });
+  
 
   getSpotifySong(genre) {
     spotifyApi.searchPlaylists(genre)
     .then((data) =>  {
-      this.setState({
+      console.log('sdfsdfsdfsdf', data.body)
+      // this.setState({
          
-          list: {
-            id: data.playlists.items[Math.floor(Math.random() * 10)].id
-          }        
-      // spotifyApi.getPlaylist(list)
-      // .then(function(data) {
-      //   console.log(data.tracks.items[Math.floor(Math.random() * 100)].track.name);
-      // }, function(err) {
-      //   console.log('Something went wrong|!', err);
-      });
+      //     // list: {
+      //     //   id: data.playlists.items[Math.floor(Math.random() * 10)].id
+      //     // }        
+      // // spotifyApi.getPlaylist(list)
+      // // .then(function(data) {
+      // //   console.log(data.tracks.items[Math.floor(Math.random() * 100)].track.name);
+      // // }, function(err) {
+      // //   console.log('Something went wrong|!', err);
+      // });
     }, function(err) {
       console.log('Something went wrong!', err);
     });
