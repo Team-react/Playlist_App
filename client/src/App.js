@@ -16,7 +16,8 @@ class App extends Component {
     this.state = {
       loggedIn: token ? true : false,
       nowPlaying: { name: 'not checked', albumArt: ''},
-      list: {id: null}
+      list: {id: null},
+      tracks: {array: []}
 
     }
   }
@@ -47,7 +48,12 @@ class App extends Component {
   getTracks(){
     spotifyApi.getPlaylist(this.state.list.id)
       .then((data) => {
-        console.log(data.tracks.items[Math.floor(Math.random() * 100)].track.name);
+        console.log(this.state.tracks.array)
+
+console.log(data.tracks.items[Math.floor(Math.random() * 10)].track.name)
+        this.setState({
+          tracks: {array: this.state.tracks.array.concat(data.tracks.items[Math.floor(Math.random() * 10)].track.name)}
+        })
       }, function(err) {
         console.log('Something went wrong|!', err);
       });
@@ -105,7 +111,20 @@ class App extends Component {
           <button onClick={() => this.getTracks()}>
             Get tracksss
           </button>
-         </>  
+        
+         <div>
+  
+            <ul>
+            {this.state.tracks.array.map((value, index) => {
+            return <li key={index}>{value}</li>
+            })}
+            </ul>
+         
+
+           
+         </div>
+         
+         </>
         }
       </div>
     );
