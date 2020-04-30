@@ -18,7 +18,7 @@ class App extends Component {
       list: {id: ''},
       tracks: {array: []},
       playlist: {array: []}, 
-      song: { name: '', artist: '', uri: '', albumArt: '', songLength: null, preview_url: ''},
+      song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
       customPlaylist: { songs:[], playlistDuration:[]},
       desiredDuration: 0,
       currentDuration: 0,
@@ -102,6 +102,7 @@ class App extends Component {
             artist: trackInfo.track.artists[0].name,
             uri: trackInfo.track.uri,
             albumArt: trackInfo.track.album.images[0].url,
+            album: trackInfo.track.album.name,
             preview_url: trackInfo.track.preview_url,
             songLength: (trackInfo.track.duration_ms / 60000).toFixed(2)
           }
@@ -190,13 +191,15 @@ class App extends Component {
         { this.state.loggedIn &&
         <>
         <div>
-
           <div>
-         Song Title: {this.state.song.name}      
+          {this.state.song.name}      
           </div>     
           <div>
-          Artist: {this.state.song.artist}
-          </div>   
+          By: {this.state.song.artist}
+          </div>
+          <div>
+          Album: {this.state.song.album}
+          </div>  
           <div>
           <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
           </div>
