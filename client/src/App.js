@@ -82,16 +82,35 @@ class App extends Component {
       });
   }
 
+
   addSongsToPlaylist(){
-    this.setState({
-      playlist: {array: this.state.playlist.array.concat(this.state.tracks.array[Math.floor(Math.random() * this.state.tracks.array.length)].uri)}
-    })
-    spotifyApi.addTracksToPlaylist('0ELkWwGl7q8DmfSzVmSH58', [this.state.playlist.array.slice(-1)[0]])
+    var customPlaylist = this.state.customPlaylist.songs
+    var userId
+    //get userID
+    spotifyApi.getMe()
     .then(function(data) {
-      console.log('Added tracks to playlist!');
-    }, function(err) {
-      console.log('Something went wrong!', err);
-    });
+      userId = data.body.id;
+      // Create Playlist
+      spotifyApi.createPlaylist(userId, 'newplaylist', { public : false })
+          .then((data) => {
+            var playlistid = data.body.id
+            console.log(customPlaylist)
+            // Add chosen tracks to thatplaylist
+            spotifyApi.addTracksToPlaylist(userId, playlistid, customPlaylist)
+            .then(function(data) {
+               console.log(data, 'Added tracks to playlist!');
+               }, function(err) {
+                console.log('Something went wrong!', err);
+               });
+
+            }, function(err) {
+            console.log('Something went wrong with the playlist creation!', err);
+          });
+        }, function(err) {
+          console.log('Something went wrong!', err);
+   
+  });
+    
   }
 
   test() {
