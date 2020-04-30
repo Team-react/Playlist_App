@@ -142,7 +142,7 @@ class App extends Component {
           Now Playing: { this.state.nowPlaying.name }
         </div> */}
         <div>
-          <img src={this.state.nowPlaying.albumArt} style={{ height: 300 }} alt=''/>
+          <img src={this.state.nowPlaying.albumArt} style={{ height: 320 }} alt=''/>
         </div>
         <div>
           <div>
@@ -152,11 +152,10 @@ class App extends Component {
           {this.state.song.artist}
           </div>   
           <div>
-          <img src={this.state.song.albumArt} style={{ height: 300 }} alt=''/>
+          <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
           </div>  
           <div>
           <audio controls autoPlay src={this.state.song.preview_url}>
-          {/* <source src={this.state.song.preview_url} type="audio/mpeg"/> */}
           </audio>
           </div>
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
