@@ -66,7 +66,7 @@ class App extends Component {
     this.state.customPlaylist.songs.push(this.state.song.uri)
     this.state.customPlaylist.playlistDuration.push(this.state.song.songLength);
  
-    this.getRandomPlaylist("Rock Music")
+    this.getRandomPlaylist(this.state.playlist_type)
     this.getTracks();
     console.log(this.state.customPlaylist.songs)
     this.calculatePlaylistDurationTotal()
@@ -76,7 +76,7 @@ class App extends Component {
   }
 
   dontAddToCustomPlaylist() {
-    this.getRandomPlaylist("Rock Music")
+    this.getRandomPlaylist(this.state.playlist_type)
     this.getTracks();
   }
 
@@ -201,7 +201,7 @@ class App extends Component {
           <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
           </div>
           <div>
-          Length: {Math.floor(this.state.song.songLength*60000/(1000*60)%60) + ":" + Math.floor(this.state.song.songLength*60000/1000%60)}
+          Track Length: {Math.floor(this.state.song.songLength*60000/(1000*60)%60)+":"+("0"+Math.floor(this.state.song.songLength*60000/1000%60)).slice(-2)}
           </div>  
           <div>
           <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
