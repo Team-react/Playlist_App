@@ -66,9 +66,15 @@ class App extends Component {
     console.log(this.token)
     spotifyApi.getPlaylist(this.token, this.state.list.id)
       .then((data) => {
+        
         var playlistSize = data.body.tracks.items.length
         var trackInfo = data.body.tracks.items[Math.floor(Math.random() * playlistSize)]
+        if(trackInfo.track.preview_url == null){
+          console.log("WE SKIPPED THIS ONE")
+          return this.dontAddToCustomPlaylist()
+        }
         console.log(data)
+        
         this.setState({
           song: {
             name: trackInfo.track.name,
@@ -155,7 +161,7 @@ class App extends Component {
           <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
           </div>  
           <div>
-          <audio controls autoPlay src={this.state.song.preview_url}>
+          <audio controls autoPlay volume="0.1" src={this.state.song.preview_url}>
           </audio>
           </div>
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
