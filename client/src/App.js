@@ -184,6 +184,9 @@ class App extends Component {
           </div>   
           <div>
           <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
+          </div>
+          <div>
+          Song Length : {this.state.song.songLength}
           </div>  
           <div>
           <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
@@ -193,9 +196,9 @@ class App extends Component {
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
         </div>
 
-          <button onClick={() => this.getNowPlaying()}>
+          {/* <button onClick={() => this.getNowPlaying()}>
             Check Now Playing
-          </button>
+          </button> */}
           <button onClick={() => this.addSongsToPlaylist()}>
             Add this song to playlist
           </button>
