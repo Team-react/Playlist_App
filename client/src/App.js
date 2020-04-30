@@ -52,13 +52,13 @@ class App extends Component {
 
   addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri);
-    this.getRandomPlaylist()
+    this.getRandomPlaylist("Rock Music")
     this.getTracks();
     console.log(this.state.customPlaylist.songs)
   }
 
   dontAddToCustomPlaylist() {
-    this.getRandomPlaylist()
+    this.getRandomPlaylist("Rock Music")
     this.getTracks();
   }
 
