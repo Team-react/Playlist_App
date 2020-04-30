@@ -142,7 +142,7 @@ class App extends Component {
           Now Playing: { this.state.nowPlaying.name }
         </div> */}
         <div>
-          <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} alt=''/>
+          <img src={this.state.nowPlaying.albumArt} style={{ height: 300 }} alt=''/>
         </div>
         <div>
           <div>
@@ -152,10 +152,10 @@ class App extends Component {
           {this.state.song.artist}
           </div>   
           <div>
-          <img src={this.state.song.albumArt} style={{ height: 150 }} alt=''/>
+          <img src={this.state.song.albumArt} style={{ height: 300 }} alt=''/>
           </div>  
           <div>
-          <audio controls src={this.state.song.preview_url}>
+          <audio controls autoPlay src={this.state.song.preview_url}>
           {/* <source src={this.state.song.preview_url} type="audio/mpeg"/> */}
           </audio>
           </div>
