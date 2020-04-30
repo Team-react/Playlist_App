@@ -21,7 +21,7 @@ class App extends Component {
       list: {id: ''},
       tracks: {array: []},
       playlist: {array: []}, 
-      song: { name: '', artist: '', uri: '', albumArt: ''},
+      song: { name: '', artist: '', uri: '', preview_url: '', albumArt: ''},
       customPlaylist: { songs: []}
 
     }
@@ -74,9 +74,11 @@ class App extends Component {
             name: trackInfo.track.name,
             artist: trackInfo.track.artists[0].name,
             uri: trackInfo.track.uri,
-            albumArt: trackInfo.track.album.images[0].url
+            albumArt: trackInfo.track.album.images[0].url,
+            preview_url: trackInfo.track.preview_url
           }
         })
+        console.log(this.state.song)
       }, function(err) {
         console.log('Something went wrong|!', err);
       });
@@ -152,11 +154,16 @@ class App extends Component {
           <div>
           <img src={this.state.song.albumArt} style={{ height: 150 }} alt=''/>
           </div>  
+          <div>
+          <audio controls src={this.state.song.preview_url}>
+          {/* <source src={this.state.song.preview_url} type="audio/mpeg"/> */}
+          </audio>
+          </div>
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
         </div>
         { this.state.loggedIn &&
-        <>
+        <> 
           <button onClick={() => this.getNowPlaying()}>
             Check Now Playing
           </button>
