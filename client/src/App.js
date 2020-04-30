@@ -175,6 +175,11 @@ class App extends Component {
     });
   }
 
+  // playlistHandler2 = event => {
+  //   this.getRandomPlaylist(this.state.playlist_type)
+  //   };
+  
+
   render() {
     return (
       <div className="App">
