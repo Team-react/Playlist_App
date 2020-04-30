@@ -63,6 +63,8 @@ class App extends Component {
   }
 
   getTracks(){
+   document.getElementById("myaudio").volume = 0.1
+
     console.log(this.token)
     spotifyApi.getPlaylist(this.token, this.state.list.id)
       .then((data) => {
@@ -161,7 +163,7 @@ class App extends Component {
           <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
           </div>  
           <div>
-          <audio controls autoPlay volume="0.1" src={this.state.song.preview_url}>
+          <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
           </audio>
           </div>
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
