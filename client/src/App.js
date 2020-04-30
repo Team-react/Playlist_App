@@ -176,8 +176,9 @@ class App extends Component {
         { this.state.loggedIn &&
         <>
         <div>
+
           <div>
-         Song Title : {this.state.song.name}      
+         Song Title: {this.state.song.name}      
           </div>     
           <div>
           Artist: {this.state.song.artist}
@@ -186,7 +187,7 @@ class App extends Component {
           <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
           </div>
           <div>
-          Song Length: {this.state.song.songLength}
+          Length: {Math.floor(this.state.song.songLength*60000/(1000*60)%60) + ":" + Math.floor(this.state.song.songLength*60000/1000%60)}
           </div>  
           <div>
           <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
