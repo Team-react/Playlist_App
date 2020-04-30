@@ -18,11 +18,12 @@ class App extends Component {
       list: {id: ''},
       tracks: {array: []},
       playlist: {array: []}, 
-      song: { name: '', artist: '', uri: '', albumArt: '', songLength: null},
+      song: { name: '', artist: '', uri: '', albumArt: '', songLength: null, preview_url: ''},
       customPlaylist: { songs:[], playlistDuration:[]},
       desiredDuration: 0,
       currentDuration: 0,
       playlistComplete: false
+
     }
   }
 
@@ -79,22 +80,32 @@ class App extends Component {
   }
 
   getTracks(){
+   document.getElementById("myaudio").volume = 0.1
+
     console.log(this.token)
     spotifyApi.getPlaylist(this.token, this.state.list.id)
       .then((data) => {
+        
         var playlistSize = data.body.tracks.items.length
         var trackInfo = data.body.tracks.items[Math.floor(Math.random() * playlistSize)]
+        if(trackInfo.track.preview_url == null){
+          console.log("WE SKIPPED THIS ONE")
+          return this.dontAddToCustomPlaylist()
+        }
         console.log(data)
         console.log(trackInfo.track.duration_ms)
+
         this.setState({
           song: {
             name: trackInfo.track.name,
             artist: trackInfo.track.artists[0].name,
             uri: trackInfo.track.uri,
             albumArt: trackInfo.track.album.images[0].url,
+            preview_url: trackInfo.track.preview_url,
             songLength: (trackInfo.track.duration_ms / 60000).toFixed(2)
           }
         })
+        console.log(this.state.song)
       }, function(err) {
         console.log('Something went wrong|!', err);
       });
@@ -160,7 +171,7 @@ class App extends Component {
       <div className="App">
         <a href='http://localhost:8888' > Login to Spotify </a>
         <div>
-          <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} alt=''/>
+          <img src={this.state.nowPlaying.albumArt} style={{ height: 320 }} alt=''/>
         </div>
         { this.state.loggedIn &&
         <>
@@ -172,11 +183,16 @@ class App extends Component {
           {this.state.song.artist}
           </div>   
           <div>
-          <img src={this.state.song.albumArt} style={{ height: 150 }} alt=''/>
+          <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
           </div>  
+          <div>
+          <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
+          </audio>
+          </div>
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
         </div>
+
           <button onClick={() => this.getNowPlaying()}>
             Check Now Playing
           </button>
