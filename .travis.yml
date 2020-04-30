@@ -4,5 +4,6 @@ node_js:
   - "12"
 
 script:
+    - cd client
     - npm test
     - npm run build
