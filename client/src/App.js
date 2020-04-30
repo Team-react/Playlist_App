@@ -177,16 +177,16 @@ class App extends Component {
         <>
         <div>
           <div>
-          {this.state.song.name}      
+         Song Title: {this.state.song.name}      
           </div>     
           <div>
-          {this.state.song.artist}
+          Artist: {this.state.song.artist}
           </div>   
           <div>
           <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
           </div>
           <div>
-          Song Length : {this.state.song.songLength}
+          Song Length: {this.state.song.songLength}
           </div>  
           <div>
           <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
