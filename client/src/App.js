@@ -1,11 +1,8 @@
 import React,{Component} from 'react';
-
-// import logo from './logo.svg';
 import './App.css';
 import SpotifyWebApi from 'spotify-web-api-node';
 
 var spotifyApi = new SpotifyWebApi();
-
 
 class App extends Component {
   constructor(props){
@@ -21,12 +18,14 @@ class App extends Component {
       list: {id: ''},
       tracks: {array: []},
       playlist: {array: []}, 
-      song: { name: '', artist: '', uri: '', albumArt: '', songlength: null},
-      customPlaylist: { songs: [], playlistduration: []},
-      duration: 0
-
+      song: { name: '', artist: '', uri: '', albumArt: '', songLength: null},
+      customPlaylist: { songs:[], playlistDuration:[]},
+      desiredDuration: 0,
+      currentDuration: 0,
+      playlistComplete: false
     }
   }
+
   getHashParams() {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -37,6 +36,16 @@ class App extends Component {
        e = r.exec(q);
     }
     return hashParams;
+  }
+
+  calculatePlaylistDurationTotal() {
+    var arr = this.state.customPlaylist.playlistDuration
+    var total = 0
+    for(var i = 0; i< arr.length; i++) {
+      total += parseFloat(arr[i])
+    }
+    // console.log(total)
+    this.setState({ currentDuration: total });
   }
 
   getNowPlaying(){
@@ -52,16 +61,16 @@ class App extends Component {
   }
 
   addToCustomPlaylist() {
-    this.state.customPlaylist.songs.push(this.state.song.uri);
-    this.state.customPlaylist.playlistduration.push(this.state.song.songlength);
-    // this.setState({
-    //   customPlaylist: {
-    //     playlistlength: this.state.customPlaylist.playlistlength + this.state.song.songlength,
-    //   }
-    // })
+    this.state.customPlaylist.songs.push(this.state.song.uri)
+    this.state.customPlaylist.playlistDuration.push(this.state.song.songLength);
+ 
     this.getRandomPlaylist("Rock Music")
     this.getTracks();
     console.log(this.state.customPlaylist.songs)
+    this.calculatePlaylistDurationTotal()
+    if(this.state.currentDuration >= this.state.desiredDuration) {
+      this.setState({playlistComplete: true})
+    }
   }
 
   dontAddToCustomPlaylist() {
@@ -83,14 +92,13 @@ class App extends Component {
             artist: trackInfo.track.artists[0].name,
             uri: trackInfo.track.uri,
             albumArt: trackInfo.track.album.images[0].url,
-            songlength: (trackInfo.track.duration_ms / 60000).toFixed(2)
+            songLength: (trackInfo.track.duration_ms / 60000).toFixed(2)
           }
         })
       }, function(err) {
         console.log('Something went wrong|!', err);
       });
   }
-
 
   addSongsToPlaylist(){
     var customPlaylist = this.state.customPlaylist.songs
@@ -117,15 +125,13 @@ class App extends Component {
           });
         }, function(err) {
           console.log('Something went wrong!', err);
-   
-  });
-    
-  }
+    });
+  };
 
   test() {
-    console.log(this.state.list.id)
-    console.log(this.state.song.songlength)
-    console.log(this.state.customPlaylist.playlistduration)
+    console.log(this.state.customPlaylist.songs)
+    console.log(this.state.song.songLength)
+    console.log(this.state.customPlaylist.playlistDuration)
   }
 
 
@@ -145,7 +151,7 @@ class App extends Component {
 
   changeHandler = event => {
     this.setState({
-      duration: event.target.value
+      desiredDuration: event.target.value
     });
   }
 
@@ -153,12 +159,11 @@ class App extends Component {
     return (
       <div className="App">
         <a href='http://localhost:8888' > Login to Spotify </a>
-        {/* <div>
-          Now Playing: { this.state.nowPlaying.name }
-        </div> */}
         <div>
           <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} alt=''/>
         </div>
+        { this.state.loggedIn &&
+        <>
         <div>
           <div>
           {this.state.song.name}      
@@ -172,8 +177,6 @@ class App extends Component {
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
         </div>
-        { this.state.loggedIn &&
-        <>
           <button onClick={() => this.getNowPlaying()}>
             Check Now Playing
           </button>
@@ -193,28 +196,26 @@ class App extends Component {
           <input type="duration"
                  name="duration"
                  placeholder="input playlist length"
-                 value={this.state.duration}
+                 value={this.state.desiredDuration}
                  onChange={this.changeHandler}
           />
-          {/* // <input type="submit" */}
-                {/* value="submit" */}
-                {/* onClick={this.state.required_duration = } */}
-          {/* /> */}
-
         </form>
          <div>
-  
             <ul>
             {this.state.tracks.array.map((value, index) => {
             return <li key={index}>{value.name}</li>
             })}
             </ul>
-         
-
-           
          </div>
-         
          </>
+        }
+        { this.state.playlistComplete && 
+        <>
+        <div>You have reached your desired time limit</div>
+        <button onClick={() => this.addSongsToPlaylist()}>
+            Create playlist
+        </button>
+        </>
         }
       </div>
     );
