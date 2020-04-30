@@ -22,7 +22,8 @@ class App extends Component {
       customPlaylist: { songs:[], playlistDuration:[]},
       desiredDuration: 0,
       currentDuration: 0,
-      playlistComplete: false
+      playlistComplete: false,
+      playlist_type: ''
 
     }
   }
@@ -140,9 +141,11 @@ class App extends Component {
   };
 
   test() {
-    console.log(this.state.customPlaylist.songs)
-    console.log(this.state.song.songLength)
-    console.log(this.state.customPlaylist.playlistDuration)
+    // console.log(this.state.customPlaylist.songs)
+    // console.log(this.state.song.songLength)
+    // console.log(this.state.customPlaylist.playlistDuration)
+    console.log(this.state.getRandomPlaylist)
+    console.log(this.state.list.id)
   }
 
 
@@ -163,6 +166,12 @@ class App extends Component {
   changeHandler = event => {
     this.setState({
       desiredDuration: event.target.value
+    });
+  }
+
+  playlistHandler = event => {
+    this.setState({
+      playlist_type: event.target.value
     });
   }
 
@@ -203,9 +212,19 @@ class App extends Component {
           <button onClick={() => this.addSongsToPlaylist()}>
             Add this song to playlist
           </button>
-          <button onClick={() => this.getRandomPlaylist("Rock Music")}>
+          <button onClick={() => this.getRandomPlaylist('Rock Music')}>
             Get playlist id
           </button>
+          <form>
+          <input type="text" name="playlist_type" 
+          placeholder="Input artist or genre" 
+          value={this.playlist_type} 
+          onChange={this.playlistHandler} />
+          <button onClick={() => this.getRandomPlaylist(this.state.playlist_type) }>
+            Get Playlist
+          </button>
+
+        </form>
           <button onClick={() => this.getTracks()}>
             Get tracks
           </button>
