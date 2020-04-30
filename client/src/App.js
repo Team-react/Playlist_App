@@ -21,8 +21,9 @@ class App extends Component {
       list: {id: ''},
       tracks: {array: []},
       playlist: {array: []}, 
-      song: { name: '', artist: '', uri: '', albumArt: ''},
-      customPlaylist: { songs: []}
+      song: { name: '', artist: '', uri: '', albumArt: '', songlength: null},
+      customPlaylist: { songs: [], playlistduration: []},
+      duration: 0
 
     }
   }
@@ -52,6 +53,12 @@ class App extends Component {
 
   addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri);
+    this.state.customPlaylist.playlistduration.push(this.state.song.songlength);
+    // this.setState({
+    //   customPlaylist: {
+    //     playlistlength: this.state.customPlaylist.playlistlength + this.state.song.songlength,
+    //   }
+    // })
     this.getRandomPlaylist("Rock Music")
     this.getTracks();
     console.log(this.state.customPlaylist.songs)
@@ -69,12 +76,14 @@ class App extends Component {
         var playlistSize = data.body.tracks.items.length
         var trackInfo = data.body.tracks.items[Math.floor(Math.random() * playlistSize)]
         console.log(data)
+        console.log(trackInfo.track.duration_ms)
         this.setState({
           song: {
             name: trackInfo.track.name,
             artist: trackInfo.track.artists[0].name,
             uri: trackInfo.track.uri,
-            albumArt: trackInfo.track.album.images[0].url
+            albumArt: trackInfo.track.album.images[0].url,
+            songlength: (trackInfo.track.duration_ms / 60000).toFixed(2)
           }
         })
       }, function(err) {
@@ -115,6 +124,8 @@ class App extends Component {
 
   test() {
     console.log(this.state.list.id)
+    console.log(this.state.song.songlength)
+    console.log(this.state.customPlaylist.playlistduration)
   }
 
 
@@ -129,6 +140,12 @@ class App extends Component {
       });
     }, function(err) {
       console.log('Something went wrong!', err);
+    });
+  }
+
+  changeHandler = event => {
+    this.setState({
+      duration: event.target.value
     });
   }
 
@@ -172,7 +189,19 @@ class App extends Component {
           <button onClick={() => this.test()}>
             Test
           </button>
-        
+          <form>
+          <input type="duration"
+                 name="duration"
+                 placeholder="input playlist length"
+                 value={this.state.duration}
+                 onChange={this.changeHandler}
+          />
+          {/* // <input type="submit" */}
+                {/* value="submit" */}
+                {/* onClick={this.state.required_duration = } */}
+          {/* /> */}
+
+        </form>
          <div>
   
             <ul>
