@@ -177,7 +177,7 @@ class App extends Component {
         <>
         <div>
           <div>
-         Song Title: {this.state.song.name}      
+         Song Title : {this.state.song.name}      
           </div>     
           <div>
           Artist: {this.state.song.artist}
