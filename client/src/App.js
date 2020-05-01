@@ -120,12 +120,16 @@ class App extends Component {
   }
 
   removeFromPlaylist(index) {
-    // var elements = this.state.customPlaylist.list_of_tracks
+    console.log(index)
       var checked = this.state.customPlaylist.list_of_tracks;
-      var values = checked.indexOf(index)
+      var values = checked.indexOf(this.state.customPlaylist.list_of_tracks[index])
       checked.splice(values, 1);
       this.setState({list_of_tracks: checked});
-      console.log(this.state.customPlaylist.list_of_tracks)
+      var urichecked = this.state.customPlaylist.songs;
+      var urivalues = urichecked.indexOf(this.state.customPlaylist.songs[index])
+      urichecked.splice(urivalues, 1);
+      this.setState({songs: urichecked});
+      console.log(this.state.customPlaylist.songs)
     }
 
   addSongsToPlaylist(){
@@ -231,7 +235,7 @@ class App extends Component {
             Check Now Playing
           </button> */}
           <button onClick={() => this.addSongsToPlaylist()}>
-            Add this song to playlist
+            Add Song(s) to playlist
           </button>
           <button onClick={() => this.getRandomPlaylist('Rock Music')}>
             Get playlist id
