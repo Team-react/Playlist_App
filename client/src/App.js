@@ -120,15 +120,14 @@ class App extends Component {
   }
 
   removeFromPlaylist(index) {
-    console.log(index)
-      var checked = this.state.customPlaylist.list_of_tracks;
-      var values = checked.indexOf(this.state.customPlaylist.list_of_tracks[index])
-      checked.splice(values, 1);
-      this.setState({list_of_tracks: checked});
-      var urichecked = this.state.customPlaylist.songs;
-      var urivalues = urichecked.indexOf(this.state.customPlaylist.songs[index])
-      urichecked.splice(urivalues, 1);
-      this.setState({songs: urichecked});
+    var song_checked = this.state.customPlaylist.list_of_tracks;
+    var song_values = song_checked.indexOf(this.state.customPlaylist.list_of_tracks[index])
+    song_checked.splice(song_values, 1);
+      this.setState({list_of_tracks: song_checked});
+      var uri_checked = this.state.customPlaylist.songs;
+      var uri_values = uri_checked.indexOf(this.state.customPlaylist.songs[index])
+      uri_checked.splice(uri_values, 1);
+      this.setState({songs: uri_checked});
       console.log(this.state.customPlaylist.songs)
     }
 
@@ -235,7 +234,7 @@ class App extends Component {
             Check Now Playing
           </button> */}
           <button onClick={() => this.addSongsToPlaylist()}>
-            Add Song(s) to playlist
+            Add Song(s) to Playlist
           </button>
           <button onClick={() => this.getRandomPlaylist('Rock Music')}>
             Get playlist id
@@ -284,7 +283,7 @@ class App extends Component {
             {this.state.customPlaylist.list_of_tracks.map((value, index) => {
             return <li key={index}>{value.name} - {value.artist}
             <button onClick={() => this.removeFromPlaylist(index)}>
-            <p style={{color: 'red'}}>X</p>
+            ❌
             </button>
             </li>
             })}
