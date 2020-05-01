@@ -2,9 +2,11 @@ import React,{Component} from 'react';
 import './App.css';
 import SpotifyWebApi from 'spotify-web-api-node';
 import Authorization from './components/Authorization'
+import ThemeSelect from './components/ThemeSelect';
 
 var spotifyApi = new SpotifyWebApi();
 var authorization = new Authorization();
+var themeSelect = new ThemeSelect()
 
 class App extends Component {
   constructor(props){
@@ -15,14 +17,15 @@ class App extends Component {
     //   spotifyApi.setAccessToken(token)
     // }
 
-    const token = authorization.token
+    this.token = authorization.token
+    this.list = themeSelect.state.list
   
     this.state = {
-      loggedIn: token ? true : false,
-      nowPlaying: { name: 'not checked', albumArt: ''},
+      loggedIn: this.token ? true : false,
+      // nowPlaying: { name: 'not checked', albumArt: ''},
       list: {id: ''},
       tracks: {array: []},
-      playlist: {array: []}, 
+      // playlist: {array: []}, 
       song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
       customPlaylist: { songs:[], playlistDuration:[]},
       desiredDuration: 0,
@@ -85,10 +88,17 @@ class App extends Component {
     this.getTracks();
   }
 
+  updateList(id){
+    this.setState({
+      list: {id: id}
+    })
+  }
+
   getTracks(){
    document.getElementById("myaudio").volume = 0.1
 
-    // console.log(this.token)
+    console.log(this.token)
+    console.log(this.state.list)
     spotifyApi.getPlaylist(this.token, this.state.list.id)
       .then((data) => {
         
@@ -155,19 +165,19 @@ class App extends Component {
   }
 
 
-  getRandomPlaylist(genre) {
-    spotifyApi.searchPlaylists(genre)
-    .then((data) => {
-      var numberOfPlaylists = (data.body.playlists.items).length
-      this.setState({
-        list: {
-            id: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
-          }        
-      });
-    }, function(err) {
-      console.log('Something went wrong!', err);
-    });
-  }
+  // getRandomPlaylist(genre) {
+  //   spotifyApi.searchPlaylists(genre)
+  //   .then((data) => {
+  //     var numberOfPlaylists = (data.body.playlists.items).length
+  //     this.setState({
+  //       list: {
+  //           id: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
+  //         }        
+  //     });
+  //   }, function(err) {
+  //     console.log('Something went wrong!', err);
+  //   });
+  // }
 
   changeHandler = event => {
     this.setState({
@@ -217,6 +227,9 @@ class App extends Component {
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
         </div>
+        <button onClick={() => this.getTracks()}>
+        Get tracks
+      </button>
 
           {/* <button onClick={() => this.getNowPlaying()}>
             Check Now Playing
@@ -227,37 +240,16 @@ class App extends Component {
           <button onClick={() => this.getRandomPlaylist('Rock Music')}>
             Get playlist id
           </button>
-          <form>
-          <input type="text" name="playlist_type" 
-          placeholder="Input artist or genre" 
-          value={this.playlist_type} 
-          onChange={this.playlistHandler} />
-          <button onClick={() => this.getRandomPlaylist(this.state.playlist_type) }>
-            Get Playlist
-          </button>
-
-        </form>
-          <button onClick={() => this.getTracks()}>
-            Get tracks
-          </button>
-          <button onClick={() => this.test()}>
-            Test
-          </button>
-          <form>
-          <input type="duration"
-                 name="duration"
-                 placeholder="input playlist length"
-                 value={this.state.desiredDuration}
-                 onChange={this.changeHandler}
+          <ThemeSelect
+          playlist={this.updateList.bind(this)}
           />
-        </form>
-         <div>
+         {/* <div>
             <ul>
             {this.state.tracks.array.map((value, index) => {
             return <li key={index}>{value.name}</li>
             })}
             </ul>
-         </div>
+         </div> */}
          </>
         }
         { this.state.playlistComplete && 
