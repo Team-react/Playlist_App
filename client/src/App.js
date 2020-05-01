@@ -19,7 +19,7 @@ class App extends Component {
       tracks: {array: []},
       playlist: {array: []}, 
       song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
-      customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[], album_names:[]},
+      customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[], artist_names:[] },
       desiredDuration: 0,
       currentDuration: 0,
       playlistComplete: false,
@@ -65,8 +65,8 @@ class App extends Component {
   addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri)
     this.state.customPlaylist.playlistDuration.push(this.state.song.songLength)
-    this.state.customPlaylist.list_of_tracks.push(this.state.song.names)
-    this.state.customPlaylist.album_names.push(this.state.song.album) 
+    this.state.customPlaylist.list_of_tracks.push(this.state.song.name)
+    this.state.customPlaylist.artist_names.push(this.state.song.artist) 
  
     this.getRandomPlaylist(this.state.playlist_type)
     this.getTracks();
@@ -113,6 +113,13 @@ class App extends Component {
       }, function(err) {
         console.log('Something went wrong|!', err);
       });
+  }
+
+  displayPlaylist() {
+    var trackstobedisplayed = this.state.customPlaylist.list_of_tracks
+    var artiststobedisplayed = this.state.customPlaylist.artist_names
+    trackstobedisplayed.forEach(item => console.log(item));
+    artiststobedisplayed.forEach(item => console.log(item));
   }
 
   addSongsToPlaylist(){
@@ -240,6 +247,9 @@ class App extends Component {
           </button>
           <button onClick={() => this.test()}>
             Test
+          </button>
+          <button onClick={() => this.displayPlaylist()}>
+            Display Playlist
           </button>
           <form>
           <input type="duration"
