@@ -34,8 +34,6 @@ class ThemeSelect extends Component {
   }
   
   getRandomPlaylist(genre) {
-    console.log(this.props.token)
-    
     spotifyApi.setAccessToken(this.props.token)
 
     spotifyApi.searchPlaylists(genre)
@@ -43,11 +41,6 @@ class ThemeSelect extends Component {
       console.log(data, 'its not even reach this point')
       var numberOfPlaylists = (data.body.playlists.items).length
       console.log(numberOfPlaylists)
-      // this.setState({
-      //   list: {
-      //       id: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
-      //     }        
-      // });
       this.props.playlist(data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id)
     }, function(err) {
       console.log('Something went wrong!', err);
@@ -74,15 +67,6 @@ class ThemeSelect extends Component {
     })
   }
 
-  // playlistHandler() {
-  //   this.preventDefault();
-
-  //   this.getRandomPlaylist(this.playlist_type)
-  //   // this.setState({
-  //   //   playlist_type: event.target.value
-  //   // });
-  // }
-
   render() {
     return (
       <>
@@ -101,12 +85,6 @@ class ThemeSelect extends Component {
       </button>
 
     </form>
-      {/* <button onClick={() => this.getTracks()}>
-        Get tracks
-      </button>
-      <button onClick={() => this.test()}>
-        Test
-      </button> */}
       <form>
       <input type="duration"
              name="duration"

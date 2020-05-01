@@ -2,7 +2,13 @@ import React,{Component} from 'react';
 import './App.css';
 import SpotifyWebApi from 'spotify-web-api-node';
 import Authorization from './components/Authorization'
-import ThemeSelect from './components/ThemeSelect';
+import ThemeSelect fro
+
+
+
+
+
+m './components/ThemeSelect';
 
 var spotifyApi = new SpotifyWebApi();
 var authorization = new Authorization();
@@ -59,7 +65,7 @@ class App extends Component {
     this.state.customPlaylist.songs.push(this.state.song.uri)
     this.state.customPlaylist.playlistDuration.push(this.state.song.songLength);
  
-    this.getRandomPlaylist(this.state.playlist_type)
+    themeSelect.getRandomPlaylist(this.state.playlist_type)
     this.getTracks();
     console.log(this.state.customPlaylist.songs)
     this.calculatePlaylistDurationTotal()
@@ -81,6 +87,8 @@ class App extends Component {
 
   getTracks(){
    document.getElementById("myaudio").volume = 0.1
+   spotifyApi.setAccessToken(this.token)
+
     console.log(this.token)
     console.log(this.state.list.id)
     spotifyApi.getPlaylist(this.token, this.state.list.id)
