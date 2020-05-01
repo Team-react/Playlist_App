@@ -2,13 +2,7 @@ import React,{Component} from 'react';
 import './App.css';
 import SpotifyWebApi from 'spotify-web-api-node';
 import Authorization from './components/Authorization'
-import ThemeSelect fro
-
-
-
-
-
-m './components/ThemeSelect';
+import ThemeSelect from './components/ThemeSelect';
 
 var spotifyApi = new SpotifyWebApi();
 var authorization = new Authorization();
