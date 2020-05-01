@@ -65,8 +65,8 @@ class App extends Component {
   addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri)
     this.state.customPlaylist.playlistDuration.push(this.state.song.songLength)
-    this.state.customPlaylist.list_of_tracks.push(this.state.song.name)
-    this.state.customPlaylist.artist_names.push(this.state.song.artist) 
+    this.state.customPlaylist.list_of_tracks.push({name: this.state.song.name, artist: this.state.song.artist})
+    // this.state.customPlaylist.artist_names.push(this.state.song.artist) 
  
     this.getRandomPlaylist(this.state.playlist_type)
     this.getTracks();
@@ -193,6 +193,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+{/* 
+        const { data } = this.state.customPlaylist;
+
+        let playlist = data.map(list_of_tracks => {
+          console.log(list_of_tracks)
+        }) */}
         <a href='http://localhost:8888' > Login to Spotify </a>
         <div>
           <img src={this.state.nowPlaying.albumArt} style={{ height: 320 }} alt=''/>
@@ -268,6 +274,13 @@ class App extends Component {
          </div>
          </>
         }
+            <div>
+            <ul>
+            {this.state.customPlaylist.list_of_tracks.map((value, index) => {
+            return <li key={index}>{value.name} : {value.artist}</li>
+            })}
+            </ul>
+         </div>
         { this.state.playlistComplete && 
         <>
         <div>You have reached your desired time limit</div>
