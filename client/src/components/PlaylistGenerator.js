@@ -13,6 +13,10 @@ class PlaylistGenerator extends Component {
         song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
         playlistid: '',
         customPlaylist: { songs:[], playlistDuration:[]},
+        currentDuration: 0,
+        playlistComplete: false
+        
+
 
 
 
@@ -43,8 +47,8 @@ class PlaylistGenerator extends Component {
              uri: trackInfo.track.uri,
              albumArt: trackInfo.track.album.images[0].url,
              album: trackInfo.track.album.name,
-             preview_url: trackInfo.track.preview_url
-            //  songLength: (trackInfo.track.duration_ms / 60000).toFixed(2)
+             preview_url: trackInfo.track.preview_url,
+             songLength: (trackInfo.track.duration_ms / 60000).toFixed(2)
            }
          })
          console.log(this.state.song)
@@ -52,21 +56,31 @@ class PlaylistGenerator extends Component {
          console.log('Something went wrong|!', err);
        });
    }
+   calculatePlaylistDurationTotal() {
+    var arr = this.state.customPlaylist.playlistDuration
+    var total = 0
+    for(var i = 0; i< arr.length; i++) {
+      total += parseFloat(arr[i])
+    }
+    // console.log(total)
+    this.setState({ currentDuration: total });
+  }
    addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri)
     this.state.customPlaylist.playlistDuration.push(this.state.song.songLength);
  
-    this.getRandomPlaylist(this.props.playlist_type)
+    this.getRandomPlaylist(this.props.playListType)
     this.getTracks();
     console.log(this.state.customPlaylist.songs)
-    // this.calculatePlaylistDurationTotal()
-    // if(this.state.currentDuration >= this.state.desiredDuration) {
-    //   this.setState({playlistComplete: true})
-    // }
+    this.calculatePlaylistDurationTotal()
+    if(this.state.currentDuration >= parseInt(this.props.desiredDuration)) {
+
+      this.setState({playlistComplete: true})
+    }
   }
 
   dontAddToCustomPlaylist() {
-    this.getRandomPlaylist(this.props.playlist_type)
+    this.getRandomPlaylist(this.props.playListType)
     this.getTracks();
   }
     
@@ -83,14 +97,13 @@ class PlaylistGenerator extends Component {
 
     spotifyApi.searchPlaylists(genre)
     .then((data) => {
-      console.log(data, 'its not even reach this point')
       var numberOfPlaylists = (data.body.playlists.items).length
-      console.log(numberOfPlaylists)
       this.setState({
           playlistid: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
       })
+      console.log("successfully got a playlist by genre")
     }, function(err) {
-      console.log('Something went wrong!', err);
+      console.log('Error searching for playlist by genre', err);
     });
   }
   changeHandler = event => {
@@ -151,9 +164,7 @@ class PlaylistGenerator extends Component {
           Add this song to playlist
         </button>
 
-        <button onClick={() => this.getRandomPlaylist('Rock Music')}>
-          Get playlist id
-        </button>
+        
         
        
          </>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SpotifyWebApi from 'spotify-web-api-node';
-import PlaylistGenerator from './Playlist'
+import PlaylistGenerator from './PlaylistGenerator'
 
 
 var spotifyApi = new SpotifyWebApi();
@@ -74,6 +74,7 @@ class ThemeSelect extends Component {
       <div>
       <PlaylistGenerator
       playListType={this.state.playlist_type}
+      desiredDuration={this.state.desiredDuration}
       token={this.props.token}
       />
       </div>
@@ -82,7 +83,7 @@ class ThemeSelect extends Component {
       <form>
       <input id='input' type="text" name="playlist_type" 
       placeholder="Input artist or genre" 
-      ref={(c) => this.playlist_type = c}
+      // ref={(c) => this.playlist_type = c}
       onChange={this.playlistTypeHandler} 
       />
       {/* <button type="button" onClick={this.playlistHandler}>
@@ -95,10 +96,10 @@ class ThemeSelect extends Component {
 
     </form>
       <form>
-      <input type="duration"
+      <input type="text"
              name="duration"
              placeholder="input playlist length"
-             value={this.state.desiredDuration}
+            //  value={this.state.desiredDuration}
              onChange={this.changeHandler}
       />
     </form>

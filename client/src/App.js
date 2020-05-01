@@ -25,7 +25,7 @@ class App extends Component {
       tracks: {array: []},
       // playlist: {array: []}, 
       song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
-      customPlaylist: { songs:[], playlistDuration:[]},
+      // customPlaylist: { songs:[], playlistDuration:[]},
       desiredDuration: 0,
       currentDuration: 0,
       playlistComplete: false,
@@ -186,15 +186,16 @@ class App extends Component {
           Get tracks
         </button> */}
 
-        <button onClick={() => this.addSongsToPlaylist()}>
+        {/* <button onClick={() => this.addSongsToPlaylist()}>
           Add this song to playlist
-        </button>
+        </button> */}
 
         {/* <button onClick={() => this.getRandomPlaylist('Rock Music')}>
           Get playlist id
         </button> */}
           <ThemeSelect
-          playlist={this.updateList.bind(this)} token={this.token}
+          // playlist={this.updateList.bind(this)}
+           token={this.token}
           />
          {/* <div>
             <ul>
