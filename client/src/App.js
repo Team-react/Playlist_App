@@ -18,11 +18,12 @@ class App extends Component {
       list: {id: ''},
       tracks: {array: []},
       playlist: {array: []}, 
-      song: { name: '', artist: '', uri: '', albumArt: '', songLength: null, preview_url: ''},
+      song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
       customPlaylist: { songs:[], playlistDuration:[]},
       desiredDuration: 0,
       currentDuration: 0,
-      playlistComplete: false
+      playlistComplete: false,
+      playlist_type: ''
 
     }
   }
@@ -65,7 +66,7 @@ class App extends Component {
     this.state.customPlaylist.songs.push(this.state.song.uri)
     this.state.customPlaylist.playlistDuration.push(this.state.song.songLength);
  
-    this.getRandomPlaylist("Rock Music")
+    this.getRandomPlaylist(this.state.playlist_type)
     this.getTracks();
     console.log(this.state.customPlaylist.songs)
     this.calculatePlaylistDurationTotal()
@@ -75,7 +76,7 @@ class App extends Component {
   }
 
   dontAddToCustomPlaylist() {
-    this.getRandomPlaylist("Rock Music")
+    this.getRandomPlaylist(this.state.playlist_type)
     this.getTracks();
   }
 
@@ -101,6 +102,7 @@ class App extends Component {
             artist: trackInfo.track.artists[0].name,
             uri: trackInfo.track.uri,
             albumArt: trackInfo.track.album.images[0].url,
+            album: trackInfo.track.album.name,
             preview_url: trackInfo.track.preview_url,
             songLength: (trackInfo.track.duration_ms / 60000).toFixed(2)
           }
@@ -140,9 +142,11 @@ class App extends Component {
   };
 
   test() {
-    console.log(this.state.customPlaylist.songs)
-    console.log(this.state.song.songLength)
-    console.log(this.state.customPlaylist.playlistDuration)
+    // console.log(this.state.customPlaylist.songs)
+    // console.log(this.state.song.songLength)
+    // console.log(this.state.customPlaylist.playlistDuration)
+    console.log(this.state.getRandomPlaylist)
+    console.log(this.state.list.id)
   }
 
 
@@ -166,6 +170,17 @@ class App extends Component {
     });
   }
 
+  playlistHandler = event => {
+    this.setState({
+      playlist_type: event.target.value
+    });
+  }
+
+  // playlistHandler2 = event => {
+  //   this.getRandomPlaylist(this.state.playlist_type)
+  //   };
+  
+
   render() {
     return (
       <div className="App">
@@ -177,16 +192,19 @@ class App extends Component {
         <>
         <div>
           <div>
-         Song Title : {this.state.song.name}      
+          {this.state.song.name}      
           </div>     
           <div>
-          Artist: {this.state.song.artist}
-          </div>   
+          By: {this.state.song.artist}
+          </div>
+          <div>
+          Album: {this.state.song.album}
+          </div>  
           <div>
           <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
           </div>
           <div>
-          Song Length: {this.state.song.songLength}
+          Track Length: {Math.floor(this.state.song.songLength*60000/(1000*60)%60)+":"+("0"+Math.floor(this.state.song.songLength*60000/1000%60)).slice(-2)}
           </div>  
           <div>
           <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
@@ -202,9 +220,19 @@ class App extends Component {
           <button onClick={() => this.addSongsToPlaylist()}>
             Add this song to playlist
           </button>
-          <button onClick={() => this.getRandomPlaylist("Rock Music")}>
+          <button onClick={() => this.getRandomPlaylist('Rock Music')}>
             Get playlist id
           </button>
+          <form>
+          <input type="text" name="playlist_type" 
+          placeholder="Input artist or genre" 
+          value={this.playlist_type} 
+          onChange={this.playlistHandler} />
+          <button onClick={() => this.getRandomPlaylist(this.state.playlist_type) }>
+            Get Playlist
+          </button>
+
+        </form>
           <button onClick={() => this.getTracks()}>
             Get tracks
           </button>
