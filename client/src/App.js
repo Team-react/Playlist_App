@@ -1,17 +1,22 @@
 import React,{Component} from 'react';
 import './App.css';
 import SpotifyWebApi from 'spotify-web-api-node';
+import Authorization from './components/Authorization'
 
 var spotifyApi = new SpotifyWebApi();
+var authorization = new Authorization();
 
 class App extends Component {
   constructor(props){
     super(props);
-    const params = this.getHashParams();
-    const token = params.access_token;
-    if (token) {
-      spotifyApi.setAccessToken(token)
-    }
+    // const params = this.getHashParams();
+    // const token = params.access_token;
+    // if (token) {
+    //   spotifyApi.setAccessToken(token)
+    // }
+
+    const token = authorization.token
+  
     this.state = {
       loggedIn: token ? true : false,
       nowPlaying: { name: 'not checked', albumArt: ''},
@@ -28,17 +33,17 @@ class App extends Component {
     }
   }
 
-  getHashParams() {
-    var hashParams = {};
-    var e, r = /([^&;=]+)=?([^&;]*)/g,
-        q = window.location.hash.substring(1);
-    e = r.exec(q)
-    while (e) {
-       hashParams[e[1]] = decodeURIComponent(e[2]);
-       e = r.exec(q);
-    }
-    return hashParams;
-  }
+  // getHashParams() {
+  //   var hashParams = {};
+  //   var e, r = /([^&;=]+)=?([^&;]*)/g,
+  //       q = window.location.hash.substring(1);
+  //   e = r.exec(q)
+  //   while (e) {
+  //      hashParams[e[1]] = decodeURIComponent(e[2]);
+  //      e = r.exec(q);
+  //   }
+  //   return hashParams;
+  // }
 
   calculatePlaylistDurationTotal() {
     var arr = this.state.customPlaylist.playlistDuration
@@ -83,7 +88,7 @@ class App extends Component {
   getTracks(){
    document.getElementById("myaudio").volume = 0.1
 
-    console.log(this.token)
+    // console.log(this.token)
     spotifyApi.getPlaylist(this.token, this.state.list.id)
       .then((data) => {
         
@@ -184,10 +189,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <a href='http://localhost:8888' > Login to Spotify </a>
-        <div>
-          <img src={this.state.nowPlaying.albumArt} style={{ height: 320 }} alt=''/>
-        </div>
+          <div>
+            <Authorization/>
+          </div>
         { this.state.loggedIn &&
         <>
         <div>
