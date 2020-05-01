@@ -19,7 +19,7 @@ class App extends Component {
       tracks: {array: []},
       playlist: {array: []}, 
       song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
-      customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[], artist_names:[] },
+      customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[] },
       desiredDuration: 0,
       currentDuration: 0,
       playlistComplete: false,
@@ -65,8 +65,7 @@ class App extends Component {
   addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri)
     this.state.customPlaylist.playlistDuration.push(this.state.song.songLength)
-    this.state.customPlaylist.list_of_tracks.push({name: this.state.song.name, artist: this.state.song.artist})
-    // this.state.customPlaylist.artist_names.push(this.state.song.artist) 
+    this.state.customPlaylist.list_of_tracks.push({name: this.state.song.name, artist: this.state.song.artist}) 
  
     this.getRandomPlaylist(this.state.playlist_type)
     this.getTracks();
@@ -117,10 +116,17 @@ class App extends Component {
 
   displayPlaylist() {
     var trackstobedisplayed = this.state.customPlaylist.list_of_tracks
-    var artiststobedisplayed = this.state.customPlaylist.artist_names
-    trackstobedisplayed.forEach(item => console.log(item));
-    artiststobedisplayed.forEach(item => console.log(item));
+    trackstobedisplayed.forEach(item => console.log(item.name + " - " + item.artist)); 
   }
+
+  removeFromPlaylist(index) {
+    // var elements = this.state.customPlaylist.list_of_tracks
+      var checked = this.state.customPlaylist.list_of_tracks;
+      var values = checked.indexOf(index)
+      checked.splice(values, 1);
+      this.setState({list_of_tracks: checked});
+      console.log(this.state.customPlaylist.list_of_tracks)
+    }
 
   addSongsToPlaylist(){
     var customPlaylist = this.state.customPlaylist.songs
@@ -184,21 +190,13 @@ class App extends Component {
       playlist_type: event.target.value
     });
   }
-
   // playlistHandler2 = event => {
   //   this.getRandomPlaylist(this.state.playlist_type)
   //   };
   
-
   render() {
     return (
       <div className="App">
-{/* 
-        const { data } = this.state.customPlaylist;
-
-        let playlist = data.map(list_of_tracks => {
-          console.log(list_of_tracks)
-        }) */}
         <a href='http://localhost:8888' > Login to Spotify </a>
         <div>
           <img src={this.state.nowPlaying.albumArt} style={{ height: 320 }} alt=''/>
@@ -263,9 +261,9 @@ class App extends Component {
                  placeholder="input playlist length"
                  value={this.state.desiredDuration}
                  onChange={this.changeHandler}
-          />
-        </form>
-         <div>
+            />
+          </form>
+          <div>
             <ul>
             {this.state.tracks.array.map((value, index) => {
             return <li key={index}>{value.name}</li>
@@ -274,16 +272,20 @@ class App extends Component {
          </div>
          </>
         }
-            <div>
-            <ul>
-            {this.state.customPlaylist.list_of_tracks.map((value, index) => {
-            return <li key={index}>{value.name} : {value.artist}</li>
-            })}
-            </ul>
-         </div>
         { this.state.playlistComplete && 
         <>
         <div>You have reached your desired time limit</div>
+        <div>
+            <ul>
+            {this.state.customPlaylist.list_of_tracks.map((value, index) => {
+            return <li key={index}>{value.name} - {value.artist}
+            <button onClick={() => this.removeFromPlaylist(index)}>
+            <p style={{color: 'red'}}>X</p>
+            </button>
+            </li>
+            })}
+            </ul>
+         </div>
         <button onClick={() => this.addSongsToPlaylist()}>
             Create playlist
         </button>
