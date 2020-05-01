@@ -13,16 +13,13 @@ class App extends Component {
     super(props);
     // const params = this.getHashParams();
     // const token = params.access_token;
-    // if (token) {
-    //   spotifyApi.setAccessToken(token)
-    // }
+
 
     this.token = authorization.token
     this.list = themeSelect.state.list
   
     this.state = {
       loggedIn: this.token ? true : false,
-      // nowPlaying: { name: 'not checked', albumArt: ''},
       list: {id: ''},
       tracks: {array: []},
       // playlist: {array: []}, 
@@ -35,18 +32,6 @@ class App extends Component {
 
     }
   }
-
-  // getHashParams() {
-  //   var hashParams = {};
-  //   var e, r = /([^&;=]+)=?([^&;]*)/g,
-  //       q = window.location.hash.substring(1);
-  //   e = r.exec(q)
-  //   while (e) {
-  //      hashParams[e[1]] = decodeURIComponent(e[2]);
-  //      e = r.exec(q);
-  //   }
-  //   return hashParams;
-  // }
 
   calculatePlaylistDurationTotal() {
     var arr = this.state.customPlaylist.playlistDuration
@@ -96,9 +81,8 @@ class App extends Component {
 
   getTracks(){
    document.getElementById("myaudio").volume = 0.1
-
     console.log(this.token)
-    console.log(this.state.list)
+    console.log(this.state.list.id)
     spotifyApi.getPlaylist(this.token, this.state.list.id)
       .then((data) => {
         
@@ -164,38 +148,6 @@ class App extends Component {
     console.log(this.state.list.id)
   }
 
-
-  // getRandomPlaylist(genre) {
-  //   spotifyApi.searchPlaylists(genre)
-  //   .then((data) => {
-  //     var numberOfPlaylists = (data.body.playlists.items).length
-  //     this.setState({
-  //       list: {
-  //           id: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
-  //         }        
-  //     });
-  //   }, function(err) {
-  //     console.log('Something went wrong!', err);
-  //   });
-  // }
-
-  // changeHandler = event => {
-  //   this.setState({
-  //     desiredDuration: event.target.value
-  //   });
-  // }
-
-  // playlistHandler = event => {
-  //   this.setState({
-  //     playlist_type: event.target.value
-  //   });
-  // }
-
-  // playlistHandler2 = event => {
-  //   this.getRandomPlaylist(this.state.playlist_type)
-  //   };
-  
-
   render() {
     return (
       <div className="App">
@@ -228,18 +180,16 @@ class App extends Component {
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
         </div>
         <button onClick={() => this.getTracks()}>
-        Get tracks
-      </button>
+          Get tracks
+        </button>
 
-          {/* <button onClick={() => this.getNowPlaying()}>
-            Check Now Playing
-          </button> */}
-          <button onClick={() => this.addSongsToPlaylist()}>
-            Add this song to playlist
-          </button>
-          <button onClick={() => this.getRandomPlaylist('Rock Music')}>
-            Get playlist id
-          </button>
+        <button onClick={() => this.addSongsToPlaylist()}>
+          Add this song to playlist
+        </button>
+
+        <button onClick={() => this.getRandomPlaylist('Rock Music')}>
+          Get playlist id
+        </button>
           <ThemeSelect
           playlist={this.updateList.bind(this)} token={this.token}
           />

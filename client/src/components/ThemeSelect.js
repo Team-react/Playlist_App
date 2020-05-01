@@ -9,17 +9,10 @@ var spotifyApi = new SpotifyWebApi();
 class ThemeSelect extends Component {
   constructor(props){
     super(props);
-   
-    
-
-
     this.state = {
       desiredDuration: 0,
       playlist_type: '',
-      list: {id: ''}
     }
-
-    
   }
     
   getHashParams() {
