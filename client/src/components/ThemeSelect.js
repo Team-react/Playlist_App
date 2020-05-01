@@ -8,8 +8,10 @@ var spotifyApi = new SpotifyWebApi();
  
 class ThemeSelect extends Component {
   constructor(props){
-
     super(props);
+   
+    
+
 
     this.state = {
       desiredDuration: 0,
@@ -19,11 +21,32 @@ class ThemeSelect extends Component {
 
     
   }
+    
+  getHashParams() {
+    var hashParams = {};
+    var e, r = /([^&;=]+)=?([^&;]*)/g,
+        q = window.location.hash.substring(1);
+    e = r.exec(q)
+    while (e) {
+       hashParams[e[1]] = decodeURIComponent(e[2]);
+       e = r.exec(q);
+    }
+    return hashParams;
+  }
+
+  setToken() {
+    console.log(this.props.token)
+    spotifyApi.setAccessToken(this.props.token)
+
+  }
   
   getRandomPlaylist(genre) {
+    console.log(this.props.token)
+    // spotifyApi.setAccessToken(this.props.token)
+
     spotifyApi.searchPlaylists(genre)
     .then((data) => {
-      console.log('its not even reach this point')
+      console.log(data, 'its not even reach this point')
       var numberOfPlaylists = (data.body.playlists.items).length
       console.log(numberOfPlaylists)
       // this.setState({
@@ -55,9 +78,14 @@ class ThemeSelect extends Component {
       <input type="text" name="playlist_type" 
       placeholder="Input artist or genre" 
       value={this.playlist_type} 
-      onChange={this.playlistHandler} />
+      onChange={this.playlistHandler} 
+      />
       <button onClick={() => this.getRandomPlaylist(this.state.playlist_type) }>
         Get Playlist
+      </button>
+
+      <button onClick={() => this.setToken()}>
+        Get token
       </button>
 
     </form>

@@ -241,7 +241,7 @@ class App extends Component {
             Get playlist id
           </button>
           <ThemeSelect
-          playlist={this.updateList.bind(this)}
+          playlist={this.updateList.bind(this)} token={this.token}
           />
          {/* <div>
             <ul>
