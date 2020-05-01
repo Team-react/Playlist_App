@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SpotifyWebApi from 'spotify-web-api-node';
+import Playlist from './Playlist'
 
 
 var spotifyApi = new SpotifyWebApi();
@@ -34,7 +35,7 @@ class ThemeSelect extends Component {
   }
   
   getRandomPlaylist(genre) {
-    spotifyApi.setAccessToken(this.props.token)
+    
 
     spotifyApi.searchPlaylists(genre)
     .then((data) => {
@@ -52,13 +53,13 @@ class ThemeSelect extends Component {
     });
   }
 
-  playlistHandler = event => {
-    console.log(this.state.playlist_type)
+  // playlistHandler = event => {
+  //   console.log(this.state.playlist_type)
 
-    event.preventDefault();
+  //   event.preventDefault();
 
-    this.getRandomPlaylist(this.state.playlist_type)
-  }
+  //   this.getRandomPlaylist(this.state.playlist_type)
+  // }
 
   playlistTypeHandler = event => {
     this.setState({
@@ -70,15 +71,23 @@ class ThemeSelect extends Component {
   render() {
     return (
       <>
+      <div>
+      <Playlist
+      playListType={this.state.playlist_type}
+      token={this.props.token}
+      />
+      </div>
+      
+      
       <form>
       <input id='input' type="text" name="playlist_type" 
       placeholder="Input artist or genre" 
       ref={(c) => this.playlist_type = c}
       onChange={this.playlistTypeHandler} 
       />
-      <button type="button" onClick={this.playlistHandler}>
+      {/* <button type="button" onClick={this.playlistHandler}>
         Get Playlist
-      </button>
+      </button> */}
 
       <button onClick={() => this.setToken()}>
         Get token
@@ -93,8 +102,10 @@ class ThemeSelect extends Component {
              onChange={this.changeHandler}
       />
     </form>
+    
+ 
     </>
-    );
+    )
   }
 }
  

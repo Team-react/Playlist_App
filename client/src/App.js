@@ -3,6 +3,7 @@ import './App.css';
 import SpotifyWebApi from 'spotify-web-api-node';
 import Authorization from './components/Authorization'
 import ThemeSelect from './components/ThemeSelect';
+// import Playlist from './components/Playlist'
 
 var spotifyApi = new SpotifyWebApi();
 var authorization = new Authorization();
@@ -156,7 +157,7 @@ class App extends Component {
           <div>
             <Authorization/>
           </div>
-        { this.state.loggedIn &&
+        {/* { this.state.loggedIn &&
         <>
         <div>
           <div>
@@ -183,7 +184,7 @@ class App extends Component {
         </div>
         <button onClick={() => this.getTracks()}>
           Get tracks
-        </button>
+        </button> */}
 
         <button onClick={() => this.addSongsToPlaylist()}>
           Add this song to playlist
@@ -202,7 +203,7 @@ class App extends Component {
             })}
             </ul>
          </div> */}
-         </>
+         {/* </> */}
         }
         { this.state.playlistComplete && 
         <>
