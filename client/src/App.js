@@ -23,7 +23,8 @@ class App extends Component {
       desiredDuration: 0,
       currentDuration: 0,
       playlistComplete: false,
-      playlist_type: ''
+      playlist_type: '',
+      namedPlaylist: ''
 
     }
   }
@@ -131,7 +132,7 @@ class App extends Component {
       console.log(this.state.customPlaylist.songs)
     }
 
-  addSongsToPlaylist(){
+  addSongsToPlaylist(playlistname){
     var customPlaylist = this.state.customPlaylist.songs
     var userId
     //get userID
@@ -139,7 +140,7 @@ class App extends Component {
     .then(function(data) {
       userId = data.body.id;
       // Create Playlist
-      spotifyApi.createPlaylist(userId, 'newplaylist', { public : false })
+      spotifyApi.createPlaylist(userId, playlistname, { public : false })
           .then((data) => {
             var playlistid = data.body.id
             console.log(customPlaylist)
@@ -184,19 +185,24 @@ class App extends Component {
 
   changeHandler = event => {
     this.setState({
-      desiredDuration: event.target.value
+      desiredDuration: event.target.value,
     });
+    event.preventDefault();
   }
 
   playlistHandler = event => {
     this.setState({
-      playlist_type: event.target.value
+      playlist_type: event.target.value,
     });
+    event.preventDefault();
   }
-  // playlistHandler2 = event => {
-  //   this.getRandomPlaylist(this.state.playlist_type)
-  //   };
-  
+  namedPlaylistHandler = event => {
+    this.setState({
+      namedPlaylist: event.target.value,
+    });
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div className="App">
@@ -247,8 +253,7 @@ class App extends Component {
           <button onClick={() => this.getRandomPlaylist(this.state.playlist_type) }>
             Get Playlist
           </button>
-
-        </form>
+          </form>
           <button onClick={() => this.getTracks()}>
             Get tracks
           </button>
@@ -289,7 +294,18 @@ class App extends Component {
             })}
             </ul>
          </div>
-        <button onClick={() => this.addSongsToPlaylist()}>
+         <form>
+          <input type="text" name="namedPlaylist" 
+          placeholder="Name your playlist" 
+          value={this.namedPlaylist} 
+          onChange={this.namedPlaylistHandler} />
+          {/* <button onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
+            Create Playlist
+          </button> */}
+
+        </form>
+
+        <button onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
             Create playlist
         </button>
         </>
