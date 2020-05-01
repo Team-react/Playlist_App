@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SpotifyWebApi from 'spotify-web-api-node';
-import Playlist from './Playlist'
+import PlaylistGenerator from './Playlist'
 
 
 var spotifyApi = new SpotifyWebApi();
@@ -72,7 +72,7 @@ class ThemeSelect extends Component {
     return (
       <>
       <div>
-      <Playlist
+      <PlaylistGenerator
       playListType={this.state.playlist_type}
       token={this.props.token}
       />
@@ -89,9 +89,9 @@ class ThemeSelect extends Component {
         Get Playlist
       </button> */}
 
-      <button onClick={() => this.setToken()}>
+      {/* <button onClick={() => this.setToken()}>
         Get token
-      </button>
+      </button> */}
 
     </form>
       <form>

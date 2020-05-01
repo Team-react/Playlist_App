@@ -6,16 +6,68 @@ var spotifyApi = new SpotifyWebApi();
 
 
  
-class Playlist extends Component {
+class PlaylistGenerator extends Component {
   constructor(props){
     super(props);
     this.state = {
         song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
-        playlistid: ''
+        playlistid: '',
+        customPlaylist: { songs:[], playlistDuration:[]},
+
 
 
       
     }
+  }
+  getTracks(){
+    document.getElementById("myaudio").volume = 0.1
+    spotifyApi.setAccessToken(this.props.token)
+ 
+     console.log(this.state.playlistid)
+     spotifyApi.getPlaylist(this.props.token, this.state.playlistid)
+       .then((data) => {
+         
+         var playlistSize = data.body.tracks.items.length
+         var trackInfo = data.body.tracks.items[Math.floor(Math.random() * playlistSize)]
+         if(trackInfo.track.preview_url == null){
+           console.log("WE SKIPPED THIS ONE")
+           return this.dontAddToCustomPlaylist()
+         }
+         console.log(data)
+         console.log(trackInfo.track.duration_ms)
+ 
+         this.setState({
+           song: {
+             name: trackInfo.track.name,
+             artist: trackInfo.track.artists[0].name,
+             uri: trackInfo.track.uri,
+             albumArt: trackInfo.track.album.images[0].url,
+             album: trackInfo.track.album.name,
+             preview_url: trackInfo.track.preview_url
+            //  songLength: (trackInfo.track.duration_ms / 60000).toFixed(2)
+           }
+         })
+         console.log(this.state.song)
+       }, function(err) {
+         console.log('Something went wrong|!', err);
+       });
+   }
+   addToCustomPlaylist() {
+    this.state.customPlaylist.songs.push(this.state.song.uri)
+    this.state.customPlaylist.playlistDuration.push(this.state.song.songLength);
+ 
+    this.getRandomPlaylist(this.props.playlist_type)
+    this.getTracks();
+    console.log(this.state.customPlaylist.songs)
+    // this.calculatePlaylistDurationTotal()
+    // if(this.state.currentDuration >= this.state.desiredDuration) {
+    //   this.setState({playlistComplete: true})
+    // }
+  }
+
+  dontAddToCustomPlaylist() {
+    this.getRandomPlaylist(this.props.playlist_type)
+    this.getTracks();
   }
     
 
@@ -109,4 +161,4 @@ class Playlist extends Component {
 }
 }
  
-export default Playlist;
+export default PlaylistGenerator;
