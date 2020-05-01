@@ -42,7 +42,8 @@ class ThemeSelect extends Component {
   
   getRandomPlaylist(genre) {
     console.log(this.props.token)
-    // spotifyApi.setAccessToken(this.props.token)
+    
+    spotifyApi.setAccessToken(this.props.token)
 
     spotifyApi.searchPlaylists(genre)
     .then((data) => {
@@ -54,7 +55,7 @@ class ThemeSelect extends Component {
       //       id: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
       //     }        
       // });
-      // this.props.playlist(data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id)
+      this.props.playlist(data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id)
     }, function(err) {
       console.log('Something went wrong!', err);
     });
@@ -66,21 +67,39 @@ class ThemeSelect extends Component {
   }
 
   playlistHandler = event => {
+    console.log(this.state.playlist_type)
+
+    event.preventDefault();
+
+    this.getRandomPlaylist(this.state.playlist_type)
+  }
+
+  playlistTypeHandler = event => {
     this.setState({
       playlist_type: event.target.value
-    });
+
+    })
   }
+
+  // playlistHandler() {
+  //   this.preventDefault();
+
+  //   this.getRandomPlaylist(this.playlist_type)
+  //   // this.setState({
+  //   //   playlist_type: event.target.value
+  //   // });
+  // }
 
   render() {
     return (
       <>
       <form>
-      <input type="text" name="playlist_type" 
+      <input id='input' type="text" name="playlist_type" 
       placeholder="Input artist or genre" 
-      value={this.playlist_type} 
-      onChange={this.playlistHandler} 
+      ref={(c) => this.playlist_type = c}
+      onChange={this.playlistTypeHandler} 
       />
-      <button onClick={() => this.getRandomPlaylist(this.state.playlist_type) }>
+      <button type="button" onClick={this.playlistHandler}>
         Get Playlist
       </button>
 

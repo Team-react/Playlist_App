@@ -179,17 +179,17 @@ class App extends Component {
   //   });
   // }
 
-  changeHandler = event => {
-    this.setState({
-      desiredDuration: event.target.value
-    });
-  }
+  // changeHandler = event => {
+  //   this.setState({
+  //     desiredDuration: event.target.value
+  //   });
+  // }
 
-  playlistHandler = event => {
-    this.setState({
-      playlist_type: event.target.value
-    });
-  }
+  // playlistHandler = event => {
+  //   this.setState({
+  //     playlist_type: event.target.value
+  //   });
+  // }
 
   // playlistHandler2 = event => {
   //   this.getRandomPlaylist(this.state.playlist_type)
