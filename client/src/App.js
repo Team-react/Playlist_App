@@ -19,7 +19,7 @@ class App extends Component {
       tracks: {array: []},
       playlist: {array: []}, 
       song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
-      customPlaylist: { songs:[], playlistDuration:[]},
+      customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[], album_names:[]},
       desiredDuration: 0,
       currentDuration: 0,
       playlistComplete: false,
@@ -64,7 +64,9 @@ class App extends Component {
 
   addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri)
-    this.state.customPlaylist.playlistDuration.push(this.state.song.songLength);
+    this.state.customPlaylist.playlistDuration.push(this.state.song.songLength)
+    this.state.customPlaylist.list_of_tracks.push(this.state.song.names)
+    this.state.customPlaylist.album_names.push(this.state.song.album) 
  
     this.getRandomPlaylist(this.state.playlist_type)
     this.getTracks();
