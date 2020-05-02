@@ -2,11 +2,8 @@ import React, { Component } from "react";
 import SpotifyWebApi from 'spotify-web-api-node';
 import PlaylistFinaliser from './PlaylistFinaliser.js'
 
-
 var spotifyApi = new SpotifyWebApi();
 
-
- 
 class PlaylistGenerator extends Component {
   constructor(props){
     super(props);
@@ -16,12 +13,7 @@ class PlaylistGenerator extends Component {
         customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[]},
         currentDuration: 0,
         playlistComplete: false
-        
-
-
-
-
-      
+              
     }
     this.playlistHandler = this.playlistHandler.bind(this);
 
@@ -41,8 +33,7 @@ class PlaylistGenerator extends Component {
            console.log("WE SKIPPED THIS ONE")
            return this.dontAddToCustomPlaylist()
          }
-        //  console.log(data)
-        //  console.log(trackInfo.track.duration_ms)
+ 
  
          this.setState({
            song: {
@@ -55,7 +46,7 @@ class PlaylistGenerator extends Component {
              songLength: (trackInfo.track.duration_ms).toFixed(2)
            }
          })
-        //  console.log(this.state.song)
+      
        }, function(err) {
          console.log('Something went wrong|!', err);
        });
@@ -66,7 +57,7 @@ class PlaylistGenerator extends Component {
     for(var i = 0; i < arr.length; i++) {
       total += parseFloat(arr[i])
     }
-    // console.log(total)
+    
     this.setState({ currentDuration: total });
     if(this.state.currentDuration >= this.props.desiredDuration) {
       this.setState({playlistComplete: true})
@@ -78,7 +69,7 @@ class PlaylistGenerator extends Component {
     this.state.customPlaylist.list_of_tracks.push({name: this.state.song.name, artist: this.state.song.artist});
     this.getRandomPlaylist(this.props.playListType)
 
-    // this.getTracks();
+    
     
     this.calculatePlaylistDurationTotal()
     this.checkPlaylistComplete()
@@ -88,12 +79,9 @@ class PlaylistGenerator extends Component {
 
   dontAddToCustomPlaylist() {
     this.getRandomPlaylist(this.props.playListType)
-    // this.getTracks();
+    
   }
     
- 
-  // componentDidUpdate(){
-  // this.interval = setInterval(() =>   this.checkPlaylistComplete())}
 
   checkPlaylistComplete(){
 
@@ -144,15 +132,9 @@ class PlaylistGenerator extends Component {
   }
  
 
-//   playlistTypeHandler = event => {
-//     this.setState({
-//       playlist_type: event.target.value
-
-//     })
-//   }
-
   render() {
     return (
+      // <div>{ this.props.playlistComplete && 
         <>
         <div>
           <div>
@@ -177,16 +159,12 @@ class PlaylistGenerator extends Component {
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
         </div>
-        {/* <button onClick={this.getTracksHandler}>
-          Ge tracks
-        </button> */}
+
         <button type="button" onClick={this.playlistHandler}>
-        initiate algorithm
+        Initiate Algorithm
       </button>
 
-        {/* <button onClick={() => this.addSongsToPlaylist()}>
-          Add this song to playlist
-        </button> */}
+  
 
         <PlaylistFinaliser
         token={this.props.token}
@@ -194,7 +172,7 @@ class PlaylistGenerator extends Component {
         customPlaylist={this.state.customPlaylist}
         
        />
-         </>
+        </>
     )
 }
 }
