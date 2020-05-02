@@ -13,7 +13,7 @@ class PlaylistGenerator extends Component {
     this.state = {
         song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
         playlistid: '',
-        customPlaylist: { songs:[], playlistDuration:[]},
+        customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[]},
         currentDuration: 0,
         playlistComplete: false
         
@@ -68,14 +68,14 @@ class PlaylistGenerator extends Component {
   }
    addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri)
-    this.state.customPlaylist.playlistDuration.push(this.state.song.songLength);
+    this.state.customPlaylist.playlistDuration.push(this.state.song.songLength)
+    this.state.customPlaylist.list_of_tracks.push({name: this.state.song.name, artist: this.state.song.artist});
  
     this.getRandomPlaylist(this.props.playListType)
     this.getTracks();
     console.log(this.state.customPlaylist.songs)
     this.calculatePlaylistDurationTotal()
-    if(this.state.currentDuration >= parseInt(this.props.desiredDuration)) {
-
+    if(this.state.currentDuration >= this.props.desiredDuration) {
       this.setState({playlistComplete: true})
     }
   }
