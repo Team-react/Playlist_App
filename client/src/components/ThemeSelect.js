@@ -34,22 +34,26 @@ class ThemeSelect extends Component {
 
   }
   
-  getRandomPlaylist(genre) {
+  // getRandomPlaylist(genre) {
+
+  //   spotifyApi.setAccessToken(this.props.token)
+
     
 
-    spotifyApi.searchPlaylists(genre)
-    .then((data) => {
-      console.log(data, 'its not even reach this point')
-      var numberOfPlaylists = (data.body.playlists.items).length
-      console.log(numberOfPlaylists)
-      this.props.playlist(data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id)
-    }, function(err) {
-      console.log('Something went wrong!', err);
-    });
-  }
+  //   spotifyApi.searchPlaylists(genre)
+  //   .then((data) => {
+  //     console.log(data, 'its not even reach this point')
+  //     var numberOfPlaylists = (data.body.playlists.items).length
+  //     console.log(numberOfPlaylists)
+  //     this.props.playlist(data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id)
+  //   }, function(err) {
+  //     console.log('Something went wrong!', err);
+  //   });
+  // }
   changeHandler = event => {
     var time = parseInt(event.target.value) * 60000
     console.log(time)
+
     this.setState({
       desiredDuration: time
     });

@@ -23,8 +23,11 @@ class PlaylistGenerator extends Component {
 
       
     }
+    this.playlistHandler = this.playlistHandler.bind(this);
+
   }
   getTracks(){
+
     document.getElementById("myaudio").volume = 0.1
     spotifyApi.setAccessToken(this.props.token)
  
@@ -73,9 +76,9 @@ class PlaylistGenerator extends Component {
     this.state.customPlaylist.songs.push(this.state.song.uri)
     this.state.customPlaylist.playlistDuration.push(this.state.song.songLength)
     this.state.customPlaylist.list_of_tracks.push({name: this.state.song.name, artist: this.state.song.artist});
- 
     this.getRandomPlaylist(this.props.playListType)
-    this.getTracks();
+
+    // this.getTracks();
     
     this.calculatePlaylistDurationTotal()
     this.checkPlaylistComplete()
@@ -85,7 +88,7 @@ class PlaylistGenerator extends Component {
 
   dontAddToCustomPlaylist() {
     this.getRandomPlaylist(this.props.playListType)
-    this.getTracks();
+    // this.getTracks();
   }
     
  
@@ -118,6 +121,7 @@ class PlaylistGenerator extends Component {
       this.setState({
           playlistid: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
       })
+      this.getTracks()
       console.log("successfully got a playlist by genre")
     }, function(err) {
       console.log('Error searching for playlist by genre', err);
@@ -138,6 +142,7 @@ class PlaylistGenerator extends Component {
 
     this.getRandomPlaylist(this.props.playListType)
   }
+ 
 
 //   playlistTypeHandler = event => {
 //     this.setState({
@@ -172,16 +177,16 @@ class PlaylistGenerator extends Component {
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
         </div>
-        <button onClick={() => this.getTracks()}>
-          Get tracks
-        </button>
+        {/* <button onClick={this.getTracksHandler}>
+          Ge tracks
+        </button> */}
         <button type="button" onClick={this.playlistHandler}>
-        Get Playlist
+        initiate algorithm
       </button>
 
-        <button onClick={() => this.addSongsToPlaylist()}>
+        {/* <button onClick={() => this.addSongsToPlaylist()}>
           Add this song to playlist
-        </button>
+        </button> */}
 
         <PlaylistFinaliser
         token={this.props.token}
