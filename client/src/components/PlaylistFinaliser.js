@@ -12,7 +12,7 @@ class PlaylistFinaliser extends Component {
     this.state = { namedPlaylist: '' }
   }
   
-    addSongsToPlaylist(){
+    addSongsToPlaylist(playlistname){
       console.log(this.props.token)
         var customPlaylist = this.props.customPlaylist.songs
         var userId
@@ -22,7 +22,7 @@ class PlaylistFinaliser extends Component {
         .then(function(data) {
           userId = data.body.id;
           // Create Playlist
-          spotifyApi.createPlaylist(userId, 'newplaylist', { public : false })
+          spotifyApi.createPlaylist(userId, playlistname, { public : false })
               .then((data) => {
                 var playlistid = data.body.id
                 console.log(customPlaylist)
@@ -53,6 +53,13 @@ class PlaylistFinaliser extends Component {
           this.setState({songs: uri_checked});
           console.log(this.props.customPlaylist.songs)
         }
+
+        namedPlaylistHandler = event => {
+          this.setState({
+            namedPlaylist: event.target.value,
+          });
+          event.preventDefault();
+        }
     
 
   render() {
@@ -71,14 +78,18 @@ class PlaylistFinaliser extends Component {
             })}
             </ul>
          </div>
-
-            <button onClick={() => this.addSongsToPlaylist()}>
-                Create playlist
+         <form>
+          <input type="text" name="namedPlaylist" 
+          placeholder="Name your playlist" 
+          value={this.namedPlaylist} 
+          onChange={this.namedPlaylistHandler} />
+        </form>
+            <button onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
+            Create playlist
             </button>
             </>
             }</div>
     )  
 }}
 
- 
 export default PlaylistFinaliser

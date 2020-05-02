@@ -48,8 +48,10 @@ class ThemeSelect extends Component {
     });
   }
   changeHandler = event => {
+    var time = parseInt(event.target.value) * 60000
+    console.log(time)
     this.setState({
-      desiredDuration: event.target.value
+      desiredDuration: time
     });
   }
 

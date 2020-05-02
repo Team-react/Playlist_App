@@ -49,7 +49,7 @@ class PlaylistGenerator extends Component {
              albumArt: trackInfo.track.album.images[0].url,
              album: trackInfo.track.album.name,
              preview_url: trackInfo.track.preview_url,
-             songLength: (trackInfo.track.duration_ms / 60000).toFixed(2)
+             songLength: (trackInfo.track.duration_ms).toFixed(2)
            }
          })
          console.log(this.state.song)
@@ -60,7 +60,7 @@ class PlaylistGenerator extends Component {
    calculatePlaylistDurationTotal() {
     var arr = this.state.customPlaylist.playlistDuration
     var total = 0
-    for(var i = 0; i< arr.length; i++) {
+    for(var i = 0; i < arr.length; i++) {
       total += parseFloat(arr[i])
     }
     // console.log(total)
@@ -109,8 +109,10 @@ class PlaylistGenerator extends Component {
     });
   }
   changeHandler = event => {
+    var time = parseInt(event.target.value) * 60000
+    console.log(time)
     this.setState({
-      desiredDuration: event.target.value
+      desiredDuration: time
     });
   }
 
@@ -146,7 +148,7 @@ class PlaylistGenerator extends Component {
           <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
           </div>
           <div>
-          Track Length: {Math.floor(this.state.song.songLength*60000/(1000*60)%60)+":"+("0"+Math.floor(this.state.song.songLength*60000/1000%60)).slice(-2)}
+          Track Length: {Math.floor(this.state.song.songLength/(1000*60)%60)+":"+("0"+Math.floor(this.state.song.songLength/1000%60)).slice(-2)}
           </div>  
           <div>
           <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
