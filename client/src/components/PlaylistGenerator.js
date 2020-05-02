@@ -38,8 +38,8 @@ class PlaylistGenerator extends Component {
            console.log("WE SKIPPED THIS ONE")
            return this.dontAddToCustomPlaylist()
          }
-         console.log(data)
-         console.log(trackInfo.track.duration_ms)
+        //  console.log(data)
+        //  console.log(trackInfo.track.duration_ms)
  
          this.setState({
            song: {
@@ -52,7 +52,7 @@ class PlaylistGenerator extends Component {
              songLength: (trackInfo.track.duration_ms).toFixed(2)
            }
          })
-         console.log(this.state.song)
+        //  console.log(this.state.song)
        }, function(err) {
          console.log('Something went wrong|!', err);
        });
@@ -65,6 +65,9 @@ class PlaylistGenerator extends Component {
     }
     // console.log(total)
     this.setState({ currentDuration: total });
+    if(this.state.currentDuration >= this.props.desiredDuration) {
+      this.setState({playlistComplete: true})
+    }
   }
    addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri)
@@ -73,11 +76,11 @@ class PlaylistGenerator extends Component {
  
     this.getRandomPlaylist(this.props.playListType)
     this.getTracks();
-    console.log(this.state.customPlaylist.songs)
+    
     this.calculatePlaylistDurationTotal()
-    if(this.state.currentDuration >= this.props.desiredDuration) {
-      this.setState({playlistComplete: true})
-    }
+    this.checkPlaylistComplete()
+    console.log(this.state.currentDuration)
+   
   }
 
   dontAddToCustomPlaylist() {
@@ -85,7 +88,19 @@ class PlaylistGenerator extends Component {
     this.getTracks();
   }
     
+ 
+  // componentDidUpdate(){
+  // this.interval = setInterval(() =>   this.checkPlaylistComplete())}
 
+  checkPlaylistComplete(){
+
+    if(this.state.currentDuration >= this.props.desiredDuration) {
+      this.setState({playlistComplete: true})
+  
+    }
+    this.interval = setInterval(() =>   this.checkPlaylistComplete())
+  }
+  
 
   setToken() {
     console.log(this.props.token)
