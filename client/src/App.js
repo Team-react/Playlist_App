@@ -56,64 +56,9 @@ class App extends Component {
       })
   }
 
-  addToCustomPlaylist() {
-    this.state.customPlaylist.songs.push(this.state.song.uri)
-    this.state.customPlaylist.playlistDuration.push(this.state.song.songLength);
- 
-    themeSelect.getRandomPlaylist(this.state.playlist_type)
-    this.getTracks();
-    console.log(this.state.customPlaylist.songs)
-    this.calculatePlaylistDurationTotal()
-    if(this.state.currentDuration >= this.state.desiredDuration) {
-      this.setState({playlistComplete: true})
-    }
-  }
+  
 
-  dontAddToCustomPlaylist() {
-    this.getRandomPlaylist(this.state.playlist_type)
-    this.getTracks();
-  }
 
-  updateList(id){
-    this.setState({
-      list: {id: id}
-    })
-  }
-
-  // getTracks(){
-  //  document.getElementById("myaudio").volume = 0.1
-  //  spotifyApi.setAccessToken(this.token)
-
-  //   console.log(this.token)
-  //   console.log(this.state.list.id)
-  //   spotifyApi.getPlaylist(this.token, this.state.list.id)
-  //     .then((data) => {
-        
-  //       var playlistSize = data.body.tracks.items.length
-  //       var trackInfo = data.body.tracks.items[Math.floor(Math.random() * playlistSize)]
-  //       if(trackInfo.track.preview_url == null){
-  //         console.log("WE SKIPPED THIS ONE")
-  //         return this.dontAddToCustomPlaylist()
-  //       }
-  //       console.log(data)
-  //       console.log(trackInfo.track.duration_ms)
-
-  //       this.setState({
-  //         song: {
-  //           name: trackInfo.track.name,
-  //           artist: trackInfo.track.artists[0].name,
-  //           uri: trackInfo.track.uri,
-  //           albumArt: trackInfo.track.album.images[0].url,
-  //           album: trackInfo.track.album.name,
-  //           preview_url: trackInfo.track.preview_url,
-  //           songLength: (trackInfo.track.duration_ms / 60000).toFixed(2)
-  //         }
-  //       })
-  //       console.log(this.state.song)
-  //     }, function(err) {
-  //       console.log('Something went wrong|!', err);
-  //     });
-  // }
 
   addSongsToPlaylist(){
     var customPlaylist = this.state.customPlaylist.songs
@@ -153,68 +98,20 @@ class App extends Component {
 
   render() {
     return (
+      <>
       <div className="App">
           <div>
             <Authorization/>
           </div>
-        {/* { this.state.loggedIn &&
-        <>
         <div>
-          <div>
-          {this.state.song.name}      
-          </div>     
-          <div>
-          By: {this.state.song.artist}
-          </div>
-          <div>
-          Album: {this.state.song.album}
-          </div>  
-          <div>
-          <img src={this.state.song.albumArt} style={{ height: 320 }} alt=''/>
-          </div>
-          <div>
-          Track Length: {Math.floor(this.state.song.songLength*60000/(1000*60)%60)+":"+("0"+Math.floor(this.state.song.songLength*60000/1000%60)).slice(-2)}
-          </div>  
-          <div>
-          <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
-          </audio>
-          </div>
-          <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
-          <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
-        </div>
-        <button onClick={() => this.getTracks()}>
-          Get tracks
-        </button> */}
-
-        {/* <button onClick={() => this.addSongsToPlaylist()}>
-          Add this song to playlist
-        </button> */}
-
-        {/* <button onClick={() => this.getRandomPlaylist('Rock Music')}>
-          Get playlist id
-        </button> */}
           <ThemeSelect
-          // playlist={this.updateList.bind(this)}
            token={this.token}
           />
-         {/* <div>
-            <ul>
-            {this.state.tracks.array.map((value, index) => {
-            return <li key={index}>{value.name}</li>
-            })}
-            </ul>
-         </div> */}
-         {/* </> */}
-        }
-        { this.state.playlistComplete && 
-        <>
-        <div>You have reached your desired time limit</div>
-        <button onClick={() => this.addSongsToPlaylist()}>
-            Create playlist
-        </button>
-        </>
-        }
+        </div>
       </div>
+      </>
+        
+       
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SpotifyWebApi from 'spotify-web-api-node';
+import PlaylistFinaliser from './PlaylistFinaliser.js'
 
 
 var spotifyApi = new SpotifyWebApi();
@@ -94,6 +95,7 @@ class PlaylistGenerator extends Component {
   
   getRandomPlaylist(genre) {
   
+    spotifyApi.setAccessToken(this.props.token)
 
     spotifyApi.searchPlaylists(genre)
     .then((data) => {
@@ -164,9 +166,12 @@ class PlaylistGenerator extends Component {
           Add this song to playlist
         </button>
 
+        <PlaylistFinaliser
+        token={this.props.token}
+        playlistComplete={this.state.playlistComplete}
+        customPlaylist={this.state.customPlaylist}
         
-        
-       
+       />
          </>
     )
 }
