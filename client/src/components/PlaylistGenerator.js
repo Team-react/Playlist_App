@@ -109,7 +109,10 @@ class PlaylistGenerator extends Component {
       this.setState({
           playlistid: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
       })
-      this.getTracks()
+      if(this.state.playlistComplete === false){
+        this.getTracks()
+
+      }
       console.log("successfully got a playlist by genre")
     }, function(err) {
       console.log('Error searching for playlist by genre', err);
@@ -134,8 +137,9 @@ class PlaylistGenerator extends Component {
 
   render() {
     return (
-      // <div>{ this.props.playlistComplete && 
         <>
+        <div>{ !(this.state.playlistComplete) && 
+
         <div>
           <div>
           {this.state.song.name}      
@@ -156,13 +160,20 @@ class PlaylistGenerator extends Component {
           <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
           </audio>
           </div>
+          <div>
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
-        </div>
+          </div>
+        
 
+      
         <button type="button" onClick={this.playlistHandler}>
         Initiate Algorithm
-      </button>
+        </button>
+        </div>
+
+      
+  }</div>
 
   
 
