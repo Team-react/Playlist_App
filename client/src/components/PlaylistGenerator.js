@@ -12,7 +12,7 @@ class PlaylistGenerator extends Component {
         playlistid: '',
         customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[]},
         currentDuration: 0,
-        playlistComplete: false
+        // playlistComplete: false
               
     }
     this.playlistHandler = this.playlistHandler.bind(this);
@@ -60,7 +60,8 @@ class PlaylistGenerator extends Component {
     
     this.setState({ currentDuration: total });
     if(this.state.currentDuration >= this.props.desiredDuration) {
-      this.setState({playlistComplete: true})
+      // this.setState({playlistComplete: true})
+      this.props.playlistIsComplete()
     }
   }
    addToCustomPlaylist() {
@@ -86,7 +87,9 @@ class PlaylistGenerator extends Component {
   checkPlaylistComplete(){
 
     if(this.state.currentDuration >= this.props.desiredDuration) {
-      this.setState({playlistComplete: true})
+      // this.setState({playlistComplete: true})
+      this.props.playlistIsComplete()
+
   
     }
     this.interval = setInterval(() =>   this.checkPlaylistComplete())
@@ -109,7 +112,7 @@ class PlaylistGenerator extends Component {
       this.setState({
           playlistid: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
       })
-      if(this.state.playlistComplete === false){
+      if(this.props.playlistComplete === false){
         this.getTracks()
 
       }
@@ -138,7 +141,7 @@ class PlaylistGenerator extends Component {
   render() {
     return (
         <>
-        <div>{ !(this.state.playlistComplete) && 
+        <div>{ !(this.props.playlistComplete) && 
 
         <div>
           <div>
@@ -164,25 +167,22 @@ class PlaylistGenerator extends Component {
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
           </div>
-        
-
-      
-        <button type="button" onClick={this.playlistHandler}>
-        Initiate Algorithm
-        </button>
-        </div>
-
-      
-  }</div>
+          <button type="button" onClick={this.playlistHandler}>
+            Initiate Algorithm
+          </button>
+          </div>
+          }</div>
 
   
-
+       <div>
         <PlaylistFinaliser
         token={this.props.token}
-        playlistComplete={this.state.playlistComplete}
+        playlistComplete={this.props.playlistComplete}
         customPlaylist={this.state.customPlaylist}
         
        />
+       </div>
+       
         </>
     )
 }

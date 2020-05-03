@@ -71,6 +71,7 @@ class PlaylistFinaliser extends Component {
             <ul>
             {this.props.customPlaylist.list_of_tracks.map((value, index) => {
             return <li key={index}>{value.name} - {value.artist}
+            
             <button onClick={() => this.removeFromPlaylist(index)}>
             ❌
             </button>
@@ -84,9 +85,18 @@ class PlaylistFinaliser extends Component {
           value={this.namedPlaylist} 
           onChange={this.namedPlaylistHandler} />
         </form>
+        <div>
             <button onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
             Create playlist
             </button>
+        </div>
+        {/* <div>
+          <div>Not Finished?</div>
+            <button onClick={() => this.props.)}>
+            Create playlist
+            </button>
+        </div> */}
+
             </>
             }</div>
     )  

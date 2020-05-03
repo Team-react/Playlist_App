@@ -31,13 +31,12 @@ class Authorization extends Component {
 
   render() {
     return (
+      
         <div>
           <div>
             <a href='http://localhost:8888' > Login to Spotify </a>
           </div>
-          <button onClick={() => this.test()}>
-            test
-          </button>
+       
         </div>
     );
   }

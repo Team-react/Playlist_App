@@ -13,6 +13,7 @@ class ThemeSelect extends Component {
     this.state = {
       desiredDuration: 0,
       playlist_type: '',
+      playlistComplete: false
     }
   }
     
@@ -32,6 +33,13 @@ class ThemeSelect extends Component {
     console.log(this.props.token)
     spotifyApi.setAccessToken(this.props.token)
 
+  }
+
+  playlistIsComplete(){
+    this.setState({
+      playlistComplete: true
+
+    })
   }
   
   // getRandomPlaylist(genre) {
@@ -82,23 +90,20 @@ class ThemeSelect extends Component {
       playListType={this.state.playlist_type}
       desiredDuration={this.state.desiredDuration}
       token={this.props.token}
+      playlistIsComplete={this.playlistIsComplete.bind(this)}
+      playlistComplete={this.state.playlistComplete}
+
       />
       </div>
       
-      
+      <div>{ !(this.state.playlistComplete) &&
+      <div>
       <form>
       <input id='input' type="text" name="playlist_type" 
       placeholder="Input artist or genre" 
-      // ref={(c) => this.playlist_type = c}
       onChange={this.playlistTypeHandler} 
       />
-      {/* <button type="button" onClick={this.playlistHandler}>
-        Get Playlist
-      </button> */}
-
-      {/* <button onClick={() => this.setToken()}>
-        Get token
-      </button> */}
+    
 
     </form>
       <form>
@@ -109,6 +114,9 @@ class ThemeSelect extends Component {
              onChange={this.changeHandler}
       />
     </form>
+    </div>
+  }</div>
+
     
  
     </>
