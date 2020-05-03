@@ -177,4 +177,7 @@ class PlaylistGenerator extends Component {
 }
 }
  
-export default PlaylistGenerator;
+export default PlaylistGenerator,
+export default PlaylistGenerator {
+  return this.state.song;
+}

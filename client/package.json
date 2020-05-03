@@ -9,7 +9,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "spotify-web-api-node": "^2.4.0"
+    "spotify-web-api-node": "^2.4.0",
+    "nuka-carousel": "^4.4.7",
+    "prop-types": "^15.7.2"
   },
   "scripts": {
     "start": "react-scripts start",

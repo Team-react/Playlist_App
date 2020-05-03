@@ -1,9 +1,12 @@
 import React,{Component} from 'react';
+import Deck from "./components/Deck";
 import './App.css';
 import SpotifyWebApi from 'spotify-web-api-node';
 import Authorization from './components/Authorization'
 import ThemeSelect from './components/ThemeSelect';
 // import Playlist from './components/Playlist'
+
+const Stack = () => <Deck />;
 
 var spotifyApi = new SpotifyWebApi();
 var authorization = new Authorization();
@@ -109,7 +112,11 @@ class App extends Component {
           />
         </div>
       </div>
+      <div>
+        <Stack/>
+      </div>
       </>
+
         
        
     );
@@ -117,4 +124,5 @@ class App extends Component {
 }
 
 export default App;
+
 
