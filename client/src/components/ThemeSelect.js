@@ -41,6 +41,12 @@ class ThemeSelect extends Component {
 
     })
   }
+  playlistIsNotComplete(){
+    this.setState({
+      playlistComplete: false
+
+    })
+  }
   
   // getRandomPlaylist(genre) {
 
@@ -91,7 +97,9 @@ class ThemeSelect extends Component {
       desiredDuration={this.state.desiredDuration}
       token={this.props.token}
       playlistIsComplete={this.playlistIsComplete.bind(this)}
+      playlistIsNotComplete={this.playlistIsNotComplete.bind(this)}
       playlistComplete={this.state.playlistComplete}
+
 
       />
       </div>

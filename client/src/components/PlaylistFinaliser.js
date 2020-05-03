@@ -90,12 +90,12 @@ class PlaylistFinaliser extends Component {
             Create playlist
             </button>
         </div>
-        {/* <div>
+        <div>
           <div>Not Finished?</div>
-            <button onClick={() => this.props.)}>
-            Create playlist
+            <button onClick={() => this.props.playlistIsNotComplete()}>
+            Return back to Playlist Generator
             </button>
-        </div> */}
+        </div>
 
             </>
             }</div>

@@ -179,10 +179,12 @@ class PlaylistGenerator extends Component {
         token={this.props.token}
         playlistComplete={this.props.playlistComplete}
         customPlaylist={this.state.customPlaylist}
+        playlistIsNotComplete={this.props.playlistIsNotComplete}
+
         
        />
        </div>
-       
+
         </>
     )
 }
