@@ -136,7 +136,7 @@ handleGeneratorMount(){
       <form>
       <input type="text"
              name="duration"
-             placeholder="input playlist length"
+             placeholder="Input playlist length (Minutes)"
             //  value={this.state.desiredDuration}
              onChange={this.changeHandler}
       />
