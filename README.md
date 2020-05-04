@@ -1,33 +1,69 @@
-# spotify-api-intro
-This Repo is the result of a tutorial that teaches how to use Spotify's API with react.
-It's a siple app that allos users to see what song they currently have playing on Spotify.
-There are two parts to it, the auth-server, and the client. 
+# Spotify App - Road To Discovery 
 
-## Getting Statrted
+This application was created using React, Node and the Spotify Web API. This App was created with the sole purpose of being able to make a playlist as quickly and efficiently as possible. If for example, you're going on a road trip and forgot to make a playlist the night before, this app will allow you to quickly generate a brand new playlist with the added merit of being able to discover so many new tracks and artists by usitilsing a randomizer with the Spotify Web API.
 
-### 1) Create an App
-- Visit https://developer.spotify.com/ 
-- Log in and create an app
-- Enter http//localhost:8888/callback as the redirect uri
-- Save your changes
-- Copy down the following: Redirect uri, client id, client secret
+## Getting Started and using the App
 
+### 1) Getting Set Up 
+
+- git clone https://github.com/Team-react/Playlist_App
+- cd Playlist_App
 
 ### 2)  Start Auth Server
-- Navigate to the auth-server directory `cd auth-server`
+- Navigate (cd) to the auth-server directory `cd auth-server`
 - Install the dependencies `npm install`
-- Paste in the redirect uri, client id, and client secret you copied in step 1
 - Run the Server `node authorization_code/app.js`
 
 ### 3)  Start Client
-- Navigate to the auth-server directory `cd client`
+- Navigate (cd) to the auth-server directory `cd client`
 - Install the dependencies `npm install`
 - Run the Server `npm start`
 
 ### 4)  Use the App
-- Make sure you have a song playing (or paused) on a Spotify app
-- Visit http://localhost:3000
-- Click 'Log in with Spotify' and log in
-- Click the 'Check Now Playing' Button
-- Your currently playing song's name and album art should appear
+- Visit `http://localhost:8888/`
+- Click 'Log in with Spotify' to Log In
+- 
 
+# User Stories
+  
+- As a User, 
+  so I can authorise my Spotify Account with the App,
+  I'd like to be able to log in with Spotify
+
+- As a User, 
+  so I can choose what I want in my playlist,
+  I'd like to be able to input artist or genre in my search
+
+- As a User, 
+  So I know as much about each song as possible, 
+  I'd like to be able to see the artist name, album name and album art
+
+- As a User,
+  so I know which songs I want to add into my playlist,
+  I'd like to be able to hear a preview of each song by which artist
+
+- As a User,
+  so I can have my playlist last for a desired length,
+  I'd like to be able to input the playlist length
+
+- As a User, 
+  so I can choose which songs I want to have in my playlist,
+  I'd like to be able to say 'Yes' or 'No' to a song
+
+- As a User, 
+  so I can have a playlist without a default name,
+  I'd like to be able to name my new Playlist
+
+- As a User, 
+  so in the off chance I change my mind on a song I've said yes to,
+  I'd like to be able to remove songs from my list of chosen songs.
+
+# Process
+
+
+
+# Testing Frameworks Used 
+
+
+
+# Example Usage
