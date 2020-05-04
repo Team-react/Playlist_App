@@ -73,7 +73,7 @@ class PlaylistFinaliser extends Component {
             return <li key={index}>{value.name} - {value.artist}
             
             <button onClick={() => this.removeFromPlaylist(index)}>
-            ❌
+            X
             </button>
             </li>
             })}
