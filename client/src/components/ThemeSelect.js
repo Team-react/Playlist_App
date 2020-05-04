@@ -14,7 +14,8 @@ class ThemeSelect extends Component {
       desiredDuration: 0,
       playlist_type: '',
       playlistComplete: false,
-      renderGenerator: false
+      renderGenerator: false,
+      errorForDurationInput: false,
     }
     this.handleGeneratorMount = this.handleGeneratorMount.bind(this);
 
@@ -74,7 +75,27 @@ handleGeneratorMount(){
   //   });
   // }
   changeHandler = event => {
-    var time = parseInt(event.target.value) * 60000
+    
+    var time = (event.target.value)
+    // if((time < 0) || (time > 500)){
+    //   this.setState({
+    //     errorForDurationInput: true,
+    //   })
+    if(/^[1-9]?[0-9]{1}$|^100$/.test(time)){
+      this.setState({
+        errorForDurationInput: false,
+      })
+    }
+
+    
+    else {
+      this.setState({
+        errorForDurationInput: true,
+      })
+    }
+    time = time * 60000
+
+    
     console.log(time)
 
     this.setState({
@@ -141,6 +162,13 @@ handleGeneratorMount(){
              onChange={this.changeHandler}
       />
     </form>
+    {this.state.errorForDurationInput ?
+    <div>
+      <p>Please enter a number between 1 and 100</p>
+
+    </div>
+    : null
+    }
     <div>
     <button type="button" onClick={this.mountGeneratorHanler}>
             I'm Ready!
