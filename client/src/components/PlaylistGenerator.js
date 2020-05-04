@@ -29,6 +29,7 @@ class PlaylistGenerator extends Component {
 
 
   }
+  //Method to erase state of song that is currently playing
   wipeSong(){
     console.log("TRYING TO WIPE SONGS")
 
@@ -36,6 +37,7 @@ class PlaylistGenerator extends Component {
       song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
     })
   }
+  //methods that mount and unmount playlist finaliser
   handleFinaliserMount(){
     this.setState({renderFinaliser: true});
   
@@ -43,6 +45,8 @@ class PlaylistGenerator extends Component {
   handleFinaliserUnmount(){
     this.setState({renderFinaliser: false});
 }
+
+//methods that sets the state of playlistoveride
 overidePlaylist(){
 
   this.setState({
@@ -93,7 +97,7 @@ unoveridePlaylist(){
          console.log('Something went wrong|!', err);
        });
    }
-   
+   //totles up current duration of the songs
    calculatePlaylistDurationTotal() {
      if(this.state.playlistOveride === false){
     var arr = this.state.customPlaylist.playlistDuration
@@ -134,22 +138,21 @@ unoveridePlaylist(){
     clearInterval(this.interval)
   }
 
-  componentWillUnmount(){
-    this.stopInterval()
-    console.log("HI I HAVE JUST UNMOUNT")
+  // componentWillUnmount(){
+  //   this.stopInterval()
+  //   console.log("HI I HAVE JUST UNMOUNT")
 
-  }
+  // }
 
   componentDidMount(){
-    document.getElementById("myaudio").volume = 0.1
 
     console.log("HI I HAVE MOUNTED")
     this.interval = setInterval(() =>   this.checkPlaylistComplete())
   }
 
-  dismiss() {
-    this.props.unmountMe();
-  } 
+  // dismiss() {
+  //   this.props.unmountMe();
+  // } 
 
 
 
@@ -249,10 +252,10 @@ unoveridePlaylist(){
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
           </div>
           <button type="button" onClick={this.playlistHandler}>
-            Initiate Algorithm
+            Load Tracks
           </button>
           <button type="button" onClick={() => this.unoveridePlaylist()}>
-            unmountme
+            I'm Done!
           </button>
           </div>
           : null

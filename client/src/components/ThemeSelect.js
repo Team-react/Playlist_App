@@ -95,7 +95,11 @@ handleGeneratorMount(){
       playlist_type: event.target.value
 
     })
+  }
+
+  mountGeneratorHanler = event => {
     this.handleGeneratorMount()
+
   }
 
   render() {
@@ -137,6 +141,12 @@ handleGeneratorMount(){
              onChange={this.changeHandler}
       />
     </form>
+    <div>
+    <button type="button" onClick={this.mountGeneratorHanler}>
+            I'm Ready!
+    </button>
+    </div>
+
     </div>
   }</div>
 
