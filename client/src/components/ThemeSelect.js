@@ -14,16 +14,16 @@ class ThemeSelect extends Component {
       desiredDuration: 0,
       playlist_type: '',
       playlistComplete: false,
-      renderChild: false
+      renderGenerator: false
     }
-    this.handleChildUnmount = this.handleChildUnmount.bind(this);
+    this.handleGeneratorMount = this.handleGeneratorMount.bind(this);
 
   }
-  handleChildUnmount(){
-    this.setState({renderChild: false});
-}
-handleChildmount(){
-  this.setState({renderChild: true});
+//   handleGeneratorUnmount(){
+//     this.setState({renderGenerator: false});
+// }
+handleGeneratorMount(){
+  this.setState({renderGenerator: true});
 
 }
     
@@ -95,7 +95,7 @@ handleChildmount(){
       playlist_type: event.target.value
 
     })
-    this.handleChildmount()
+    this.handleGeneratorMount()
   }
 
   render() {
@@ -103,7 +103,7 @@ handleChildmount(){
       <>
       <div>
 
-      {this.state.renderChild ?
+      {this.state.renderGenerator ?
 
       <PlaylistGenerator
       playListType={this.state.playlist_type}
@@ -112,14 +112,14 @@ handleChildmount(){
       playlistIsComplete={this.playlistIsComplete.bind(this)}
       playlistIsNotComplete={this.playlistIsNotComplete.bind(this)}
       playlistComplete={this.state.playlistComplete}
-      unmountMe={this.handleChildUnmount.bind(this)}
+      // unmountGenerator={this.handleGeneratorUnmount.bind(this)}
       
       />
       : null
       }
       </div>
       
-      <div>{ !(this.state.playlistComplete) &&
+      <div>{ !(this.state.renderGenerator) &&
       <div>
       <form>
       <input id='input' type="text" name="playlist_type" 

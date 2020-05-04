@@ -13,14 +13,14 @@ class PlaylistGenerator extends Component {
         playlistid: '',
         customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[]},
         currentDuration: 0,
-        renderChild: false,
+        renderFinaliser: false,
         playlistOveride: false
 
         // playlistComplete: false           
     }
     this.playlistHandler = this.playlistHandler.bind(this);
-    this.handleChildUnmount = this.handleChildUnmount.bind(this);
-    this.handleChildmount = this.handleChildmount.bind(this);
+    this.handleFinaliserUnmount = this.handleFinaliserUnmount.bind(this);
+    this.handleFinaliserMount = this.handleFinaliserMount.bind(this)
     this.overidePlaylist = this.overidePlaylist.bind(this);
     this.wipeSong = this.wipeSong.bind(this);
 
@@ -36,12 +36,12 @@ class PlaylistGenerator extends Component {
       song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
     })
   }
-  handleChildmount(){
-    this.setState({renderChild: true});
+  handleFinaliserMount(){
+    this.setState({renderFinaliser: true});
   
   }
-  handleChildUnmount(){
-    this.setState({renderChild: false});
+  handleFinaliserUnmount(){
+    this.setState({renderFinaliser: false});
 }
 overidePlaylist(){
 
@@ -56,7 +56,7 @@ unoveridePlaylist(){
     playlistOveride: false
   })
   this.wipeSong()
-  this.handleChildmount()
+  this.handleFinaliserMount()
 
 }
 
@@ -166,7 +166,7 @@ unoveridePlaylist(){
       // this.setState({playlistComplete: true})
       this.props.playlistIsComplete()
       this.wipeSong()
-      this.handleChildmount()
+      this.handleFinaliserMount()
       this.stopInterval()
 
   
@@ -262,13 +262,13 @@ unoveridePlaylist(){
 
   
        <div>
-       {this.state.renderChild ?
+       {this.state.renderFinaliser ?
         <PlaylistFinaliser
         token={this.props.token}
         playlistComplete={this.props.playlistComplete}
         customPlaylist={this.state.customPlaylist}
         playlistIsNotComplete={this.props.playlistIsNotComplete}
-        unmountMe={this.handleChildUnmount}
+        unmountFinaliser={this.handleFinaliserUnmount}
         overidePlaylist={this.overidePlaylist}
 
         

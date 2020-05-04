@@ -12,13 +12,13 @@ class PlaylistFinaliser extends Component {
     this.state = { namedPlaylist: '' }
   }
   dismiss() {
-    this.props.unmountMe();
-    this.overidePlaylist()
+    this.props.unmountFinaliser();
+    this.props.overidePlaylist()
     // this.playlistIsNotComplete()
 } 
-overidePlaylist(){
-  this.props.overidePlaylist()
-}
+// overidePlaylist(){
+//   this.props.overidePlaylist()
+// }
 
 playlistIsNotComplete(){
   this.props.playlistIsNotComplete()
