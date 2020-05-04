@@ -197,21 +197,23 @@ unoveridePlaylist(){
           <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
           </audio>
           </div>
+          { !(this.state.song.name === '') && 
           <div>
           <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
           </div>
+          }
           <button type="button" onClick={this.playlistHandler}>
             Load Tracks
           </button>
           <button type="button" onClick={() => this.unoveridePlaylist()}>
-            I'm Done!
+          I'm Done!
           </button>
           </div>
           : null
     }
           </div>
-          
+    
 
   
        <div>
@@ -227,7 +229,7 @@ unoveridePlaylist(){
        : null}
        </div>
         </>
-    )
-}}
+        )
+      }}
 
 export default PlaylistGenerator;
