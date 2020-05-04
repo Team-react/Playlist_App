@@ -13,9 +13,19 @@ class ThemeSelect extends Component {
     this.state = {
       desiredDuration: 0,
       playlist_type: '',
-      playlistComplete: false
+      playlistComplete: false,
+      renderGenerator: false
     }
+    this.handleGeneratorMount = this.handleGeneratorMount.bind(this);
+
   }
+//   handleGeneratorUnmount(){
+//     this.setState({renderGenerator: false});
+// }
+handleGeneratorMount(){
+  this.setState({renderGenerator: true});
+
+}
     
   getHashParams() {
     var hashParams = {};
@@ -44,7 +54,6 @@ class ThemeSelect extends Component {
   playlistIsNotComplete(){
     this.setState({
       playlistComplete: false
-
     })
   }
   
@@ -88,10 +97,18 @@ class ThemeSelect extends Component {
     })
   }
 
+  mountGeneratorHanler = event => {
+    this.handleGeneratorMount()
+
+  }
+
   render() {
     return (
       <>
       <div>
+
+      {this.state.renderGenerator ?
+
       <PlaylistGenerator
       playListType={this.state.playlist_type}
       desiredDuration={this.state.desiredDuration}
@@ -99,12 +116,14 @@ class ThemeSelect extends Component {
       playlistIsComplete={this.playlistIsComplete.bind(this)}
       playlistIsNotComplete={this.playlistIsNotComplete.bind(this)}
       playlistComplete={this.state.playlistComplete}
-
-
+      // unmountGenerator={this.handleGeneratorUnmount.bind(this)}
+      
       />
+      : null
+      }
       </div>
       
-      <div>{ !(this.state.playlistComplete) &&
+      <div>{ !(this.state.renderGenerator) &&
       <div>
       <form>
       <input id='input' type="text" name="playlist_type" 
@@ -122,6 +141,12 @@ class ThemeSelect extends Component {
              onChange={this.changeHandler}
       />
     </form>
+    <div>
+    <button type="button" onClick={this.mountGeneratorHanler}>
+            I'm Ready!
+    </button>
+    </div>
+
     </div>
   }</div>
 

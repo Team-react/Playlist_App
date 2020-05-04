@@ -4,6 +4,7 @@ import PlaylistFinaliser from './PlaylistFinaliser.js'
 
 var spotifyApi = new SpotifyWebApi();
 
+
 class PlaylistGenerator extends Component {
   constructor(props){
     super(props);
@@ -12,12 +13,57 @@ class PlaylistGenerator extends Component {
         playlistid: '',
         customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[]},
         currentDuration: 0,
-        // playlistComplete: false
-              
+        renderFinaliser: false,
+        playlistOveride: false
+
+        // playlistComplete: false           
     }
     this.playlistHandler = this.playlistHandler.bind(this);
+    this.handleFinaliserUnmount = this.handleFinaliserUnmount.bind(this);
+    this.handleFinaliserMount = this.handleFinaliserMount.bind(this)
+    this.overidePlaylist = this.overidePlaylist.bind(this);
+    this.wipeSong = this.wipeSong.bind(this);
+
+
+
+
 
   }
+  //Method to erase state of song that is currently playing
+  wipeSong(){
+    console.log("TRYING TO WIPE SONGS")
+
+    this.setState({
+      song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
+    })
+  }
+  //methods that mount and unmount playlist finaliser
+  handleFinaliserMount(){
+    this.setState({renderFinaliser: true});
+  
+  }
+  handleFinaliserUnmount(){
+    this.setState({renderFinaliser: false});
+}
+
+//methods that sets the state of playlistoveride
+overidePlaylist(){
+
+  this.setState({
+    playlistOveride: true
+  })
+
+}
+
+unoveridePlaylist(){
+  this.setState({
+    playlistOveride: false
+  })
+  this.wipeSong()
+  this.handleFinaliserMount()
+
+}
+
   getTracks(){
 
     document.getElementById("myaudio").volume = 0.1
@@ -51,7 +97,9 @@ class PlaylistGenerator extends Component {
          console.log('Something went wrong|!', err);
        });
    }
+   //totles up current duration of the songs
    calculatePlaylistDurationTotal() {
+     if(this.state.playlistOveride === false){
     var arr = this.state.customPlaylist.playlistDuration
     var total = 0
     for(var i = 0; i < arr.length; i++) {
@@ -59,10 +107,14 @@ class PlaylistGenerator extends Component {
     }
     
     this.setState({ currentDuration: total });
-    if(this.state.currentDuration >= this.props.desiredDuration) {
-      // this.setState({playlistComplete: true})
-      this.props.playlistIsComplete()
-    }
+    // if(this.state.currentDuration >= this.props.desiredDuration) {
+    //   // this.setState({playlistComplete: true})
+    //   this.props.playlistIsComplete()
+      
+    //   this.wipeSong()
+    //   this.dismiss()
+    // }
+  }
   }
    addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri)
@@ -82,18 +134,49 @@ class PlaylistGenerator extends Component {
     this.getRandomPlaylist(this.props.playListType)
     
   }
-    
+  stopInterval(){
+    clearInterval(this.interval)
+  }
+
+  // componentWillUnmount(){
+  //   this.stopInterval()
+  //   console.log("HI I HAVE JUST UNMOUNT")
+
+  // }
+
+  componentDidMount(){
+
+    console.log("HI I HAVE MOUNTED")
+    this.interval = setInterval(() =>   this.checkPlaylistComplete())
+  }
+
+  // dismiss() {
+  //   this.props.unmountMe();
+  // } 
+
+
+
+     
 
   checkPlaylistComplete(){
+
+    if(this.state.playlistOveride === false){
+
+    
+
 
     if(this.state.currentDuration >= this.props.desiredDuration) {
       // this.setState({playlistComplete: true})
       this.props.playlistIsComplete()
+      this.wipeSong()
+      this.handleFinaliserMount()
+      this.stopInterval()
 
   
     }
-    this.interval = setInterval(() =>   this.checkPlaylistComplete())
+    console.log("BLA")
   }
+}
   
 
   setToken() {
@@ -112,7 +195,7 @@ class PlaylistGenerator extends Component {
       this.setState({
           playlistid: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
       })
-      if(this.props.playlistComplete === false){
+      if(this.props.playlistComplete === false || this.state.playlistOveride === true){
         this.getTracks()
 
       }
@@ -141,8 +224,9 @@ class PlaylistGenerator extends Component {
   render() {
     return (
         <>
-        <div>{ !(this.props.playlistComplete) && 
+        <div>
 
+        { !(this.props.playlistComplete) || this.state.playlistOveride === true ?
         <div>
           <div>
           {this.state.song.name}      
@@ -168,21 +252,31 @@ class PlaylistGenerator extends Component {
           <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
           </div>
           <button type="button" onClick={this.playlistHandler}>
-            Initiate Algorithm
+            Load Tracks
+          </button>
+          <button type="button" onClick={() => this.unoveridePlaylist()}>
+            I'm Done!
           </button>
           </div>
-          }</div>
+          : null
+        }
+          </div>
+          
 
   
        <div>
+       {this.state.renderFinaliser ?
         <PlaylistFinaliser
         token={this.props.token}
         playlistComplete={this.props.playlistComplete}
         customPlaylist={this.state.customPlaylist}
         playlistIsNotComplete={this.props.playlistIsNotComplete}
+        unmountFinaliser={this.handleFinaliserUnmount}
+        overidePlaylist={this.overidePlaylist}
 
         
        />
+       : null}
        </div>
 
         </>
