@@ -1,4 +1,6 @@
 import React,{Component} from 'react';
+import 'bootswatch/dist/minty/bootstrap.min.css'; // Added this :boom:
+
 import './App.css';
 // import SpotifyWebApi from 'spotify-web-api-node';
 import Authorization from './components/Authorization'

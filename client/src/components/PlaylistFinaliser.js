@@ -80,9 +80,9 @@ playlistIsNotComplete(){
             <>
             <div>You have reached your desired time limit</div>
             <div>
-            <ul>
+            <ul className="list-group">
             {this.props.customPlaylist.list_of_tracks.map((value, index) => {
-            return <li key={index}>{value.name} - {value.artist}
+            return <li className="list-group-item list-group-item-action active" key={index}>{value.name} - {value.artist}
             
             <button onClick={() => this.removeFromPlaylist(index)}>
             X
@@ -91,20 +91,22 @@ playlistIsNotComplete(){
             })}
             </ul>
          </div>
+         <div className="form-group">
          <form>
-          <input type="text" name="namedPlaylist" 
+          <input className="form-control-sm" type="text" name="namedPlaylist" 
           placeholder="Name your playlist" 
           value={this.namedPlaylist} 
           onChange={this.namedPlaylistHandler} />
         </form>
+        </div>
         <div>
-            <button onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
+            <button className="btn btn-outline-primary" onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
             Create playlist
             </button>
         </div>
         <div>
           <div>Not Finished?</div>
-            <button onClick={() => this.dismiss()}>
+            <button className="btn-primary" onClick={() => this.dismiss()}>
             Return back to Playlist Generator
             </button>
         </div>

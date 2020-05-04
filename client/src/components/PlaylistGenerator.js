@@ -199,14 +199,14 @@ unoveridePlaylist(){
           </div>
           { !(this.state.song.name === '') && 
           <div>
-          <button onClick={() => this.addToCustomPlaylist()}> Yes </button>
-          <button onClick={() => this.dontAddToCustomPlaylist()}>No </button>
+          <button className="btn btn-primary" onClick={() => this.addToCustomPlaylist()}> Yes </button>
+          <button className="btn btn-primary" onClick={() => this.dontAddToCustomPlaylist()}>No </button>
           </div>
           }
-          <button type="button" onClick={this.playlistHandler}>
+          <button type="button" className="btn btn-outline-primary" onClick={this.playlistHandler}>
             Load Tracks
           </button>
-          <button type="button" onClick={() => this.unoveridePlaylist()}>
+          <button type="button" className="btn btn-outline-primary" onClick={() => this.unoveridePlaylist()}>
           I'm Done!
           </button>
           </div>
