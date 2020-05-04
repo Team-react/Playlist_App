@@ -13,9 +13,19 @@ class ThemeSelect extends Component {
     this.state = {
       desiredDuration: 0,
       playlist_type: '',
-      playlistComplete: false
+      playlistComplete: false,
+      renderChild: false
     }
+    this.handleChildUnmount = this.handleChildUnmount.bind(this);
+
   }
+  handleChildUnmount(){
+    this.setState({renderChild: false});
+}
+handleChildmount(){
+  this.setState({renderChild: true});
+
+}
     
   getHashParams() {
     var hashParams = {};
@@ -44,7 +54,6 @@ class ThemeSelect extends Component {
   playlistIsNotComplete(){
     this.setState({
       playlistComplete: false
-
     })
   }
   
@@ -86,12 +95,16 @@ class ThemeSelect extends Component {
       playlist_type: event.target.value
 
     })
+    this.handleChildmount()
   }
 
   render() {
     return (
       <>
       <div>
+
+      {this.state.renderChild ?
+
       <PlaylistGenerator
       playListType={this.state.playlist_type}
       desiredDuration={this.state.desiredDuration}
@@ -99,9 +112,11 @@ class ThemeSelect extends Component {
       playlistIsComplete={this.playlistIsComplete.bind(this)}
       playlistIsNotComplete={this.playlistIsNotComplete.bind(this)}
       playlistComplete={this.state.playlistComplete}
-
-
+      unmountMe={this.handleChildUnmount.bind(this)}
+      
       />
+      : null
+      }
       </div>
       
       <div>{ !(this.state.playlistComplete) &&

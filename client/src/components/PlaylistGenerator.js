@@ -4,6 +4,7 @@ import PlaylistFinaliser from './PlaylistFinaliser.js'
 
 var spotifyApi = new SpotifyWebApi();
 
+
 class PlaylistGenerator extends Component {
   constructor(props){
     super(props);
@@ -12,12 +13,34 @@ class PlaylistGenerator extends Component {
         playlistid: '',
         customPlaylist: { songs:[], playlistDuration:[], list_of_tracks:[]},
         currentDuration: 0,
+        renderChild: false,
+        playlistOveride: false
+
         // playlistComplete: false
               
     }
     this.playlistHandler = this.playlistHandler.bind(this);
+    this.handleChildUnmount = this.handleChildUnmount.bind(this);
+    this.handleChildmount = this.handleChildmount.bind(this);
+    this.overidePlaylist = this.overidePlaylist.bind(this);
+
+
+
+
 
   }
+  handleChildmount(){
+    this.setState({renderChild: true});
+  
+  }
+  handleChildUnmount(){
+    this.setState({renderChild: false});
+}
+overidePlaylist(){
+  this.setState({
+    playlistOveride: true
+  })
+}
   getTracks(){
 
     document.getElementById("myaudio").volume = 0.1
@@ -52,6 +75,7 @@ class PlaylistGenerator extends Component {
        });
    }
    calculatePlaylistDurationTotal() {
+     if(this.state.playlistOveride === false){
     var arr = this.state.customPlaylist.playlistDuration
     var total = 0
     for(var i = 0; i < arr.length; i++) {
@@ -63,6 +87,7 @@ class PlaylistGenerator extends Component {
       // this.setState({playlistComplete: true})
       this.props.playlistIsComplete()
     }
+  }
   }
    addToCustomPlaylist() {
     this.state.customPlaylist.songs.push(this.state.song.uri)
@@ -82,18 +107,47 @@ class PlaylistGenerator extends Component {
     this.getRandomPlaylist(this.props.playListType)
     
   }
-    
+  stopInterval(){
+
+    clearInterval(this.interval)
+  }
+
+  componentWillUnmount(){
+    console.log("HI I HAVE JUST UNMOUNT")
+    this.stopInterval()
+  }
+
+  componentDidMount(){
+    console.log("HI I HAVE MOUNTED")
+    this.interval = setInterval(() =>   this.checkPlaylistComplete())
+  }
+
+  dismiss() {
+    this.props.unmountMe();
+} 
+
+
+
+     
 
   checkPlaylistComplete(){
+
+    if(this.state.playlistOveride === false){
+
+    
+
 
     if(this.state.currentDuration >= this.props.desiredDuration) {
       // this.setState({playlistComplete: true})
       this.props.playlistIsComplete()
+      this.handleChildmount()
+      this.stopInterval()
 
   
     }
-    this.interval = setInterval(() =>   this.checkPlaylistComplete())
+    console.log("BLA")
   }
+}
   
 
   setToken() {
@@ -112,7 +166,7 @@ class PlaylistGenerator extends Component {
       this.setState({
           playlistid: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
       })
-      if(this.props.playlistComplete === false){
+      if(this.props.playlistComplete === false || this.state.playlistOveride === true){
         this.getTracks()
 
       }
@@ -141,7 +195,7 @@ class PlaylistGenerator extends Component {
   render() {
     return (
         <>
-        <div>{ !(this.props.playlistComplete) && 
+        <div>
 
         <div>
           <div>
@@ -170,19 +224,26 @@ class PlaylistGenerator extends Component {
           <button type="button" onClick={this.playlistHandler}>
             Initiate Algorithm
           </button>
+          <button type="button" onClick={() => this.dismiss()}>
+            unmountme
+          </button>
           </div>
-          }</div>
+          </div>
 
   
        <div>
+       {this.state.renderChild ?
         <PlaylistFinaliser
         token={this.props.token}
         playlistComplete={this.props.playlistComplete}
         customPlaylist={this.state.customPlaylist}
         playlistIsNotComplete={this.props.playlistIsNotComplete}
+        unmountMe={this.handleChildUnmount}
+        overidePlaylist={this.overidePlaylist}
 
         
        />
+       : null}
        </div>
 
         </>

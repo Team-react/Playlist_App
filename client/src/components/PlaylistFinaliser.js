@@ -11,6 +11,18 @@ class PlaylistFinaliser extends Component {
     super(props)
     this.state = { namedPlaylist: '' }
   }
+  dismiss() {
+    this.props.unmountMe();
+    this.overidePlaylist()
+    // this.playlistIsNotComplete()
+} 
+overidePlaylist(){
+  this.props.overidePlaylist()
+}
+
+playlistIsNotComplete(){
+  this.props.playlistIsNotComplete()
+}
   
     addSongsToPlaylist(playlistname){
       console.log(this.props.token)
@@ -64,7 +76,7 @@ class PlaylistFinaliser extends Component {
 
   render() {
     return (
-        <div>{ this.props.playlistComplete && 
+        <div> 
             <>
             <div>You have reached your desired time limit</div>
             <div>
@@ -92,13 +104,13 @@ class PlaylistFinaliser extends Component {
         </div>
         <div>
           <div>Not Finished?</div>
-            <button onClick={() => this.props.playlistIsNotComplete()}>
+            <button onClick={() => this.dismiss()}>
             Return back to Playlist Generator
             </button>
         </div>
 
             </>
-            }</div>
+            </div>
     )  
 }}
 
