@@ -22,11 +22,19 @@ class PlaylistGenerator extends Component {
     this.handleChildUnmount = this.handleChildUnmount.bind(this);
     this.handleChildmount = this.handleChildmount.bind(this);
     this.overidePlaylist = this.overidePlaylist.bind(this);
+    this.wipeSong = this.wipeSong.bind(this);
 
 
 
 
 
+  }
+  wipeSong(){
+    console.log("TRYING TO WIPE SONGS")
+
+    this.setState({
+      song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
+    })
   }
   handleChildmount(){
     this.setState({renderChild: true});
@@ -36,10 +44,22 @@ class PlaylistGenerator extends Component {
     this.setState({renderChild: false});
 }
 overidePlaylist(){
+
   this.setState({
     playlistOveride: true
   })
+
 }
+
+unoveridePlaylist(){
+  this.setState({
+    playlistOveride: false
+  })
+  this.wipeSong()
+  this.handleChildmount()
+
+}
+
   getTracks(){
 
     document.getElementById("myaudio").volume = 0.1
@@ -73,6 +93,7 @@ overidePlaylist(){
          console.log('Something went wrong|!', err);
        });
    }
+   
    calculatePlaylistDurationTotal() {
      if(this.state.playlistOveride === false){
     var arr = this.state.customPlaylist.playlistDuration
@@ -82,11 +103,13 @@ overidePlaylist(){
     }
     
     this.setState({ currentDuration: total });
-    if(this.state.currentDuration >= this.props.desiredDuration) {
-      // this.setState({playlistComplete: true})
-      this.props.playlistIsComplete()
-      this.dismiss()
-    }
+    // if(this.state.currentDuration >= this.props.desiredDuration) {
+    //   // this.setState({playlistComplete: true})
+    //   this.props.playlistIsComplete()
+      
+    //   this.wipeSong()
+    //   this.dismiss()
+    // }
   }
   }
    addToCustomPlaylist() {
@@ -108,16 +131,18 @@ overidePlaylist(){
     
   }
   stopInterval(){
-
     clearInterval(this.interval)
   }
 
   componentWillUnmount(){
-    console.log("HI I HAVE JUST UNMOUNT")
     this.stopInterval()
+    console.log("HI I HAVE JUST UNMOUNT")
+
   }
 
   componentDidMount(){
+    document.getElementById("myaudio").volume = 0.1
+
     console.log("HI I HAVE MOUNTED")
     this.interval = setInterval(() =>   this.checkPlaylistComplete())
   }
@@ -140,6 +165,7 @@ overidePlaylist(){
     if(this.state.currentDuration >= this.props.desiredDuration) {
       // this.setState({playlistComplete: true})
       this.props.playlistIsComplete()
+      this.wipeSong()
       this.handleChildmount()
       this.stopInterval()
 
@@ -225,7 +251,7 @@ overidePlaylist(){
           <button type="button" onClick={this.playlistHandler}>
             Initiate Algorithm
           </button>
-          <button type="button" onClick={() => this.dismiss()}>
+          <button type="button" onClick={() => this.unoveridePlaylist()}>
             unmountme
           </button>
           </div>
