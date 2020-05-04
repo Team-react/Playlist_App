@@ -16,8 +16,7 @@ class PlaylistGenerator extends Component {
         renderChild: false,
         playlistOveride: false
 
-        // playlistComplete: false
-              
+        // playlistComplete: false           
     }
     this.playlistHandler = this.playlistHandler.bind(this);
     this.handleChildUnmount = this.handleChildUnmount.bind(this);
@@ -86,6 +85,7 @@ overidePlaylist(){
     if(this.state.currentDuration >= this.props.desiredDuration) {
       // this.setState({playlistComplete: true})
       this.props.playlistIsComplete()
+      this.dismiss()
     }
   }
   }
@@ -124,7 +124,7 @@ overidePlaylist(){
 
   dismiss() {
     this.props.unmountMe();
-} 
+  } 
 
 
 
@@ -197,6 +197,7 @@ overidePlaylist(){
         <>
         <div>
 
+        { !(this.props.playlistComplete) || this.state.playlistOveride === true ?
         <div>
           <div>
           {this.state.song.name}      
@@ -228,7 +229,10 @@ overidePlaylist(){
             unmountme
           </button>
           </div>
+          : null
+        }
           </div>
+          
 
   
        <div>
