@@ -13,8 +13,22 @@ class ThemeSelect extends Component {
     this.state = {
       desiredDuration: 0,
       playlist_type: '',
-      playlistComplete: false
     }
+  }
+
+  getDistance() {
+    var distance = require('google-distance-matrix');
+
+    distance.key('AIzaSyBSkSrKWFxrUxi83A_MlSfa2nYiwnLMS-8');
+    distance.mode('driving');
+
+    var origins = ['Twickenham'];
+    var destinations = ['Ealing'];
+
+    distance.matrix(origins, destinations, function (err, distances) {
+    if (!err)
+      console.log(distances);
+    })
   }
     
   getHashParams() {
@@ -34,42 +48,23 @@ class ThemeSelect extends Component {
     spotifyApi.setAccessToken(this.props.token)
 
   }
-
-  playlistIsComplete(){
-    this.setState({
-      playlistComplete: true
-
-    })
-  }
-  playlistIsNotComplete(){
-    this.setState({
-      playlistComplete: false
-
-    })
-  }
   
-  // getRandomPlaylist(genre) {
-
-  //   spotifyApi.setAccessToken(this.props.token)
-
+  getRandomPlaylist(genre) {
     
 
-  //   spotifyApi.searchPlaylists(genre)
-  //   .then((data) => {
-  //     console.log(data, 'its not even reach this point')
-  //     var numberOfPlaylists = (data.body.playlists.items).length
-  //     console.log(numberOfPlaylists)
-  //     this.props.playlist(data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id)
-  //   }, function(err) {
-  //     console.log('Something went wrong!', err);
-  //   });
-  // }
+    spotifyApi.searchPlaylists(genre)
+    .then((data) => {
+      console.log(data, 'its not even reach this point')
+      var numberOfPlaylists = (data.body.playlists.items).length
+      console.log(numberOfPlaylists)
+      this.props.playlist(data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id)
+    }, function(err) {
+      console.log('Something went wrong!', err);
+    });
+  }
   changeHandler = event => {
-    var time = parseInt(event.target.value) * 60000
-    console.log(time)
-
     this.setState({
-      desiredDuration: time
+      desiredDuration: event.target.value
     });
   }
 
@@ -96,22 +91,23 @@ class ThemeSelect extends Component {
       playListType={this.state.playlist_type}
       desiredDuration={this.state.desiredDuration}
       token={this.props.token}
-      playlistIsComplete={this.playlistIsComplete.bind(this)}
-      playlistIsNotComplete={this.playlistIsNotComplete.bind(this)}
-      playlistComplete={this.state.playlistComplete}
-
-
       />
       </div>
       
-      <div>{ !(this.state.playlistComplete) &&
-      <div>
+      
       <form>
       <input id='input' type="text" name="playlist_type" 
       placeholder="Input artist or genre" 
+      // ref={(c) => this.playlist_type = c}
       onChange={this.playlistTypeHandler} 
       />
-    
+      {/* <button type="button" onClick={this.playlistHandler}>
+        Get Playlist
+      </button> */}
+
+      <button onClick={() => this.getDistance()}>
+        test
+      </button>
 
     </form>
       <form>
@@ -122,9 +118,6 @@ class ThemeSelect extends Component {
              onChange={this.changeHandler}
       />
     </form>
-    </div>
-  }</div>
-
     
  
     </>
