@@ -11,8 +11,8 @@ class ThemeSelect extends Component {
   constructor(props){
     super(props);
     this.state = {
-      desiredDuration: 0,
-      playlist_type: '',
+      desiredDuration: null,
+      playlist_type: null,
       playlistComplete: false,
       renderGenerator: false,
       errorForDurationInput: false,
@@ -58,22 +58,6 @@ handleGeneratorMount(){
     })
   }
   
-  // getRandomPlaylist(genre) {
-
-  //   spotifyApi.setAccessToken(this.props.token)
-
-    
-
-  //   spotifyApi.searchPlaylists(genre)
-  //   .then((data) => {
-  //     console.log(data, 'its not even reach this point')
-  //     var numberOfPlaylists = (data.body.playlists.items).length
-  //     console.log(numberOfPlaylists)
-  //     this.props.playlist(data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id)
-  //   }, function(err) {
-  //     console.log('Something went wrong!', err);
-  //   });
-  // }
   changeHandler = event => {
     
     var time = (event.target.value)
@@ -162,13 +146,13 @@ handleGeneratorMount(){
     </form>
     {this.state.errorForDurationInput ?
     <div>
-      <p>Please enter a number between 1 and 100</p>
+      <p>Please enter a valid number</p>
 
     </div>
     : null
     }
     <div>
-    <button type="button" onClick={this.mountGeneratorHanler}>
+    <button type="button" disabled={!this.state.desiredDuration || !this.state.playlist_type } onClick={this.mountGeneratorHanler}>
             I'm Ready!
     </button>
     </div>
