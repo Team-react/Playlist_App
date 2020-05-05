@@ -121,6 +121,7 @@ unoveridePlaylist(){
   }
 
   componentDidMount(){
+    this.getRandomPlaylist(this.props.playListType)
 
     console.log("HI I HAVE MOUNTED")
     this.interval = setInterval(() =>   this.checkPlaylistComplete())

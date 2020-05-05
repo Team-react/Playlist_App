@@ -85,15 +85,13 @@ handleGeneratorMount(){
       this.setState({
         errorForDurationInput: false,
       })
-    }
-
-    
+    } 
     else {
       this.setState({
         errorForDurationInput: true,
       })
     }
-    time = time * 60000
+    time = parseInt(time * 60000)
 
     
     console.log(time)
