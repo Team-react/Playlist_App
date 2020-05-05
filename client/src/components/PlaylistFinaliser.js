@@ -79,7 +79,10 @@ playlistIsNotComplete(){
     return (
         <div> 
             <>
-            <div>You have reached your desired time limit</div>
+            { this.props.playlistComplete ?
+              <div>You have reached your desired time limit</div>
+              : null
+            }
             <div>
             <ul>
             {this.props.customPlaylist.list_of_tracks.map((value, index) => {

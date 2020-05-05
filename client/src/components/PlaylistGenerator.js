@@ -179,8 +179,8 @@ unoveridePlaylist(){
     return (
     <>
     <div>
-    
-    { !(this.props.playlistComplete) || this.state.playlistOveride === true ?
+
+    { !this.state.renderFinaliser === true ?
         <div>
           <div>
           {this.state.song.name}      
@@ -221,7 +221,7 @@ unoveridePlaylist(){
 
   
        <div>
-       {this.state.renderFinaliser ?
+       {this.state.renderFinaliser === true ?
         <PlaylistFinaliser
         token={this.props.token}
         playlistComplete={this.props.playlistComplete}
