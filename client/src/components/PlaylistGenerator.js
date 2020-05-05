@@ -190,7 +190,7 @@ unoveridePlaylist(){
           <b>Album:</b> {this.state.song.album}
           </div>  
           <div>
-          <img src={this.state.song.albumArt} style={{ height: 340 }} alt=''/>
+          <img src={this.state.song.albumArt} style={{ height: 350 }} alt=''/>
           </div>
           <div>
           <b>Track Length:</b> {Math.floor(this.state.song.songLength/(1000*60)%60)+":"+("0"+Math.floor(this.state.song.songLength/1000%60)).slice(-2)}

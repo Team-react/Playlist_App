@@ -1,7 +1,29 @@
 body {
-  background: url(./RoadToDiscovery3c.png) no-repeat center center fixed;
+  background: url(./Background.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
+
+span.underline {
+  color: black;
+}
+
+b {
+  color: black;
+}
+
+div {
+  color: black;
+}
+
+.black-text {
+  color: black;
+}
+
+.btn.btn-outline-danger {
+  position: absolute;
+  right: 15px;
+  top: -4px;
+} 
