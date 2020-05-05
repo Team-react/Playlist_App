@@ -78,16 +78,17 @@ playlistIsNotComplete(){
     return (
         <div> 
             <>
-            <div>You have reached your desired time limit</div>
+            <div class="text-danger">You have reached your desired time limit</div>
+            <h2><div>Here is your finished playlist</div></h2>
             <div>
             <ul>
             {this.props.customPlaylist.list_of_tracks.map((value, index) => {
-            return <li class="list-group-item list-group-item-dark" key={index}>{value.name} - {value.artist}
+            return <ol class="list-group-item d-list-item" key={index}><b>{value.name}</b> by <b>{value.artist}</b>
             
-            <button type="button" class="btn btn-outline-danger" onClick={() => this.removeFromPlaylist(index)}>
+            <button type="button" class="list-group-item" class="btn btn-outline-danger" onClick={() => this.removeFromPlaylist(index)}>
             X
             </button>
-            </li>
+            </ol>
             })}
             </ul>
          </div>
