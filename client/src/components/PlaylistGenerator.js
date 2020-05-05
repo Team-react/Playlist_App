@@ -21,6 +21,7 @@ class PlaylistGenerator extends Component {
     this.handleFinaliserMount = this.handleFinaliserMount.bind(this)
     this.overidePlaylist = this.overidePlaylist.bind(this);
     this.wipeSong = this.wipeSong.bind(this);
+    this.getRandomPlaylist = this.getRandomPlaylist.bind(this)
   }
 
   //Method to erase state of song that is currently playing
@@ -46,6 +47,8 @@ overidePlaylist(){
   this.setState({
     playlistOveride: true
   })
+
+  this.getRandomPlaylist(this.props.playlistType)
 
 }
 
@@ -226,6 +229,8 @@ unoveridePlaylist(){
         playlistIsNotComplete={this.props.playlistIsNotComplete}
         unmountFinaliser={this.handleFinaliserUnmount}
         overidePlaylist={this.overidePlaylist}
+        getRandomPlaylist={this.getRandomPlaylist}
+        playlistType={this.props.playlistType}
        />
        : null}
        </div>

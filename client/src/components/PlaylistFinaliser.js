@@ -12,8 +12,9 @@ class PlaylistFinaliser extends Component {
     this.state = { namedPlaylist: '' }
   }
   dismiss() {
-    this.props.unmountFinaliser();
     this.props.overidePlaylist()
+    this.props.getRandomPlaylist(this.props.playlistType)
+    this.props.unmountFinaliser();
     // this.playlistIsNotComplete()
 } 
 // overidePlaylist(){
