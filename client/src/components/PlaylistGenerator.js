@@ -48,7 +48,7 @@ overidePlaylist(){
     playlistOveride: true
   })
 
-  this.getRandomPlaylist(this.props.playlistType)
+  // this.getRandomPlaylist(this.props.playlistType)
 
 }
 
