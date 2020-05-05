@@ -3,6 +3,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import PlaylistGenerator from './PlaylistGenerator'
 
 
+
 var spotifyApi = new SpotifyWebApi();
 
 
@@ -18,18 +19,16 @@ class ThemeSelect extends Component {
 
   getDistance() {
     var distance = require('google-distance-matrix');
-
-    distance.key('AIzaSyBSkSrKWFxrUxi83A_MlSfa2nYiwnLMS-8');
-    distance.mode('driving');
-
+    
     var origins = ['Twickenham'];
     var destinations = ['Ealing'];
-
+    
+    distance.key(process.env.GOOGLE_APP_KEY);
     distance.matrix(origins, destinations, function (err, distances) {
     if (!err)
       console.log(distances);
     })
-  }
+  } 
     
   getHashParams() {
     var hashParams = {};
