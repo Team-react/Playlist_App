@@ -82,9 +82,9 @@ playlistIsNotComplete(){
             <div>
             <ul>
             {this.props.customPlaylist.list_of_tracks.map((value, index) => {
-            return <li key={index}>{value.name} - {value.artist}
+            return <li class="list-group-item list-group-item-dark" key={index}>{value.name} - {value.artist}
             
-            <button onClick={() => this.removeFromPlaylist(index)}>
+            <button type="button" class="btn btn-outline-danger" onClick={() => this.removeFromPlaylist(index)}>
             X
             </button>
             </li>
@@ -98,13 +98,13 @@ playlistIsNotComplete(){
           onChange={this.namedPlaylistHandler} />
         </form>
         <div>
-            <button onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
+        <button type="button" class="btn btn-success" onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
             Create playlist
             </button>
         </div>
         <div>
           <div>Not Finished?</div>
-            <button onClick={() => this.dismiss()}>
+          <button type="button" class="btn btn-danger" onClick={() => this.dismiss()}>
             Return back to Playlist Generator
             </button>
         </div>
