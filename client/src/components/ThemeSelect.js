@@ -11,10 +11,11 @@ class ThemeSelect extends Component {
   constructor(props){
     super(props);
     this.state = {
-      desiredDuration: 0,
-      playlist_type: '',
+      desiredDuration: null,
+      playlist_type: null,
       playlistComplete: false,
-      renderGenerator: false
+      renderGenerator: false,
+      errorForDurationInput: false,
     }
     this.handleGeneratorMount = this.handleGeneratorMount.bind(this);
 
@@ -57,24 +58,26 @@ handleGeneratorMount(){
     })
   }
   
-  // getRandomPlaylist(genre) {
-
-  //   spotifyApi.setAccessToken(this.props.token)
+  changeHandler = event => {
+    
+    var time = (event.target.value)
+    // if((time < 0) || (time > 500)){
+    //   this.setState({
+    //     errorForDurationInput: true,
+    //   })
+    if(/^[1-9]?[0-9]{1}$|^100$/.test(time)){
+      this.setState({
+        errorForDurationInput: false,
+      })
+    } 
+    else {
+      this.setState({
+        errorForDurationInput: true,
+      })
+    }
+    time = parseInt(time * 60000)
 
     
-
-  //   spotifyApi.searchPlaylists(genre)
-  //   .then((data) => {
-  //     console.log(data, 'its not even reach this point')
-  //     var numberOfPlaylists = (data.body.playlists.items).length
-  //     console.log(numberOfPlaylists)
-  //     this.props.playlist(data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id)
-  //   }, function(err) {
-  //     console.log('Something went wrong!', err);
-  //   });
-  // }
-  changeHandler = event => {
-    var time = parseInt(event.target.value) * 60000
     console.log(time)
 
     this.setState({
@@ -141,8 +144,15 @@ handleGeneratorMount(){
              onChange={this.changeHandler}
       />
     </form>
+    {this.state.errorForDurationInput ?
     <div>
-    <button type="button" onClick={this.mountGeneratorHanler}>
+      <p>Please enter a valid number</p>
+
+    </div>
+    : null
+    }
+    <div>
+    <button type="button" disabled={!this.state.desiredDuration || !this.state.playlist_type } onClick={this.mountGeneratorHanler}>
             I'm Ready!
     </button>
     </div>
