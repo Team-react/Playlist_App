@@ -24,6 +24,11 @@ class PlaylistFinaliser extends Component {
 playlistIsNotComplete(){
   this.props.playlistIsNotComplete()
 }
+
+refreshPage() {
+  window.location.reload(false);
+}
+
   
     addSongsToPlaylist(playlistname){
       console.log(this.props.token)
@@ -43,6 +48,7 @@ playlistIsNotComplete(){
                 spotifyApi.addTracksToPlaylist(userId, playlistid, customPlaylist)
                 .then(function(data) {
                    console.log(data, 'Added tracks to playlist!');
+                   alert('Playlist Created')
                    }, function(err) {
                     console.log('Something went wrong!', err);
                    });
@@ -111,6 +117,11 @@ playlistIsNotComplete(){
           <button type="button" class="btn btn-danger" onClick={() => this.dismiss()}>
             Return back to Playlist Generator
             </button>
+        </div>
+        <div class="black-text">Want to create another one?</div>
+
+        <div>
+         <button onClick={this.refreshPage}>Click to reload!</button>
         </div>
 
             </>
