@@ -21,7 +21,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = process.env.REACT_APP_CLIENT_ID
 var client_secret = process.env.REACT_APP_KEY
-var redirect_uri = 'http://localhost:8888/callback'; // Or Your redirect uri
+var redirect_uri = process.env.REACT_APP_REDIRECT_URI; // Or Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
