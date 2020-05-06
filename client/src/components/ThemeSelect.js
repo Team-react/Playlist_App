@@ -129,7 +129,7 @@ handleGeneratorMount(){
       <div>{ !(this.state.renderGenerator) &&
       <div>
       <form>
-      <input id='input' type="text" class="form-group w-25" name="playlist_type" 
+      <input id='input' type="text" className="form-group w-25" name="playlist_type" 
       placeholder="Input artist or genre" 
       onChange={this.playlistTypeHandler} 
       />
@@ -137,7 +137,7 @@ handleGeneratorMount(){
 
     </form>
       <form>
-      <input type="text" class="form-group w-25"
+      <input type="text" className="form-group w-25"
              name="duration"
              placeholder="Input playlist length (Minutes)"
             //  value={this.state.desiredDuration}
@@ -152,7 +152,8 @@ handleGeneratorMount(){
     : null
     }
     <div>
-    <button type="button" class="btn btn-success" disabled={!this.state.desiredDuration || !this.state.playlist_type } onClick={this.mountGeneratorHandler}>
+
+    <button type="button" className="btn btn-success" disabled={!this.state.desiredDuration || !this.state.playlist_type } onClick={this.mountGeneratorHanler}>
     I'm Ready!
     </button>
     </div>
