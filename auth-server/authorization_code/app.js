@@ -11,6 +11,9 @@
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
 
+const PORT = process.env.PORT || 8888
+
+
 
 
 var express = require('express'); // Express web server framework
@@ -148,5 +151,5 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-console.log('Listening on 8888');
-app.listen(8888);
+// console.log('Listening on 8888');
+app.listen(PORT);
