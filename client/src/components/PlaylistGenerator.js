@@ -41,6 +41,8 @@ class PlaylistGenerator extends Component {
   }
   handleFinaliserUnmount(){
     this.setState({renderFinaliser: false});
+    
+    this.getRandomPlaylist(this.props.playListType)
 }
 
 //Methods that sets the state of playlistoveride
@@ -77,6 +79,7 @@ unoveridePlaylist(){
            console.log("WE SKIPPED THIS ONE")
            return this.dontAddToCustomPlaylist()
          }
+         
  
          this.setState({
            song: {
@@ -127,6 +130,7 @@ unoveridePlaylist(){
 
   componentDidMount(){
     this.getRandomPlaylist(this.props.playListType)
+    // document.getElementById("myaudio").volume = 0.1
 
     console.log("HI I HAVE MOUNTED")
     this.interval = setInterval(() =>   this.checkPlaylistComplete())
@@ -148,10 +152,12 @@ unoveridePlaylist(){
   }
   
   getRandomPlaylist(genre) {
+
     spotifyApi.setAccessToken(this.props.token)
     spotifyApi.searchPlaylists(genre)
     .then((data) => {
       var numberOfPlaylists = (data.body.playlists.items).length
+      
       this.setState({
         playlistid: data.body.playlists.items[Math.floor(Math.random() * numberOfPlaylists)].id
       })
