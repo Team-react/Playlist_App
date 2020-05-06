@@ -40,3 +40,19 @@
 div, button {
   margin: 10px;
 }
+
+.d-list-item {
+  display: list-item;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.no_outline {
+  padding: 0;
+  border: none;
+}
+
+
+

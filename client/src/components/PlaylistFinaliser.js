@@ -80,35 +80,35 @@ playlistIsNotComplete(){
         <div> 
             <>
             { this.props.playlistComplete ?
-              <div>You have reached your desired time limit</div>
-              : null
+            <h4><div class="text-danger">You have reached your desired time limit</div></h4>
+             : null
             }
+            <h2><div class="black-text">Here is your finished playlist</div></h2>
             <div>
-            <ul>
+            <ul> 
             {this.props.customPlaylist.list_of_tracks.map((value, index) => {
-            return <li key={index}>{value.name} - {value.artist}
-            
-            <button onClick={() => this.removeFromPlaylist(index)}>
+            return <ol class="list-group-item d-list-item" key={index}><b>{value.name}</b> by <b>{value.artist}</b>
+            <button type="button" class="btn btn-outline-danger" onClick={() => this.removeFromPlaylist(index)}>
             X
             </button>
-            </li>
+            </ol>
             })}
             </ul>
          </div>
          <form>
           <input type="text" name="namedPlaylist" 
-          placeholder="Name your playlist" 
+          placeholder="Name your new playlist" 
           value={this.namedPlaylist} 
           onChange={this.namedPlaylistHandler} />
         </form>
         <div>
-            <button onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
+        <button type="button" class="btn btn-success" onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
             Create playlist
             </button>
         </div>
         <div>
-          <div>Not Finished?</div>
-            <button onClick={() => this.dismiss()}>
+          <div class="black-text">Still Not Finished? </div>
+          <button type="button" class="btn btn-danger" onClick={() => this.dismiss()}>
             Return back to Playlist Generator
             </button>
         </div>

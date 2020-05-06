@@ -1,8 +1,13 @@
 import React,{Component} from 'react';
+import 'bootswatch/dist/minty/bootstrap.min.css'; // Added this :boom:
+import "bootswatch/dist/cosmo/bootstrap.min.css";
+
 import './App.css';
 // import SpotifyWebApi from 'spotify-web-api-node';
 import Authorization from './components/Authorization'
 import ThemeSelect from './components/ThemeSelect';
+import Button from 'react-bootstrap/Button';
+// import { Button } from 'react-bootstrap';
 // import Playlist from './components/Playlist'
 
 // var spotifyApi = new SpotifyWebApi();
