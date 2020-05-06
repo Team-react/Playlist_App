@@ -100,7 +100,7 @@ handleGeneratorMount(){
     })
   }
 
-  mountGeneratorHanler = event => {
+  mountGeneratorHandler = event => {
     this.handleGeneratorMount()
 
   }
@@ -152,6 +152,7 @@ handleGeneratorMount(){
     : null
     }
     <div>
+
     <button type="button" className="btn btn-success" disabled={!this.state.desiredDuration || !this.state.playlist_type } onClick={this.mountGeneratorHanler}>
     I'm Ready!
     </button>
