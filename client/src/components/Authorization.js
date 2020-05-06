@@ -30,6 +30,7 @@ class Authorization extends Component {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
         q = window.location.hash.substring(1);
+        console.log(window.location.hash)
     e = r.exec(q)
     while (e) {
        hashParams[e[1]] = decodeURIComponent(e[2]);
@@ -42,8 +43,13 @@ class Authorization extends Component {
     return (
         <div>
           <div>
-            <a href='http://localhost:8888/login' > Login to Spotify </a>
-            <a href='https://road-to-discovery-login.herokuapp.com/login' > Login to Spotify </a>
+            {process.env.REACT_APP_HEROKU ?
+                        <a href='https://road-to-discovery-login.herokuapp.com/login' > Login to Spotify </a>
+                        :             <a href='http://localhost:8888/login' > Login to Spotify </a>
+
+                      }
+
+
 
           </div>
         </div>
