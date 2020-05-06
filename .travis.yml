@@ -1,9 +1,12 @@
 language: node_js
-
 node_js:
-  - "12"
+- '12'
 before_install: cd client
-
 script:
-    - npm test
-    - npm run build
+- npm test
+- npm run build
+deploy:
+  provider: heroku
+  app: road-to-discovery
+  api_key:
+    secure: KGQ8MjawBq47wn6BAhm/wnv5Rx6vQnGwyY5aSEJ6y+YH+tBR3PT/00MvDq9Zc5aKvmYOcnk1zCqa6xK211yy+v3wHbBU4CVfV36/nzF3kjhIXAWmUs3a7xH2ngzAcKb/zqV7HfevYJ3kIZyTDR+bza0+MMKs043E1eddhLBjnDEWA5Kdd2oNrr+6z5LNJhdcGNEr8FOdNhEQVXsjeJLnm9K5yFNKuSMfDQUW9MnfznFKDuXCuTVRnhZurR/66lgkgp6jm4n84MdYGFeZgz9P9A7sO6LgYGP+lCwwKYI3QVMygYws9UUFLrT81pL5E8aofSeJjd0bT3ofMxgIlliPP63q1uHQAlL/KNdVZzQmUTYH8T5aibs4MRGfvUmWgG2h9KgSnfD/nm7wPFl6KYvLYReqqPViyH3wfVnpgYem9WRYE1Ap5+YhzsZVxf/80ZXmG1zU2WsMcmZ3y9ITKRaegJgBs3G3KwtZhUBqPCn83abnBfyvZNJrv6sNC1biiA/PO36j+NLHxaP+ugzXiHpQTm4EmWSQ50YZuyr+mp4Vd4Fz4GPvL3tdlAEU9JaPXRIKKjwiVvTgPn2sqxY/alXNZCVxLi6UYiWKA1B7Zx+50ZpZG7vmWXPwuZLfS6ZW/s4rv6NNbuOmRd1uskoXnr/H81snBBKwq5gB4HU+OIAtnRw=

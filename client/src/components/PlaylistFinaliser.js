@@ -12,8 +12,9 @@ class PlaylistFinaliser extends Component {
     this.state = { namedPlaylist: '' }
   }
   dismiss() {
-    this.props.unmountFinaliser();
     this.props.overidePlaylist()
+    // this.props.getRandomPlaylist(this.props.playlistType)
+    this.props.unmountFinaliser();
     // this.playlistIsNotComplete()
 } 
 // overidePlaylist(){
@@ -78,7 +79,10 @@ playlistIsNotComplete(){
     return (
         <div> 
             <>
+            { this.props.playlistComplete ?
             <h4><div class="text-danger">You have reached your desired time limit</div></h4>
+             : null
+            }
             <h2><div class="black-text">Here is your finished playlist</div></h2>
             <div>
             <ul> 

@@ -22,6 +22,7 @@ class PlaylistGenerator extends Component {
     this.handleFinaliserMount = this.handleFinaliserMount.bind(this)
     this.overidePlaylist = this.overidePlaylist.bind(this);
     this.wipeSong = this.wipeSong.bind(this);
+    this.getRandomPlaylist = this.getRandomPlaylist.bind(this)
   }
 
   //Method to erase state of song that is currently playing
@@ -47,6 +48,8 @@ overidePlaylist(){
   this.setState({
     playlistOveride: true
   })
+
+  // this.getRandomPlaylist(this.props.playlistType)
 
 }
 
@@ -122,6 +125,7 @@ unoveridePlaylist(){
   }
 
   componentDidMount(){
+    this.getRandomPlaylist(this.props.playListType)
 
     console.log("HI I HAVE MOUNTED")
     this.interval = setInterval(() =>   this.checkPlaylistComplete())
@@ -176,8 +180,8 @@ unoveridePlaylist(){
     return (
     <>
     <div>
-    
-    { !(this.props.playlistComplete) || this.state.playlistOveride === true ?
+
+    { !this.state.renderFinaliser === true ?
         <div>
           <div>
           <h1><span class="underline">{this.state.song.name}</span></h1>
@@ -216,7 +220,7 @@ unoveridePlaylist(){
 
   
        <div>
-       {this.state.renderFinaliser ?
+       {this.state.renderFinaliser === true ?
         <PlaylistFinaliser
         token={this.props.token}
         playlistComplete={this.props.playlistComplete}
@@ -224,6 +228,8 @@ unoveridePlaylist(){
         playlistIsNotComplete={this.props.playlistIsNotComplete}
         unmountFinaliser={this.handleFinaliserUnmount}
         overidePlaylist={this.overidePlaylist}
+        getRandomPlaylist={this.getRandomPlaylist}
+        playlistType={this.props.playlistType}
        />
        : null}
        </div>
