@@ -27,3 +27,7 @@ div {
   right: 15px;
   top: -4px;
 } 
+
+.ol.list-group-item.d-list-item::marker {
+  
+}

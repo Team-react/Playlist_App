@@ -179,9 +179,6 @@ unoveridePlaylist(){
     
     { !(this.props.playlistComplete) || this.state.playlistOveride === true ?
         <div>
-          {/* <div> */}
-          {/* <h1><span class="underline">{this.state.song.name}</span></h1> */}
-          {/* </div>      */}
           <div>
           <h1><span class="underline">{this.state.song.name}</span></h1>
           <b>By:</b> {this.state.song.artist}
@@ -190,7 +187,7 @@ unoveridePlaylist(){
           <b>Album:</b> {this.state.song.album}
           </div>  
           <div>
-          <img src={this.state.song.albumArt} style={{ height: 350 }} alt=''/>
+          <img src={this.state.song.albumArt} alt='' style={{ height: 385 }} class="rounded-lg"/>
           </div>
           <div>
           <b>Track Length:</b> {Math.floor(this.state.song.songLength/(1000*60)%60)+":"+("0"+Math.floor(this.state.song.songLength/1000%60)).slice(-2)}
@@ -203,7 +200,7 @@ unoveridePlaylist(){
           <div>
           <button type="button" class="btn btn-success" onClick={() => this.addToCustomPlaylist()}> Add (+) </button>
           <button type="button" class="btn btn-danger" onClick={() => this.dontAddToCustomPlaylist()}>Don't Add (-) </button>
-          </div>
+        </div>
           }
           <button type="button" class="btn btn-light" onClick={this.playlistHandler}>
             Load New Tracks

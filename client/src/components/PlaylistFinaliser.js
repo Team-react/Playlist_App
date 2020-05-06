@@ -93,7 +93,7 @@ playlistIsNotComplete(){
          </div>
          <form>
           <input type="text" name="namedPlaylist" 
-          placeholder="Name your playlist" 
+          placeholder="Name your new playlist" 
           value={this.namedPlaylist} 
           onChange={this.namedPlaylistHandler} />
         </form>
