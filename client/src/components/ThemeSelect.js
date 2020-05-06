@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SpotifyWebApi from 'spotify-web-api-node';
 import PlaylistGenerator from './PlaylistGenerator'
+import './ThemeSelect.css'
 
 
 var spotifyApi = new SpotifyWebApi();
@@ -10,6 +11,7 @@ var spotifyApi = new SpotifyWebApi();
 class ThemeSelect extends Component {
   constructor(props){
     super(props);
+    this.name = ''
     this.state = {
       desiredDuration: null,
       playlist_type: null,
@@ -58,6 +60,7 @@ handleGeneratorMount(){
     })
   }
   
+
   changeHandler = event => {
     
     var time = (event.target.value)
@@ -126,39 +129,44 @@ handleGeneratorMount(){
       }
       </div>
       
-      <div>{ !(this.state.renderGenerator) &&
-      <div>
-      <form>
-      <input id='input' type="text" class="form-group w-25" name="playlist_type" 
-      placeholder="Input artist or genre" 
-      onChange={this.playlistTypeHandler} 
-      />
-    
-
-    </form>
-      <form>
-      <input type="text" class="form-group w-25"
-             name="duration"
-             placeholder="Input playlist length (Minutes)"
-            //  value={this.state.desiredDuration}
-             onChange={this.changeHandler}
-      />
-    </form>
-    {this.state.errorForDurationInput ?
     <div>
-      <p>Please enter a valid number</p>
-
+      { !(this.state.renderGenerator) &&
+      <div class='container'>
+        <div class='authdiv'>
+          <div class='form'>
+        <form>
+          <input class="textbox"
+          id="input"
+          type="text" 
+          name="playlist_type" 
+          placeholder="Input artist or genre" 
+          onChange={this.playlistTypeHandler} 
+          />
+        </form>
+        <form>
+          <input type="text"
+                class="textbox"
+                name="duration"
+                placeholder="Input playlist length (Minutes)"
+                onChange={this.changeHandler}
+          />
+        </form>
+        {this.state.errorForDurationInput ?
+        <div>
+          <p>Please enter a valid number</p>
+        </div>
+        : null
+        }
+          <div class='btnpos'>
+            <button class="readybtn" type="button" disabled={!this.state.desiredDuration || !this.state.playlist_type } onClick={this.mountGeneratorHanler}>
+              I'm Ready!
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    : null
-    }
-    <div>
-    <button type="button" class="btn btn-success" disabled={!this.state.desiredDuration || !this.state.playlist_type } onClick={this.mountGeneratorHanler}>
-    I'm Ready!
-    </button>
-    </div>
-
-    </div>
-  }</div>
+  }
+  </div>
 
     
  

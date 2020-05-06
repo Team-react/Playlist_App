@@ -1,0 +1,83 @@
+.container{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: 2s linear;
+}
+
+.card{
+  width: auto;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.artwork{
+  height: 400px;
+  width: 400px;
+  margin: auto;
+}
+
+audio{
+  height:  25px;
+}
+
+h1{
+  font-size: 25px;
+  font-weight: bold;
+}
+
+h2{
+  font-size: 15px;
+}
+
+.buttons{
+  vertical-align: inherit;
+}
+
+.yesbtn{
+  position: relative;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background-color: rgb(52, 163, 8);
+  font-weight: bold;
+  color: white;
+  font-size: 25px;
+  float: left;
+  outline: 0;
+}
+
+.yesbtn:hover{
+  position: relative;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background-color: rgba(51, 163, 8, 0.5);
+  font-weight: bold;
+  color: white;
+  font-size: 30px;
+}
+
+.nobtn{
+  /* position: relative; */
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background-color: rgba(187, 13, 13);
+  font-weight: bold;
+  color: white;
+  font-size: 25px;
+  float: right;
+}
+
+.nobtn:hover{
+  /* position: relative; */
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background-color: rgba(187, 13, 13, 0.5);
+  font-weight: bold;
+  color: white;
+  font-size: 30px;
+}
