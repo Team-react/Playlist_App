@@ -9,7 +9,11 @@ var spotifyApi = new SpotifyWebApi();
 class PlaylistFinaliser extends Component {
   constructor(props){
     super(props)
-    this.state = { namedPlaylist: '' }
+    this.state = {
+       namedPlaylist: '',
+       playlistCreated: false
+      }
+    
   }
   dismiss() {
     this.props.overidePlaylist()
@@ -25,12 +29,19 @@ playlistIsNotComplete(){
   this.props.playlistIsNotComplete()
 }
 
+playlistCreated(){
+  this.setState({
+    playlistCreated: true
+  })
+}
+
 refreshPage() {
   window.location.reload(false);
 }
 
   
     addSongsToPlaylist(playlistname){
+      var thisclass = this
       console.log(this.props.token)
         var customPlaylist = this.props.customPlaylist.songs
         var userId
@@ -48,7 +59,7 @@ refreshPage() {
                 spotifyApi.addTracksToPlaylist(userId, playlistid, customPlaylist)
                 .then(function(data) {
                    console.log(data, 'Added tracks to playlist!');
-                   alert('Playlist Created')
+                   thisclass.playlistCreated()
                    }, function(err) {
                     console.log('Something went wrong!', err);
                    });
@@ -113,16 +124,27 @@ refreshPage() {
             </button>
         </div>
         <div>
-          <div class="black-text">Still Not Finished? </div>
-          <button type="button" class="btn btn-danger" onClick={() => this.dismiss()}>
-            Return back to Playlist Generator
-            </button>
-        </div>
-        <div class="black-text">Want to create another one?</div>
+          {this.state.playlistCreated ? 
+          <div>
+          <div> Playlist created </div>
+          <div class="black-text">Want to create another one?</div>
+          <div>
+          <button onClick={this.refreshPage}>Click to make another playlist!</button>
+         </div>
+         </div>
 
-        <div>
-         <button onClick={this.refreshPage}>Click to reload!</button>
+        :  
+        <div>         
+        <div class="black-text">Still Not Finished? </div>
+        <button type="button" class="btn btn-danger" onClick={() => this.dismiss()}>
+            Return back to Playlist Generator
+        </button>
         </div>
+      }
+        
+        </div>
+
+        
 
             </>
             </div>
