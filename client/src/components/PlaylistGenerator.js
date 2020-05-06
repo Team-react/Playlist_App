@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import SpotifyWebApi from 'spotify-web-api-node';
 import PlaylistFinaliser from './PlaylistFinaliser.js'
-import '/Users/student/Projects/RoadToDiscovery/Playlist_App/client/src/backgroundimage.css'
 
 var spotifyApi = new SpotifyWebApi();
 
