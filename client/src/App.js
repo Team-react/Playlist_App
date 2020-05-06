@@ -6,6 +6,7 @@ import './App.css';
 import Authorization from './components/Authorization'
 import ThemeSelect from './components/ThemeSelect';
 
+
 // import { Button } from 'react-bootstrap';
 // import Playlist from './components/Playlist'
 // var spotifyApi = new SpotifyWebApi();
@@ -17,6 +18,7 @@ class App extends Component {
     super(props);
 
     this.token = authorization.token
+    this.name = authorization.name
     this.list = themeSelect.state.list
   
     this.state = {
@@ -51,6 +53,7 @@ class App extends Component {
         <div>
           <ThemeSelect
            token={this.token}
+           name={this.name}
           />
         </div>
   }

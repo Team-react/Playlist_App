@@ -12,7 +12,20 @@ class Authorization extends Component {
       spotifyApi.setAccessToken(this.token)
     }
   }
-  
+
+  // getName() {
+  //   var displayName = ''
+  //   spotifyApi.setAccessToken(this.token)
+  //   spotifyApi.getMe()
+  //     .then(function(data) {
+  //         displayName = data.body.display_name
+  //         // console.log(data.body.display_name)
+  //     }, function(err) {
+  //       console.log('Something went wrong!', err);
+  //     });
+  //     return displayName
+  // }
+
   getHashParams() {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -25,20 +38,14 @@ class Authorization extends Component {
     return hashParams;
   }
 
-  test() {
-    console.log(this.token)
-  }
-
   render() {
     return (
-      
         <div>
           <div>
             <a href='http://localhost:8888/login' > Login to Spotify </a>
             <a href='https://road-to-discovery-login.herokuapp.com/login' > Login to Spotify </a>
 
           </div>
-       
         </div>
     );
   }

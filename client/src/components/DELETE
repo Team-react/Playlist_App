@@ -1,0 +1,61 @@
+        // <div>
+        //   <div>
+        //   <h1><span class="underline">{this.state.song.name}</span></h1> done
+        //   <b>By:</b> {this.state.song.artist} done
+        //   </div>
+        //   <div>
+        //   <b>Album:</b> {this.state.song.album} done
+        //   </div>  
+        //   <div>
+        //   <img src={this.state.song.albumArt} alt='' style={{ height: 385 }} class="rounded-lg"/>
+        //   </div>
+        //   <div>
+        //   <b>Track Length:</b> {Math.floor(this.state.song.songLength/(1000*60)%60)+":"+("0"+Math.floor(this.state.song.songLength/1000%60)).slice(-2)}
+        //   </div>  
+        //   <div>
+        //   <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}> done 
+        //   </audio>
+        //   </div>
+        //   { !(this.state.song.name === '') && 
+        //   <div>
+        //   <button type="button" class="btn btn-success" onClick={() => this.addToCustomPlaylist()}> Add (+) </button>
+        //   <button type="button" class="btn btn-danger" onClick={() => this.dontAddToCustomPlaylist()}>Don't Add (-) </button>
+        // </div>
+        //   }
+        //   <button type="button" class="btn btn-light" onClick={this.playlistHandler}>
+        //     Load New Tracks
+        //   </button>
+        //   <button type="button" class="btn btn-light" onClick={() => this.unoveridePlaylist()}>
+        //   I'm Done!
+        //   </button>
+        //   </div>
+
+
+
+
+
+
+
+
+             <div>
+      <form>
+      <input id='input' type="text" class="form-group w-25" name="playlist_type" 
+      placeholder="Input artist or genre" 
+      onChange={this.playlistTypeHandler} 
+      />
+    
+
+    </form>
+      <form>
+      <input type="text" class="form-group w-25"
+             name="duration"
+             placeholder="Input playlist length (Minutes)"
+            //  value={this.state.desiredDuration}
+             onChange={this.changeHandler}
+      />
+    </form>
+    {this.state.errorForDurationInput ?
+    <div>
+      <p>Please enter a valid number</p>
+
+    </div>

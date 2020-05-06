@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import SpotifyWebApi from 'spotify-web-api-node';
 import PlaylistFinaliser from './PlaylistFinaliser.js'
+import './PlaylistGenerator.css'
+
 
 var spotifyApi = new SpotifyWebApi();
 
@@ -178,43 +180,34 @@ unoveridePlaylist(){
   render() {
     return (
     <>
-    <div>
-
+  <div>
     { !this.state.renderFinaliser === true ?
-        <div>
-          <div>
-          <h1><span class="underline">{this.state.song.name}</span></h1>
-          <b>By:</b> {this.state.song.artist}
+      <div class='container'>
+        <div class='middle'>
+          <div class='card'>
+            <img class='artwork' src={this.state.song.albumArt} alt='' width='250px' height='250px'/>
+            <div class='info'>
+              <h1>{(this.state.song.name).substring(0,27)}</h1>
+              <h2>{this.state.song.artist}</h2>
+              <audio class='player' controls  autoPlay id="myaudio" src={this.state.song.preview_url}></audio>
+            </div>
           </div>
           <div>
-          <b>Album:</b> {this.state.song.album}
-          </div>  
-          <div>
-          <img src={this.state.song.albumArt} alt='' style={{ height: 385 }} class="rounded-lg"/>
+            <button type="button" class="yesbtn" onClick={() => this.addToCustomPlaylist()}>✓</button>
           </div>
           <div>
-          <b>Track Length:</b> {Math.floor(this.state.song.songLength/(1000*60)%60)+":"+("0"+Math.floor(this.state.song.songLength/1000%60)).slice(-2)}
-          </div>  
-          <div>
-          <audio controls  autoPlay id="myaudio" src={this.state.song.preview_url}>
-          </audio>
+            <button type="button" class="nobtn" onClick={() => this.dontAddToCustomPlaylist()}>✗</button>
           </div>
-          { !(this.state.song.name === '') && 
           <div>
-          <button type="button" class="btn btn-success" onClick={() => this.addToCustomPlaylist()}> Add (+) </button>
-          <button type="button" class="btn btn-danger" onClick={() => this.dontAddToCustomPlaylist()}>Don't Add (-) </button>
+            <button type="button" class="btn btn-light" onClick={() => this.unoveridePlaylist()}>
+              I'm Done!
+            </button>
+          </div>
         </div>
-          }
-          <button type="button" class="btn btn-light" onClick={this.playlistHandler}>
-            Load New Tracks
-          </button>
-          <button type="button" class="btn btn-light" onClick={() => this.unoveridePlaylist()}>
-          I'm Done!
-          </button>
-          </div>
-          : null
+      </div>
+      : null
     }
-          </div>
+  </div>
     
 
   
