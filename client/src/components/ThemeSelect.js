@@ -103,7 +103,7 @@ handleGeneratorMount(){
     })
   }
 
-  mountGeneratorHanler = event => {
+  mountGeneratorHandler = event => {
     this.handleGeneratorMount()
 
   }
@@ -164,6 +164,7 @@ handleGeneratorMount(){
           </div>
         </div>
       </div>
+
     </div>
   }
   </div>

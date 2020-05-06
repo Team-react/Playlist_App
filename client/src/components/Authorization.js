@@ -42,7 +42,9 @@ class Authorization extends Component {
     return (
         <div>
           <div>
-            <a href='http://localhost:8888' > Login to Spotify </a>
+            <a href='http://localhost:8888/login' > Login to Spotify </a>
+            <a href='https://road-to-discovery-login.herokuapp.com/login' > Login to Spotify </a>
+
           </div>
         </div>
     );

@@ -3,6 +3,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import PlaylistFinaliser from './PlaylistFinaliser.js'
 import './PlaylistGenerator.css'
 
+
 var spotifyApi = new SpotifyWebApi();
 
 class PlaylistGenerator extends Component {
