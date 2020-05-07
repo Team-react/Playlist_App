@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SpotifyWebApi from 'spotify-web-api-node';
+import './PlaylistFinaliser.css'
 
 
 var spotifyApi = new SpotifyWebApi();
@@ -90,65 +91,61 @@ refreshPage() {
           });
           event.preventDefault();
         }
-    
 
-  render() {
-    return (
-        <div> 
-            <>
-            { this.props.playlistComplete ?
-            <h4><div class="text-danger">You have reached your desired time limit</div></h4>
-             : null
-            }
-            <h2><div class="black-text">Here is your finished playlist</div></h2>
-            <div>
-            <ul> 
-            {this.props.customPlaylist.list_of_tracks.map((value, index) => {
-            return <ol class="list-group-item d-list-item" key={index}><b>{value.name}</b> by <b>{value.artist}</b>
-            <button type="button" class="btn btn-outline-danger" onClick={() => this.removeFromPlaylist(index)}>
-            X
-            </button>
-            </ol>
-            })}
-            </ul>
-         </div>
-         <form>
-          <input type="text" name="namedPlaylist" 
-          placeholder="Name your new playlist" 
-          value={this.namedPlaylist} 
-          onChange={this.namedPlaylistHandler} />
-        </form>
-        <div>
-        <button type="button" class="btn btn-success" onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
-            Create playlist
-            </button>
+render() {
+  return (
+      <div> 
+          { this.props.playlistComplete ?
+          <h4><div class="text-danger">You have reached your desired time limit</div></h4>
+            : null
+          }
+          <div class='playlistcontainer'>
+            <div class='playlist'>
+                <div class='playlistname'>
+                  <form>
+                    <label for="customPlaylist">Your playlist: </label>
+                    <input type="text" id='customPlaylist' name="namedPlaylist" 
+                    placeholder="Playlist name" 
+                    value={this.namedPlaylist} 
+                    onChange={this.namedPlaylistHandler} />
+                  </form>
+                </div>
+                <ul> 
+                    {this.props.customPlaylist.list_of_tracks.map((value, index) => {
+                      return <ol class="track" key={index}><b>{value.name}</b> by {value.artist}
+                      <button type="button" class="crossbtn" onClick={() => this.removeFromPlaylist(index)}>
+                      ✗
+                      </button>
+                      </ol>
+                    })}
+                </ul>
+                <div class='finaliseplaylist'>
+                  <button type="button" class="submitbtn" onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
+                    Finish Playlist
+                  </button>
+                </div>
+          </div>
         </div>
+
+      <div>
+        {this.state.playlistCreated ? 
         <div>
-          {this.state.playlistCreated ? 
-          <div>
-          <div> Playlist created </div>
+          Playlist created
           <div class="black-text">Want to create another one?</div>
-          <div>
-          <button onClick={this.refreshPage}>Click to make another playlist!</button>
-         </div>
-         </div>
-
-        :  
-        <div>         
-        <div class="black-text">Still Not Finished? </div>
-        <button type="button" class="btn btn-danger" onClick={() => this.dismiss()}>
-            Return back to Playlist Generator
-        </button>
-        </div>
-      }
-        
-        </div>
-
-        
-
-            </>
+            <div>
+              <button onClick={this.refreshPage}>Click to make another playlist!</button>
             </div>
-    )  
-}}
+          </div>
+          :  
+          <div>         
+            <div class="black-text">Still Not Finished? </div>
+            <button type="button" class="btn btn-danger" onClick={() => this.dismiss()}>
+              Return back to Playlist Generator
+            </button>
+          </div>
+        }    
+        </div>
+      </div>
+)}}
 
 export default PlaylistFinaliser

@@ -1,0 +1,59 @@
+.container{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: 2s linear;
+}
+
+.playlist{
+  text-align: center;
+  margin: auto;
+  background-color: rgb(255, 255, 255, 0.5);
+  width: 700px;
+  border-radius: 25px;
+}
+
+.track{
+  text-align: left;
+  margin-left: 130px;
+}
+
+.crossbtn{
+  color: red;
+  border: none;
+  background-color: rgb(255, 255, 255, 0);
+}
+
+.finaliseplaylist{
+  text-align: center;
+}
+
+h1{
+  font-size: 30px;
+}
+
+.playlistheader{
+  width: 100px;
+}
+
+
+label{
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.submitbtn{
+  height: 40px;
+  width: 120px;
+  border-radius: 7px;
+}
+
+.submitbtn:hover{
+  height: 40px;
+  width: 120px;
+  border-radius: 7px;
+  background-color: rgb(180, 180, 180, 0.5);
+}
