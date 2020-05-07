@@ -132,7 +132,6 @@ refreshPage() {
           <button onClick={this.refreshPage}>Click to make another playlist!</button>
          </div>
          </div>
-
         :  
         <div>         
         <div class="black-text">Still Not Finished? </div>
