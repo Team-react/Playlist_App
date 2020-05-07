@@ -57,3 +57,7 @@ label{
   border-radius: 7px;
   background-color: rgb(180, 180, 180, 0.5);
 }
+
+.black-text {
+  font-size: 20px;
+}

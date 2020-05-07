@@ -131,7 +131,6 @@ render() {
         {this.state.playlistCreated ? 
         <div>
           Playlist created
-          <div class="black-text">Want to create another one?</div>
             <div>
               <button onClick={this.refreshPage}>Click to make another playlist!</button>
             </div>
