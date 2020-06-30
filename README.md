@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/Team-react/Playlist_App.svg?branch=master)](https://travis-ci.org/Team-react/Playlist_App)
+
+[Link to App](https://road-to-discovery.herokuapp.com/)
+
 # Spotify App - Road To Discovery
 
 ![AppImage](https://raw.githubusercontent.com/Thatguy560/CV/master/Assets/Screenshot%202020-05-20%20at%2018.33.52.png)
@@ -7,7 +10,7 @@ This application was created using React, Node and the Spotify Web API. This App
 
 ## Getting Started and using the App
 
-### 1) Getting Set Up 
+### 1) Getting Set Up
 
 - git clone https://github.com/Team-react/Playlist_App
 - cd Playlist_App
