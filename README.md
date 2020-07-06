@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/Team-react/Playlist_App.svg?branch=master)](https://travis-ci.org/Team-react/Playlist_App)
 
-[Link to App](https://road-to-discovery.herokuapp.com/)
-
 # Spotify App - Road To Discovery
+
+[Link to App](https://road-to-discovery.herokuapp.com/)
 
 ![AppImage](https://raw.githubusercontent.com/Thatguy560/CV/master/Assets/Screenshot%202020-05-20%20at%2018.33.52.png)
 
@@ -32,44 +32,43 @@ This application was created using React, Node and the Spotify Web API. This App
 
 # User Stories
 
-- As a User,
-  so I can authorise my Spotify Account with the App,
-  I'd like to be able to log in with Spotify
-
-- As a User,
-  so I can choose what I want in my playlist,
-  I'd like to be able to input artist or genre in my search
-
-- As a User,
-  So I know as much about each song as possible,
-  I'd like to be able to see the artist name, album name and album art
-
-- As a User,
-  so I know which songs I want to add into my playlist,
-  I'd like to be able to hear a preview of each song by which artist
-
-- As a User,
-  so I can have my playlist last for a desired length,
-  I'd like to be able to input the playlist length
-
-- As a User,
-  so I can choose which songs I want to have in my playlist,
-  I'd like to be able to say 'Yes' or 'No' to a song
-
-- As a User,
-  so I can have a playlist without a default name,
-  I'd like to be able to name my new Playlist
-
-- As a User,
-  so in the off chance I change my mind on a song I've said yes to,
-  I'd like to be able to remove songs from my list of chosen songs.
-
-# Process
-
-
-
-# Testing Frameworks Used
-
-
-
-# Example Usage
+```
+As a User,
+so I can authorise my Spotify Account with the App,
+I'd like to be able to log in with Spotify 
+```
+```
+As a User,
+so I can choose what I want in my playlist,
+I'd like to be able to input artist or genre in my search
+```
+```
+As a User,
+So I know as much about each song as possible,
+I'd like to be able to see the artist name, album name and album art
+```
+```
+As a User,
+so I know which songs I want to add into my playlist,
+I'd like to be able to hear a preview of each song by which artist
+```
+```
+As a User,
+so I can have my playlist last for a desired length,
+I'd like to be able to input the playlist length
+```
+```
+As a User,
+so I can choose which songs I want to have in my playlist,
+I'd like to be able to say 'Yes' or 'No' to a song
+```
+```
+As a User,
+so I can have a playlist without a default name,
+I'd like to be able to name my new Playlist
+```
+```
+As a User,
+so in the off chance I change my mind on a song I've said yes to,
+I'd like to be able to remove songs from my list of chosen songs.
+```
