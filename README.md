@@ -28,7 +28,6 @@ This application was created using React, Node and the Spotify Web API. This App
 ### 4)  Use the App
 - Visit `http://localhost:8888/`
 - Click 'Log in with Spotify' to Log In
--
 
 # User Stories
 
