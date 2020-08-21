@@ -5,10 +5,10 @@ before_install: cd client
 
 before_script:
  - npm install
- 
+
 script:
 - npm test
-- npm run build
+# - npm run build
 # deploy:
 #   provider: heroku
 #   app: road-to-discovery
