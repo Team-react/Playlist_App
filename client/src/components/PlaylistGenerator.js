@@ -28,8 +28,6 @@ class PlaylistGenerator extends Component {
 
   //Method to erase state of song that is currently playing
   wipeSong(){
-    console.log("TRYING TO WIPE SONGS")
-
     this.setState({
       song: { name: '', artist: '', uri: '', albumArt: '', album: '', songLength: null, preview_url: ''},
     })
@@ -52,8 +50,6 @@ overidePlaylist(){
     playlistOveride: true
   })
 
-  // this.getRandomPlaylist(this.props.playlistType)
-
 }
 
 unoveridePlaylist(){
@@ -69,14 +65,12 @@ unoveridePlaylist(){
     document.getElementById("myaudio").volume = 0.1
     spotifyApi.setAccessToken(this.props.token)
  
-     console.log(this.state.playlistid)
      spotifyApi.getPlaylist(this.props.token, this.state.playlistid)
        .then((data) => {
          
          var playlistSize = data.body.tracks.items.length
          var trackInfo = data.body.tracks.items[Math.floor(Math.random() * playlistSize)]
          if(trackInfo.track.preview_url == null){
-           console.log("WE SKIPPED THIS ONE")
            return this.dontAddToCustomPlaylist()
          }
          
@@ -116,7 +110,6 @@ unoveridePlaylist(){
   
     this.calculatePlaylistDurationTotal()
     this.checkPlaylistComplete()
-    console.log(this.state.currentDuration)
    
   }
 
@@ -130,9 +123,7 @@ unoveridePlaylist(){
 
   componentDidMount(){
     this.getRandomPlaylist(this.props.playListType)
-    // document.getElementById("myaudio").volume = 0.1
 
-    console.log("HI I HAVE MOUNTED")
     this.interval = setInterval(() =>   this.checkPlaylistComplete())
   }
 
@@ -147,7 +138,6 @@ unoveridePlaylist(){
   }}
   
   setToken() {
-    console.log(this.props.token)
     spotifyApi.setAccessToken(this.props.token)
   }
   
@@ -235,13 +225,5 @@ unoveridePlaylist(){
         </>
         )
       }}
-
-    //   export const BackgroundImage = () => {
-    //     return (
-    //       <>
-    //         <img className="backgroundImage" src={this.state.song.albumArt}/>
-    //       </>
-    //     )
-    // }
 
 export default PlaylistGenerator;

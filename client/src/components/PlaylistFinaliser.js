@@ -43,7 +43,6 @@ refreshPage() {
   
     addSongsToPlaylist(playlistname){
       var thisclass = this
-      console.log(this.props.token)
         var customPlaylist = this.props.customPlaylist.songs
         var userId
         spotifyApi.setAccessToken(this.props.token)
