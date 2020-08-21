@@ -1,12 +1,10 @@
 language: node_js
 node_js:
 - '12'
-before_install: cd client
-
-before_script:
- - npm install
+before_script: cd client
 
 script:
+- npm install
 - npm test
 # - npm run build
 # deploy:
