@@ -22,9 +22,7 @@ class ThemeSelect extends Component {
     this.handleGeneratorMount = this.handleGeneratorMount.bind(this);
 
   }
-//   handleGeneratorUnmount(){
-//     this.setState({renderGenerator: false});
-// }
+
 handleGeneratorMount(){
   this.setState({renderGenerator: true});
 
@@ -43,7 +41,6 @@ handleGeneratorMount(){
   }
 
   setToken() {
-    console.log(this.props.token)
     spotifyApi.setAccessToken(this.props.token)
 
   }
@@ -64,10 +61,7 @@ handleGeneratorMount(){
   changeHandler = event => {
     
     var time = (event.target.value)
-    // if((time < 0) || (time > 500)){
-    //   this.setState({
-    //     errorForDurationInput: true,
-    //   })
+   
     if(/^[1-9]?[0-9]{1}$|^100$/.test(time)){
       this.setState({
         errorForDurationInput: false,
@@ -88,13 +82,6 @@ handleGeneratorMount(){
     });
   }
 
-  // playlistHandler = event => {
-  //   console.log(this.state.playlist_type)
-
-  //   event.preventDefault();
-
-  //   this.getRandomPlaylist(this.state.playlist_type)
-  // }
 
   playlistTypeHandler = event => {
     this.setState({
@@ -122,7 +109,6 @@ handleGeneratorMount(){
       playlistIsComplete={this.playlistIsComplete.bind(this)}
       playlistIsNotComplete={this.playlistIsNotComplete.bind(this)}
       playlistComplete={this.state.playlistComplete}
-      // unmountGenerator={this.handleGeneratorUnmount.bind(this)}
       
       />
       : null

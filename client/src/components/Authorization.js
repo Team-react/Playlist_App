@@ -14,18 +14,7 @@ class Authorization extends Component {
     }
   }
 
-  // getName() {
-  //   var displayName = ''
-  //   spotifyApi.setAccessToken(this.token)
-  //   spotifyApi.getMe()
-  //     .then(function(data) {
-  //         displayName = data.body.display_name
-  //         // console.log(data.body.display_name)
-  //     }, function(err) {
-  //       console.log('Something went wrong!', err);
-  //     });
-  //     return displayName
-  // }
+  
 
   getHashParams() {
     var hashParams = {};
