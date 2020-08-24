@@ -1,4 +1,7 @@
+
 [![Build Status](https://travis-ci.org/Team-react/Playlist_App.svg?branch=master)](https://travis-ci.org/Team-react/Playlist_App)
+
+<img src="https://img.shields.io/badge/made%20with-React-blue.svg" alt="made with React">
 
 # Spotify App - Road To Discovery
 
