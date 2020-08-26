@@ -8,7 +8,14 @@ describe('Themeselect', () => {
 
   beforeEach(() => wrapper = shallow(<Themeselect />));
 
-  it('should render a div', () => {
+  it('should render 6 divs by default state', () => {
+    
     expect(wrapper.find('div').length).toEqual(6)
+  });
+
+  it('should render a  2 divs when render generator set to true', () => {
+    wrapper.setState({ renderGenerator: true});
+
+    expect(wrapper.find('div').length).toEqual(2)
   });
 })
