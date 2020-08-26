@@ -122,7 +122,7 @@ handleGeneratorMount(){
           <div className='form'>
         <form>
           <input className="textbox"
-          id="input"
+          id="playlistinput"
           type="text" 
           name="playlist_type" 
           placeholder="Input artist or genre" 
@@ -131,6 +131,7 @@ handleGeneratorMount(){
         </form>
         <form>
           <input type="text"
+          id="durationinput"
                 className="textbox"
                 name="duration"
                 placeholder="Input playlist length (Minutes)"
