@@ -28,6 +28,14 @@ describe('mounted ThemeSelect', () => {
 
   it('should show the default state of playlistType', () => {
     expect(component.state("playlist_type")).toEqual(null)
+  });
     
+  it('should update playlist_type state when input is changed', () => {
+    component
+    .find("#input")
+    .simulate("change", { target: {name: "playlist_type", value: "Pop"}});
+    expect(component.state("playlist_type")).toEqual("Pop");
+
+    component.unmount();
   });
 });
