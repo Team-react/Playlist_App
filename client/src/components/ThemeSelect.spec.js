@@ -27,7 +27,7 @@ describe('mounted ThemeSelect', () => {
   beforeEach(() => component = mount(<Themeselect />));
 
   it('should show the default state of playlistType', () => {
-    expect(component.state("playlist_type")).toEqual({"playlist_type": 'null'})
+    expect(component.state("playlist_type")).toEqual(null)
     
   });
 });
