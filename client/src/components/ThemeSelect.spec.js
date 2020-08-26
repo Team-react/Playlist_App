@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Themeselect from './ThemeSelect';
 
 describe('Themeselect', () => {
@@ -19,3 +19,15 @@ describe('Themeselect', () => {
     expect(wrapper.find('div').length).toEqual(2)
   });
 })
+
+describe('mounted ThemeSelect', () => {
+  
+  let component;
+  
+  beforeEach(() => component = mount(<Themeselect />));
+
+  it('should show the default state of playlistType', () => {
+    expect(component.state("playlist_type")).toEqual({"playlist_type": 'null'})
+    
+  });
+});
