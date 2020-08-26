@@ -33,7 +33,7 @@ describe('mounted ThemeSelect', () => {
   it('should update playlist_type state when input is changed', () => {
     component
     .find("#playlistinput")
-    .simulate("change", { target: {name: "playlist_type", value: "Pop"}});
+    .simulate("change", { target: {value: "Pop"}});
     expect(component.state("playlist_type")).toEqual("Pop");
     component.unmount();
   });
@@ -41,7 +41,7 @@ describe('mounted ThemeSelect', () => {
   it('should update playlist duration when input is changed', () => {
     component
     .find("#durationinput")
-    .simulate("change", { target: {name: "desiredDuration", value: "20"}});
+    .simulate("change", { target: { value: "20"}});
     expect(component.state("desiredDuration")).toEqual(1200000);
     component.unmount();
   });
