@@ -156,7 +156,7 @@ unoveridePlaylist(){
       }
       console.log("successfully got a playlist by genre")
     }, function(err) {
-      console.log('Error searching for playlist by genre', err);
+      // console.log('Error searching for playlist by genre', err);
     });
   }
   changeHandler = event => {
