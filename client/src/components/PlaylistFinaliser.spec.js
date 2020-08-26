@@ -18,7 +18,6 @@ playlistType={jest.fn()}
 />));
 
   it('should render a <div />', () => {
-    console.log(wrapper)
     expect(wrapper.find('div').length).toEqual(9)
   })
 })
