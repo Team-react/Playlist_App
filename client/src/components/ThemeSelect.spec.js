@@ -56,11 +56,7 @@ describe('mounted ThemeSelect', () => {
     component
     .find("#imReadyButton")
     .simulate("click")
-
-
-
     expect(component.state("renderGenerator")).toEqual(true);
     component.unmount()
-    
   });
 });

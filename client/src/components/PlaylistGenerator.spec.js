@@ -19,4 +19,10 @@ describe('PlaylistGenerator', () => {
     expect(wrapper.find('div').length).toEqual(10)
   })
 
+  it('should render a  2 divs when render finaliser set to true', () => {
+    wrapper.setState({ renderFinaliser: true});
+
+    expect(wrapper.find('div').length).toEqual(2)
+  });
+
 })
