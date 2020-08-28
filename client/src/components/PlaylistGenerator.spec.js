@@ -34,7 +34,7 @@ describe('mounted playlistGenerator', () => {
     playListType={''}
     desiredDuration={''}
     token={''}
-    playlistIsComplete={''}
+    playlistIsComplete={jest.fn()}
     playlistIsNotComplete={''}
     playlistComplete={''}
     
@@ -45,6 +45,14 @@ describe('mounted playlistGenerator', () => {
     component
     .find("#imdonebutton")
     .simulate('click')
+    expect(component.state("renderFinaliser")).toEqual(true);
+     
+   });
+
+   it('should renderFinaliser if currentDuration is greater than desiredDuration', () => {
+    component.setProps({ desiredDuration: 10000})
+    component.setState({ currentDuration: 11000})
+    component.instance().checkPlaylistComplete()
     expect(component.state("renderFinaliser")).toEqual(true);
      
    });
