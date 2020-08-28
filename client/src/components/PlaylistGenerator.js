@@ -178,27 +178,27 @@ unoveridePlaylist(){
     <>
   <div>
     { !this.state.renderFinaliser === true ?
-      <div class='container'>
-        <div class='middle'>
-          <div class='card'>
-            <img class="rounded-lg" src={this.state.song.albumArt} alt='' width='475px' height='475px'/>
-            <div class='info'>
+      <div className='container'>
+        <div className='middle'>
+          <div className='card'>
+            <img className="rounded-lg" src={this.state.song.albumArt} alt='' width='475px' height='475px'/>
+            <div className='info'>
               <h1>{(this.state.song.name).substring(0,30)}</h1>
               <h2>{this.state.song.artist}</h2>
               <b>Track Length:</b> {Math.floor(this.state.song.songLength/(1000*60)%60)+":"+("0"+Math.floor(this.state.song.songLength/1000%60)).slice(-2)}
               <div>
-              <audio class='player' controls  autoPlay id="myaudio" src={this.state.song.preview_url} ></audio>
+              <audio className='player' controls  autoPlay id="myaudio" src={this.state.song.preview_url} ></audio>
             </div> 
             </div>
           </div>
           <div>
-            <button type="button" class="yesbtn" onClick={() => this.addToCustomPlaylist()}>✓</button>
+            <button type="button" className="yesbtn" onClick={() => this.addToCustomPlaylist()}>✓</button>
           </div>
           <div>
-            <button type="button" class="nobtn" onClick={() => this.dontAddToCustomPlaylist()}>✗</button>
+            <button type="button" className="nobtn" onClick={() => this.dontAddToCustomPlaylist()}>✗</button>
           </div>
           <div>
-            <button type="button" class="btn btn-light" onClick={() => this.unoveridePlaylist()}>
+            <button type="button" className="btn btn-light" onClick={() => this.unoveridePlaylist()}>
               I'm Done!
             </button>
           </div>
