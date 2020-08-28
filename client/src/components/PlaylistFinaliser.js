@@ -137,7 +137,7 @@ render() {
           :  
           <div>         
             <div className="black-text">Still Not Finished? </div>
-            <button type="button" className="btn btn-danger" onClick={() => this.dismiss()}>
+            <button type="button" id="notFinished" className="btn btn-danger" onClick={() => this.dismiss()}>
               Return back to Playlist Generator
             </button>
           </div>
