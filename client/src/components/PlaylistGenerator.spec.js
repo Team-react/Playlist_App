@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import PlaylistGenerator from './PlaylistGenerator';
 
 describe('PlaylistGenerator', () => {
@@ -25,3 +25,28 @@ describe('PlaylistGenerator', () => {
   });
 
 })
+
+describe('mounted playlistGenerator', () => {
+
+  let component
+
+  beforeEach(() => component = mount(<PlaylistGenerator
+    playListType={''}
+    desiredDuration={''}
+    token={''}
+    playlistIsComplete={''}
+    playlistIsNotComplete={''}
+    playlistComplete={''}
+    
+    
+   /> ))
+
+   it('should change renderfinaliser to true when click Im done', () => {
+    component
+    .find("#imdonebutton")
+    .simulate('click')
+    expect(component.state("renderFinaliser")).toEqual(true);
+     
+   });
+  
+});

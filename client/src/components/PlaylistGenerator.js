@@ -198,7 +198,7 @@ unoveridePlaylist(){
             <button type="button" className="nobtn" onClick={() => this.dontAddToCustomPlaylist()}>✗</button>
           </div>
           <div>
-            <button type="button" className="btn btn-light" onClick={() => this.unoveridePlaylist()}>
+            <button type="button" id="imdonebutton" className="btn btn-light" onClick={() => this.unoveridePlaylist()}>
               I'm Done!
             </button>
           </div>
