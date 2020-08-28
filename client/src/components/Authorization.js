@@ -32,11 +32,11 @@ class Authorization extends Component {
   render() {
     return (
         <div>
-          <div class='btncontainer'>
+          <div className='btncontainer'>
             {process.env.REACT_APP_HEROKU ?
             
-                        <a class="loginbtn" href='https://road-to-discovery-login.herokuapp.com/login' > Login to Spotify </a>
-                        :             <a class="loginbtn" href='http://localhost:8888/login' > Login to Spotify </a>
+                        <a className="loginbtn" href='https://road-to-discovery-login.herokuapp.com/login' > Login to Spotify </a>
+                        :             <a className="loginbtn" href='http://localhost:8888/login' > Login to Spotify </a>
 
                       }
 

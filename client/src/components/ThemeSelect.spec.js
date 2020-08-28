@@ -45,4 +45,18 @@ describe('mounted ThemeSelect', () => {
     expect(component.state("desiredDuration")).toEqual(1200000);
     component.unmount();
   });
+
+  it('Should render the playlist generator when user clicks im ready', () => {
+    component
+    .find("#playlistinput")
+    .simulate("change", { target: {value: "Pop"}})
+    component
+    .find("#durationinput")
+    .simulate("change", { target: { value: "20"}})
+    component
+    .find("#imReadyButton")
+    .simulate("click")
+    expect(component.state("renderGenerator")).toEqual(true);
+    component.unmount()
+  });
 });

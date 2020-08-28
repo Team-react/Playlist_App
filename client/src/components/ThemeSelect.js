@@ -145,7 +145,7 @@ handleGeneratorMount(){
         : null
         }
           <div className='btnpos'>
-            <button className="readybtn" type="button" disabled={!this.state.desiredDuration || !this.state.playlist_type } onClick={this.mountGeneratorHandler}>
+            <button className="readybtn" id="imReadyButton" type="button" disabled={!this.state.desiredDuration || !this.state.playlist_type } onClick={this.mountGeneratorHandler}>
               I'm Ready!
             </button>
           </div>

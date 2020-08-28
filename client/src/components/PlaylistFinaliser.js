@@ -95,14 +95,14 @@ render() {
   return (
       <div> 
           { this.props.playlistComplete ?
-          <h4><div class="text-danger">You have reached your desired time limit</div></h4>
+          <h4><div className="text-danger">You have reached your desired time limit</div></h4>
             : null
           }
-          <div class='playlistcontainer'>
-            <div class='playlist'>
-                <div class='playlistname'>
+          <div className='playlistcontainer'>
+            <div className='playlist'>
+                <div className='playlistname'>
                   <form>
-                    <label for="customPlaylist">Your playlist: </label>
+                    <label htmlFor="customPlaylist">Your playlist: </label>
                     <input type="text" id='customPlaylist' name="namedPlaylist" 
                     placeholder="Playlist name" 
                     value={this.namedPlaylist} 
@@ -111,15 +111,15 @@ render() {
                 </div>
                 <ul> 
                     {this.props.customPlaylist.list_of_tracks.map((value, index) => {
-                      return <ol class="track" key={index}><b>{value.name}</b> by {value.artist}
-                      <button type="button" class="crossbtn" onClick={() => this.removeFromPlaylist(index)}>
+                      return <ol className="track" key={index}><b>{value.name}</b> by {value.artist}
+                      <button type="button" className="crossbtn" onClick={() => this.removeFromPlaylist(index)}>
                       ✗
                       </button>
                       </ol>
                     })}
                 </ul>
-                <div class='finaliseplaylist'>
-                  <button type="button" class="submitbtn" onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
+                <div className='finaliseplaylist'>
+                  <button type="button" className="submitbtn" onClick={() => this.addSongsToPlaylist(this.state.namedPlaylist)}>
                     Finish Playlist
                   </button>
                 </div>
@@ -136,8 +136,8 @@ render() {
           </div>
           :  
           <div>         
-            <div class="black-text">Still Not Finished? </div>
-            <button type="button" class="btn btn-danger" onClick={() => this.dismiss()}>
+            <div className="black-text">Still Not Finished? </div>
+            <button type="button" id="notFinished" className="btn btn-danger" onClick={() => this.dismiss()}>
               Return back to Playlist Generator
             </button>
           </div>
