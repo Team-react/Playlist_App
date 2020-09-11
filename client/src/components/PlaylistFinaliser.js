@@ -17,14 +17,10 @@ class PlaylistFinaliser extends Component {
     
   }
   dismiss() {
-    // this.props.getRandomPlaylist(this.props.playlistType)
     this.props.overidePlaylist()
     this.props.unmountFinaliser();
-    // this.playlistIsNotComplete()
 } 
-// overidePlaylist(){
-//   this.props.overidePlaylist()
-// }
+
 
 playlistIsNotComplete(){
   this.props.playlistIsNotComplete()
