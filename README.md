@@ -11,7 +11,9 @@
 
 <!-- ![AppImage](https://raw.githubusercontent.com/Thatguy560/CV/master/Assets/Screenshot%202020-05-20%20at%2018.33.52.png) -->
 
-![AppVideo](DemoOfApp.gif)
+<p align="center">
+  <img src="DemoOfApp.gif" alt="animated" />
+</p>
 
 This application was created using React, Node and the Spotify Web API. This App was created with the sole purpose of being able to make a playlist as quickly and efficiently as possible. If for example, you're going on a road trip and forgot to make a playlist the night before, this app will allow you to quickly generate a brand new playlist with the added merit of being able to discover so many new tracks and artists by utilising a randomizer with the Spotify Web API.
 
